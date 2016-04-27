@@ -31,12 +31,22 @@ APPEND_SLASH = False
 
 CORS_ORIGIN_ALLOW_ALL = True
 
+REST_FRAMEWORK = {
+   'DEFAULT_AUTHENTICATION_CLASSES': (
+       'rest_framework.authentication.TokenAuthentication',
+   ),
+   'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAdminUser'
+   ),
+}
+
 # Application definition
 
 INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
-    'library.apps.LibraryConfig',
+    'rest_framework.authtoken',
+    'inspiration.apps.InspirationConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
