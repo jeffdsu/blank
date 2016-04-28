@@ -11,14 +11,35 @@ class BookKeywords(models.Model, InspirationBaseModelMixIn):
         return "<BookKeywords - %s - %d>" % (self.word, self.count)
 
     @classmethod
-    def search(cls, book, **kwargs):
+    def search(cls, book, *search, **kwargs):
 
-        book_keyword = BookKeywords.objects.filter(book=book)
+        search_build = BookKeywords.objects.filter(book=book, *search)
 
-        keyword_map = dict()
 
-        # TODO - help me do this as a one liner
-        for keyword in book_keyword:
-            keyword_map[keyword.word] = keyword
+        if 'style' in kwargs:
+            import re
+            m = re.search('^top_(\d+)', kwargs['style'])
 
-        return keyword_map
+            if m.group(1) is not None:
+                current_search_len = len(search_build)
+                top_x = int(m.group(1))
+
+                top_x = current_search_len if top_x > current_search_len else top_x
+
+                search_build = BookKeywords.objects.filter(book=book, *search).order_by('-count')[:top_x]
+
+                print(search_build.query)
+
+                return search_build
+
+        if 'format' in kwargs and kwargs['format'] is dict:
+
+            keyword_map = dict()
+
+            # TODO - help me do this as a one liner
+            for keyword in search_build:
+                keyword_map[keyword.word] = keyword
+
+            return keyword_map
+
+        return search_build

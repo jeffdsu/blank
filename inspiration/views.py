@@ -1,5 +1,5 @@
 from .models import Book, Author, Checkout, Insight, BookKeywords, WordsToIgnore, Medium
-from .serializers import BookSerializer, AuthorSerializer, CheckoutSerializer, InsightSerializer, MediumSerializer
+from .serializers import BookSerializer, AuthorSerializer, CheckoutSerializer, InsightSerializer, MediumSerializer, BookKeywordsSerializer
 from rest_framework import viewsets
 
 from rest_framework.authentication import SessionAuthentication, TokenAuthentication
@@ -16,6 +16,26 @@ class MediumViewSet(viewsets.ModelViewSet):
     queryset = Medium.objects.all()
     serializer_class = MediumSerializer
 
+class BookKeywordsViewSet(viewsets.ModelViewSet):
+    authentication_classes = (SessionAuthentication, TokenAuthentication)
+    permission_classes = (IsAuthenticated,)
+
+    queryset = BookKeywords.objects.filter()
+    serializer_class = BookKeywordsSerializer
+
+    def list(self, request, books_pk=None):
+
+        book = Book.get(books_pk)
+
+        format_qp = self.request.query_params.get('format', None)
+        kwargs = dict()
+        kwargs['style'] = 'top_10'
+        book_keywords = BookKeywords.search(book, **kwargs)
+        print(len(book_keywords))
+
+        #if format_qp is not None:
+
+        return Response(BookKeywordsSerializer(book_keywords, many=True).data)
 
 class BookViewSet(viewsets.ModelViewSet):
 
@@ -47,16 +67,27 @@ class CheckoutViewSet(viewsets.ModelViewSet):
     queryset = Checkout.objects.all()
     serializer_class = CheckoutSerializer
 
-class InsightViewSet(viewsets.ModelViewSet):
+class BookInsightViewSet(viewsets.ModelViewSet):
     authentication_classes = (SessionAuthentication, TokenAuthentication)
     permission_classes = (IsAuthenticated,)
 
     serializer_class = InsightSerializer
 
     def list(self, request, books_pk=None):
-
-
         insights = Insight.objects.filter(book=books_pk, valid=True)
+        return Response(InsightSerializer(insights, many=True).data)
+
+class InsightViewSet(viewsets.ModelViewSet):
+    authentication_classes = (SessionAuthentication, TokenAuthentication)
+    permission_classes = (IsAuthenticated,)
+
+    serializer_class = InsightSerializer
+    queryset = Insight.objects.all()
+
+    def list(self, request):
+
+
+        insights = Insight.objects.filter(valid=True)
         return Response(InsightSerializer(insights, many=True).data)
 
     def create(self, request, books_pk=None):
@@ -69,12 +100,12 @@ class InsightViewSet(viewsets.ModelViewSet):
 
         insight = Insight(**insight_dict)
         insight.save()
-        insight.save()
 
         return Response(InsightSerializer(insight).data)
 
+    #TODO - this should be an admin only api
     @detail_route(methods=['put'])
-    def validate (self, request, books_pk=None, pk=None):
+    def validate (self, request, pk=None):
         '''
         Used to validate a specific insight.  This will call the parse lesson function.
         :param request:
@@ -83,24 +114,26 @@ class InsightViewSet(viewsets.ModelViewSet):
         '''
 
         try:
-            book = Book.get(books_pk)
             insight = Insight.get(pk)
+            book = Book.get(insight.book.id)
+            print(book)
         except Exception as exception:
             return exception.args[0]
 
         # if the insight is already set to true, don't do anything
         # should this be a 200 response?
         if insight.valid == True:
-            return self.respond_ok(InsightSerializer, insight)
-
-        # Add parsed words to insight keywords
+            return insight.respond_nothing_done()
 
         from inspiration.learning.BookLearning import BookLearning
 
-        return BookLearning.learn(book, insight)
+        response = BookLearning.learn(book, insight)
 
-    def understand(self, book, list_of_found_words):
-        list_of_known_keywords = BookKeywords.search(book)
+        insight.valid = True
+        insight.save()
+
+        return response
+
 
 
 

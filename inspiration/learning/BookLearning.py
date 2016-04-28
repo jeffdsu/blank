@@ -16,7 +16,8 @@ class BookLearning(Learning):
             function = inspect.stack()[0][3]
 
             list_of_found_words = cls.parse_lesson(insight.lesson)
-            book_known_keywords = BookKeywords().search(book)
+            kwargs['format'] = dict
+            book_known_keywords = BookKeywords().search(book, **kwargs)
 
             #  TODO - make this print out only in debug mode later
             print(list_of_found_words)
