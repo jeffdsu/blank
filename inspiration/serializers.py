@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Book, Author, Checkout, Insight
+from .models import Book, Author, Checkout, Insight, Medium
 
 
 class BookSerializer(serializers.ModelSerializer):
@@ -23,4 +23,9 @@ class CheckoutSerializer(serializers.ModelSerializer):
 class InsightSerializer(serializers.ModelSerializer):
     class Meta:
         model = Insight
+        #fields = '__all__'
+
+class MediumSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Medium
         #fields = '__all__'

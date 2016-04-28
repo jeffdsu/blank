@@ -1,11 +1,21 @@
-from .models import Book, Author, Checkout, Insight, InsightKeywords, WordsToIgnore
-from .serializers import BookSerializer, AuthorSerializer, CheckoutSerializer, InsightSerializer
+from .models import Book, Author, Checkout, Insight, BookKeywords, WordsToIgnore, Medium
+from .serializers import BookSerializer, AuthorSerializer, CheckoutSerializer, InsightSerializer, MediumSerializer
 from rest_framework import viewsets
+import string
 
 from rest_framework.authentication import SessionAuthentication, TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.decorators import detail_route, list_route
 from rest_framework.views import APIView
+
+class MediumViewSet(viewsets.ModelViewSet):
+
+    authentication_classes = (SessionAuthentication, TokenAuthentication)
+    permission_classes = (IsAuthenticated,)
+
+    queryset = Medium.objects.all()
+    serializer_class = MediumSerializer
 
 
 class BookViewSet(viewsets.ModelViewSet):
@@ -45,27 +55,67 @@ class InsightViewSet(viewsets.ModelViewSet):
     serializer_class = InsightSerializer
 
     def list(self, request, books_pk=None):
-        lessons_learned = Insight.objects.filter(book=books_pk)
-        return Response(InsightSerializer(lessons_learned, many=True).data)
+
+
+        insights = Insight.objects.filter(book=books_pk, valid=True)
+        return Response(InsightSerializer(insights, many=True).data)
 
     def create(self, request, books_pk=None):
 
-        lesson_dict = dict()
-        lesson_dict['user'] = request.user
-        lesson_dict['lesson_learned'] = request.data['lesson_learned']
-        lesson_dict['book_id'] = books_pk
-        lesson_dict['checkout'] = request.data['checkout'] if 'checkout' in request.data else None
+        insight_dict = dict()
+        insight_dict['user'] = request.user
+        insight_dict['lesson'] = request.data['lesson']
+        insight_dict['book_id'] = books_pk
+        insight_dict['checkout'] = request.data['checkout'] if 'checkout' in request.data else None
 
-        lesson = Insight(**lesson_dict)
-        lesson.save()
+        insight = Insight(**insight_dict)
+        insight.save()
+        insight.save()
 
-        return Response(InsightSerializer(lesson).data)
+        return Response(InsightSerializer(insight).data)
+
+    @detail_route(methods=['put'])
+    def validate (self, request, books_pk=None, pk=None):
+        '''
+        Used to validate a specific insight.  This will call the parse lesson function.
+        :param request:
+        :param books_pk:
+        :return:
+        '''
+
+        try:
+            book = Book.get(books_pk)
+            insight = Insight.get(pk)
+        except Exception as exception:
+            return exception.args[0]
+
+        # if the insight is already set to true, don't do anything
+        # should this be a 200 response?
+        if insight.valid == True:
+            return self.respond_ok(InsightSerializer, insight)
+
+        # Add parsed words to insight keywords
+        list_of_found_words = self.parse_lesson(insight.lesson)
+
+        # this should do its magic
+        self.understand(book, list_of_found_words)
+
+        #insight.valid = True
+        #insight.save()
+    def understand(self, book, list_of_found_words):
+        list_of_known_keywords = BookKeywords.search(book)
 
     def parse_lesson(self, lesson):
 
         list_of_words_to_ignore = WordsToIgnore.objects.all()
         parsed_list = []
         split_list = lesson.split()
+
+        remove_punctuation_map = dict((ord(char), None) for char in string.punctuation)
+        split_list = [s.translate(remove_punctuation_map) for s in split_list]
+
+        for word in split_list:
+            word = word.translate(string.punctuation)
 
         # This might need a better way later
         dict_of_words_to_ignore = {list_of_words_to_ignore[i]: 1 for i in range(len(list_of_words_to_ignore))}

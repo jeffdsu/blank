@@ -1,0 +1,2 @@
+class InspirationBaseCollectionObj():
+    pass

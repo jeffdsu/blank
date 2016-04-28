@@ -1,0 +1,112 @@
+[
+  {
+    "model": "inspiration.author",
+    "pk": 1,
+    "fields": {
+      "first_name": "Sheryl",
+      "last_name": "Sandberg"
+    }
+  },
+  {
+    "model": "inspiration.author",
+    "pk": 2,
+    "fields": {
+      "first_name": "Kobi",
+      "last_name": "Yamada"
+    }
+  },
+  {
+    "model": "inspiration.book",
+    "pk": 1,
+    "fields": {
+      "title": "Lean In: Women, Work, and the Will to Lead",
+      "author": 1,
+      "summary": "Thirty years after women became 50 percent of the college graduates in the United States, men still hold the vast majority of leadership positions in government and industry. This means that women’s voices are still not heard equally in the decisions that most affect our lives. In Lean In, Sheryl Sandberg examines why women’s progress in achieving leadership roles has stalled, explains the root causes, and offers compelling, commonsense solutions that can empower women to achieve their full potential.\nSandberg is the chief operating officer of Facebook and is ranked on Fortune’s list of the 50 Most Powerful Women in Business and as one of Time’s 100 Most Influential People in the World. In 2010, she gave an electrifying TEDTalk in which she described how women unintentionally hold themselves back in their careers. Her talk, which became a phenomenon and has been viewed more than two million times, encouraged women to “sit at the table,” seek challenges, take risks, and pursue their goals with gusto.\nIn Lean In, Sandberg digs deeper into these issues, combining personal anecdotes, hard data, and compelling research to cut through the layers of ambiguity and bias surrounding the lives and choices of working women. She recounts her own decisions, mistakes, and daily struggles to make the right choices for herself, her career, and her family. She provides practical advice on negotiation techniques, mentorship, and building a satisfying career, urging women to set boundaries and to abandon the myth of “having it all.”  She describes specific steps women can take to combine professional achievement with personal fulfillment and demonstrates how men can benefit by supporting women in the workplace and at home. \nWritten with both humor and wisdom, Sandberg’s book is an inspiring call to action and a blueprint for individual growth. Lean In is destined to change the conversation from what women can’t do to what they can.",
+      "cover_url": "http://ecx.images-amazon.com/images/I/41i-ZAidwOL._SX286_BO1,204,203,200_.jpg"
+    }
+  },
+  {
+    "model": "inspiration.book",
+    "pk": 2,
+    "fields": {
+      "title": "What Do You Do With an Idea?",
+      "author": 2,
+      "summary": "This is the story of one brilliant idea and the child who helps to bring it into the world. As the child's confidence grows, so does the idea itself. And then, one day, something amazing happens.\nThis is a story for anyone, at any age, who's ever had an idea that seemed a little too big, too odd, too difficult. It's a story to inspire you to welcome that idea, to give it some space to grow, and to see what happens next. Because your idea isn't going anywhere. In fact, it's just getting started.",
+      "cover_url": "http://ecx.images-amazon.com/images/I/41qt5Bst99L._SX418_BO1,204,203,200_.jpg"
+    }
+  },
+  {
+    "model": "inspiration.insight",
+    "pk": 1,
+    "fields": {
+      "user": 1,
+      "lesson": "When you truly believe in an idea, you should let your passion drive that idea to become a reality.",
+      "book": 2,
+      "valid": true
+    }
+  },
+  {
+    "model": "inspiration.insight",
+    "pk": 2,
+    "fields": {
+      "user": 1,
+      "lesson": "In the modern world, all relationships (career, family and etc.) should be treated with equality in mind",
+      "book": 1,
+      "valid": true
+    }
+  },
+  {
+    "model": "inspiration.bookkeywords",
+    "pk": 1,
+    "fields": {
+      "book": 1,
+      "word": "modern",
+      "count": 1,
+      "list_of_insights": "[2]"
+    }
+  },
+  {
+    "model": "inspiration.bookkeywords",
+    "pk": 2,
+    "fields": {
+      "book": 1,
+      "word": "relationship",
+      "count": 1,
+      "list_of_insights": "[2]"
+    }
+  },
+  {
+    "model": "inspiration.bookkeywords",
+    "pk": 3,
+    "fields": {
+      "book": 2,
+      "word": "idea",
+      "count": 1,
+      "list_of_insights": "[1]"
+    }
+  },
+  {
+    "model": "inspiration.medium",
+    "pk": 1,
+    "fields": {
+      "type": "books",
+      "icon_url": "https://d30y9cdsu7xlg0.cloudfront.net/png/5020-200.png"
+    }
+  },
+  {
+    "model": "inspiration.medium",
+    "pk": 2,
+    "fields": {
+      "type": "movies",
+      "icon_url": "http://e-mysore.com/cssimages/short-film.png"
+    }
+  },
+  {
+    "model": "inspiration.medium",
+    "pk": 3,
+    "fields": {
+      "type": "music",
+      "icon_url": "http://uxrepo.com/static/icon-sets/elusive/svg/music.svg"
+    }
+  }
+]

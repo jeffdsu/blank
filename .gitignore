@@ -3,3 +3,7 @@
 .idea/dataSources.xml
 
 .idea/dataSources.xml
+
+*.pyc
+
+*.pyc
