@@ -12,4 +12,13 @@ class BookKeywords(models.Model, InspirationBaseModelMixIn):
 
     @classmethod
     def search(cls, book, **kwargs):
-        return BookKeywords.objects.filter(book=book)
+
+        book_keyword = BookKeywords.objects.filter(book=book)
+
+        keyword_map = dict()
+
+        # TODO - help me do this as a one liner
+        for keyword in book_keyword:
+            keyword_map[keyword.word] = keyword
+
+        return keyword_map

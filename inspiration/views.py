@@ -1,7 +1,6 @@
 from .models import Book, Author, Checkout, Insight, BookKeywords, WordsToIgnore, Medium
 from .serializers import BookSerializer, AuthorSerializer, CheckoutSerializer, InsightSerializer, MediumSerializer
 from rest_framework import viewsets
-import string
 
 from rest_framework.authentication import SessionAuthentication, TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
@@ -95,36 +94,13 @@ class InsightViewSet(viewsets.ModelViewSet):
             return self.respond_ok(InsightSerializer, insight)
 
         # Add parsed words to insight keywords
-        list_of_found_words = self.parse_lesson(insight.lesson)
 
-        # this should do its magic
-        self.understand(book, list_of_found_words)
+        from inspiration.learning.BookLearning import BookLearning
 
-        #insight.valid = True
-        #insight.save()
+        return BookLearning.learn(book, insight)
+
     def understand(self, book, list_of_found_words):
         list_of_known_keywords = BookKeywords.search(book)
 
-    def parse_lesson(self, lesson):
 
-        list_of_words_to_ignore = WordsToIgnore.objects.all()
-        parsed_list = []
-        split_list = lesson.split()
-
-        remove_punctuation_map = dict((ord(char), None) for char in string.punctuation)
-        split_list = [s.translate(remove_punctuation_map) for s in split_list]
-
-        for word in split_list:
-            word = word.translate(string.punctuation)
-
-        # This might need a better way later
-        dict_of_words_to_ignore = {list_of_words_to_ignore[i]: 1 for i in range(len(list_of_words_to_ignore))}
-
-        #someone tell me if there is a better way to write this
-        for word in split_list:
-            word_lc = word.lower()
-            if word_lc not in dict_of_words_to_ignore:
-                parsed_list.append(word_lc)
-
-        return parsed_list
 
