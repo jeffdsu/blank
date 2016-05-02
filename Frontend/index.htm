@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en-us" ng-app="blankApp">
+    <head>
+        <title>Books</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+        <meta charset="UTF-8">
+
+        <!-- load bootstrap and fontawesome via CDN -->
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
+        <style>
+            html, body, input, select, textarea
+            {
+                font-size: 1.05em !important;
+            }
+        </style>
+        
+        <link rel="stylesheet" type="text/css" href="ngmodal/dist/ng-modal.css" media="all" />
+        
+        <!-- load angular via CDN -->
+        <script src="//code.angularjs.org/1.5.0-rc.2/angular.min.js"></script>
+        <script src="//code.angularjs.org/1.5.0-rc.2/angular-route.min.js"></script>
+        <script src="//code.angularjs.org/1.5.0-rc.2/angular-resource.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.6/ngStorage.min.js"></script>
+        <script src="ngmodal/dist/ng-modal.js"></script>
+        
+        <script src="app.js"></script>
+        <script src="constants.js"></script>
+        <script src="config.js"></script>
+        <script src="routes.js"></script>
+        <script src="filters.js"></script>
+        <script src="services.js"></script>
+        <script src="directives.js"></script>
+        <script src="controllers.js"></script>
+        <script src="services/auth.js"></script>
+        <script src="services/medium.js"></script>
+        <script src="services/book.js"></script>
+        <script src="services/insight.js"></script>
+        
+    </head>
+    <body>
+
+        <header>
+			<nav class="navbar navbar-default">
+			<div class="container">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="/">Inspiration</a>
+				</div>
+
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#"><i class="fa fa-home"></i> Home</a></li>
+				</ul>
+			</div>
+			</nav>
+		</header>
+
+        <div class="container">
+
+            <div ng-view></div>
+
+		</div>
+
+    </body>
+</html>

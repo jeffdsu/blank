@@ -1,0 +1,39 @@
+{
+  "name": "ngmodal",
+  "version": "2.0.1",
+  "main": "dist/ng-modal.js",
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-coffee": "~0.7",
+    "grunt-contrib-watch": "~0.5",
+    "grunt-contrib-uglify": "~0.2",
+    "karma": "~0.10",
+    "karma-coffee-preprocessor": "~0.1",
+    "grunt-contrib-less": "~0.8.2",
+    "grunt-zip": "~0.12.0"
+  },
+  "gitHead": "b778bb36626c769f786d669f316b2bba53060496",
+  "description": "ngModal is very simple [Angular.js](http://angularjs.org/) modal dialog directive.",
+  "_id": "ngmodal@2.0.1",
+  "scripts": {},
+  "_shasum": "46f12a2e4f56ad43d5cf26b16bbaa45210993e34",
+  "_from": "ngmodal@latest",
+  "_npmVersion": "3.3.6",
+  "_nodeVersion": "0.12.7",
+  "_npmUser": {
+    "name": "mgwalker",
+    "email": "npm@darkcooger.net"
+  },
+  "dist": {
+    "shasum": "46f12a2e4f56ad43d5cf26b16bbaa45210993e34",
+    "tarball": "https://registry.npmjs.org/ngmodal/-/ngmodal-2.0.1.tgz"
+  },
+  "maintainers": [
+    {
+      "name": "mgwalker",
+      "email": "npm@darkcooger.net"
+    }
+  ],
+  "directories": {},
+  "_resolved": "https://registry.npmjs.org/ngmodal/-/ngmodal-2.0.1.tgz"
+}

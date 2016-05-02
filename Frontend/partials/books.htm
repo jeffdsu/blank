@@ -1,0 +1,28 @@
+<p>
+    <a href="#/">Back to Search</a>
+</p>
+<input type="checkbox" ng-model="checked" ng-init="checked=true" />
+<div ng-repeat="b in books">
+    <div class="row" ng-href='#'>
+        <a href="#/inspiration/books/{{b.id}}" class="thumb">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{ b.title }}</h3>
+                </div>
+                <div class="panel-body">
+                    <div ng-switch on="checked">
+                        <div styled-insight book="b" ng-switch-when="true">
+                            <!-- code to render a large video block-->
+                        </div>
+                        <div styled-keywords book="b" ng-switch-when="false">
+                            <!-- code to render the regular video block -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        </a>
+    </div>
+</div> 
