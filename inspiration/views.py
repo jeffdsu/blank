@@ -29,7 +29,7 @@ class BookKeywordsViewSet(viewsets.ModelViewSet):
 
         format_qp = self.request.query_params.get('format', None)
         kwargs = dict()
-        kwargs['style'] = 'top_10'
+        #kwargs['style'] = 'top_10'
         book_keywords = BookKeywords.search(book, **kwargs)
         print(len(book_keywords))
 
@@ -74,8 +74,31 @@ class BookInsightViewSet(viewsets.ModelViewSet):
     serializer_class = InsightSerializer
 
     def list(self, request, books_pk=None):
-        insights = Insight.objects.filter(book=books_pk, valid=True)
-        return Response(InsightSerializer(insights, many=True).data)
+        try:
+            book = Book.get(books_pk)
+
+            random_top_10_qp = self.request.query_params.get('random_top_10', None)
+            if random_top_10_qp is not None:
+
+                keywords = BookKeywords.get_top_10_keywords(book)
+
+                search = dict()
+                for keyword in keywords:
+                    search['lesson__icontains'] = keyword.word
+
+                insights = Insight.search(book, **search)
+
+                import random
+
+                return Response(InsightSerializer(random.choice(insights)).data)
+
+            else:
+                insights = Insight.search(book)
+
+                return Response(InsightSerializer(insights, many=True).data)
+
+        except Exception as exception:
+            return exception.args[0]
 
 class InsightViewSet(viewsets.ModelViewSet):
     authentication_classes = (SessionAuthentication, TokenAuthentication)
@@ -86,8 +109,9 @@ class InsightViewSet(viewsets.ModelViewSet):
 
     def list(self, request):
 
+        insights = Insight.objects.all()
 
-        insights = Insight.objects.filter(valid=True)
+
         return Response(InsightSerializer(insights, many=True).data)
 
     def create(self, request, books_pk=None):
@@ -116,23 +140,24 @@ class InsightViewSet(viewsets.ModelViewSet):
         try:
             insight = Insight.get(pk)
             book = Book.get(insight.book.id)
-            print(book)
+
+
+            # if the insight is already set to true, don't do anything
+            # should this be a 200 response?
+            if insight.valid == True:
+                return insight.respond_nothing_done()
+
+            from inspiration.learning.BookLearning import BookLearning
+
+            response = BookLearning.learn(book, insight)
+
+            insight.valid = True
+            insight.save()
+
+            return response
+
         except Exception as exception:
             return exception.args[0]
-
-        # if the insight is already set to true, don't do anything
-        # should this be a 200 response?
-        if insight.valid == True:
-            return insight.respond_nothing_done()
-
-        from inspiration.learning.BookLearning import BookLearning
-
-        response = BookLearning.learn(book, insight)
-
-        insight.valid = True
-        insight.save()
-
-        return response
 
 
 

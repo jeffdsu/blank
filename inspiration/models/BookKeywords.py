@@ -10,10 +10,17 @@ class BookKeywords(models.Model, InspirationBaseModelMixIn):
     def __str__(self):
         return "<BookKeywords - %s - %d>" % (self.word, self.count)
 
-    @classmethod
-    def search(cls, book, *search, **kwargs):
 
-        search_build = BookKeywords.objects.filter(book=book, *search)
+    @classmethod
+    def get_top_10_keywords(cls, book):
+        search_build = BookKeywords.objects.filter(book=book).order_by('-count')[:10]
+
+        return search_build
+
+    @classmethod
+    def search(cls, book, **kwargs):
+
+        search_build = BookKeywords.objects.filter(book=book)
 
 
         if 'style' in kwargs:
@@ -27,8 +34,6 @@ class BookKeywords(models.Model, InspirationBaseModelMixIn):
                 top_x = current_search_len if top_x > current_search_len else top_x
 
                 search_build = BookKeywords.objects.filter(book=book, *search).order_by('-count')[:top_x]
-
-                print(search_build.query)
 
                 return search_build
 
