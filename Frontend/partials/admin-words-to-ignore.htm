@@ -1,4 +1,8 @@
 <div ng-repeat="word in words_to_ignore">
     {{ word.word }}
 </div>
-    
+
+<form>
+<input type='text' ng-model="word_to_add">
+<input type="submit" value="Submit", ng-click="add_word_to_ignore(insight)">
+</form>

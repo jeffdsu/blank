@@ -12,6 +12,11 @@ text-decoration: none;
 
 .panel-heading:hover {
   background-color: hotpink !important;
+    border-color: #d6e9c6
+}
+
+.panel:hover {
+    border-color: hotpink
 }
 
 

@@ -12,4 +12,8 @@ class Book(models.Model, InspirationBaseModelMixIn):
     def __str__(self):
         return "<Book - %s - %s>" % (self.title, str(self.author))
 
+    @classmethod
+    def search(cls, **kwargs):
+        return Book.objects.filter(**kwargs)
+
 

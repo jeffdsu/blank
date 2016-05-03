@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Book, Author, Checkout, Insight, Medium, BookKeywords, WordsToIgnore
+from django.contrib.auth.models import User
 
 
 class BookSerializer(serializers.ModelSerializer):
@@ -39,3 +40,9 @@ class WordsToIgnoreSerializer(serializers.ModelSerializer):
     class Meta:
         model = WordsToIgnore
         #fields = '__all__'
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('username', 'email','password')
+        write_only_fields = ('password',)

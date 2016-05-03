@@ -1,5 +1,6 @@
-from .models import Book, Author, Checkout, Insight, BookKeywords, WordsToIgnore, Medium
-from .serializers import BookSerializer, AuthorSerializer, CheckoutSerializer, InsightSerializer, MediumSerializer, BookKeywordsSerializer, WordsToIgnoreSerializer
+from .models import Book, Author, Checkout, Insight, BookKeywords, WordsToIgnore, Medium, User
+from .serializers import BookSerializer, AuthorSerializer, CheckoutSerializer, InsightSerializer, MediumSerializer, \
+    UserSerializer, BookKeywordsSerializer, WordsToIgnoreSerializer
 from rest_framework import viewsets
 
 from rest_framework.authentication import SessionAuthentication, TokenAuthentication
@@ -8,13 +9,14 @@ from rest_framework.response import Response
 from rest_framework.decorators import detail_route, list_route
 from rest_framework.views import APIView
 
-class MediumViewSet(viewsets.ModelViewSet):
 
+class MediumViewSet(viewsets.ModelViewSet):
     authentication_classes = (SessionAuthentication, TokenAuthentication)
     permission_classes = (IsAuthenticated,)
 
     queryset = Medium.objects.all()
     serializer_class = MediumSerializer
+
 
 class BookKeywordsViewSet(viewsets.ModelViewSet):
     authentication_classes = (SessionAuthentication, TokenAuthentication)
@@ -24,7 +26,6 @@ class BookKeywordsViewSet(viewsets.ModelViewSet):
     serializer_class = BookKeywordsSerializer
 
     def list(self, request, books_pk=None):
-
         book = Book.get(books_pk)
 
         format_qp = self.request.query_params.get('style', None)
@@ -33,12 +34,12 @@ class BookKeywordsViewSet(viewsets.ModelViewSet):
         book_keywords = BookKeywords.search(book, **kwargs)
         print(len(book_keywords))
 
-        #if format_qp is not None:
+        # if format_qp is not None:
 
         return Response(BookKeywordsSerializer(book_keywords, many=True).data)
 
-class BookViewSet(viewsets.ModelViewSet):
 
+class BookViewSet(viewsets.ModelViewSet):
     authentication_classes = (SessionAuthentication, TokenAuthentication)
     permission_classes = (IsAuthenticated,)
 
@@ -52,13 +53,14 @@ class BookViewSet(viewsets.ModelViewSet):
         }
         return Response(content)
 
-class AuthorViewSet(viewsets.ModelViewSet):
 
+class AuthorViewSet(viewsets.ModelViewSet):
     authentication_classes = (SessionAuthentication, TokenAuthentication)
     permission_classes = (IsAuthenticated,)
 
     queryset = Author.objects.all()
     serializer_class = AuthorSerializer
+
 
 class CheckoutViewSet(viewsets.ModelViewSet):
     authentication_classes = (SessionAuthentication, TokenAuthentication)
@@ -66,6 +68,7 @@ class CheckoutViewSet(viewsets.ModelViewSet):
 
     queryset = Checkout.objects.all()
     serializer_class = CheckoutSerializer
+
 
 class BookInsightViewSet(viewsets.ModelViewSet):
     authentication_classes = (SessionAuthentication, TokenAuthentication)
@@ -85,20 +88,21 @@ class BookInsightViewSet(viewsets.ModelViewSet):
                 search = dict()
                 for keyword in keywords:
                     search['lesson__icontains'] = keyword.word
-
-                insights = Insight.search(book, **search)
+                    search['book'] = book
+                insights = Insight.search(**search)
 
                 import random
 
                 return Response(InsightSerializer(random.choice(insights)).data)
 
             else:
-                insights = Insight.search(book)
+                insights = Insight.search(book=book)
 
                 return Response(InsightSerializer(insights, many=True).data)
 
         except Exception as exception:
             return exception.args[0]
+
 
 class InsightViewSet(viewsets.ModelViewSet):
     authentication_classes = (SessionAuthentication, TokenAuthentication)
@@ -110,7 +114,6 @@ class InsightViewSet(viewsets.ModelViewSet):
     def list(self, request):
 
         insights = Insight.objects.all()
-
 
         return Response(InsightSerializer(insights, many=True).data)
 
@@ -127,9 +130,9 @@ class InsightViewSet(viewsets.ModelViewSet):
 
         return Response(InsightSerializer(insight).data)
 
-    #TODO - this should be an admin only api
+    # TODO - this should be an admin only api
     @detail_route(methods=['put'])
-    def validate (self, request, pk=None):
+    def validate(self, request, pk=None):
         '''
         Used to validate a specific insight.  This will call the parse lesson function.
         :param request:
@@ -140,7 +143,6 @@ class InsightViewSet(viewsets.ModelViewSet):
         try:
             insight = Insight.get(pk)
             book = Book.get(insight.book.id)
-
 
             # if the insight is already set to true, don't do anything
             # should this be a 200 response?
@@ -180,6 +182,51 @@ class WordsToIgnoreViewSet(viewsets.ModelViewSet):
 
         except Exception as exception:
             return exception.args[0]
+
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer = UserSerializer()
+
+
+class AuthorBooksViewSet(viewsets.ModelViewSet):
+    authentication_classes = (SessionAuthentication, TokenAuthentication)
+    permission_classes = (IsAuthenticated,)
+
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+
+    def list(self, request, authors_pk=None):
+        try:
+            author = Author.get(authors_pk)
+            books = Book.search(author=author)
+
+            return Response(BookSerializer(books, many=True).data)
+
+        except Exception as exception:
+            return exception.args[0]
+
+
+class UserInsightsViewSet (viewsets.ModelViewSet):
+    authentication_classes = (SessionAuthentication, TokenAuthentication)
+    permission_classes = (IsAuthenticated,)
+
+    queryset = Insight.objects.all()
+    serializer_class = InsightSerializer
+
+    def list(self, request, users_pk=None):
+        try:
+            user = User.get(users_pk)
+            print(user)
+            insights = Insight.search(user=user)
+
+            return Response(InsightSerializer(insights, many=True).data)
+
+        except Exception as exception:
+            print(exception)
+            return exception.args[0]
+
+
 
 
 

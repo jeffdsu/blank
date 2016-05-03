@@ -22,9 +22,29 @@ blankApp.config(['$routeProvider', '$httpProvider', function ($routeProvider, $h
             templateUrl: 'partials/signin.htm'
             , controller: 'authController'
         })
+        .when('/signout', {
+            templateUrl: 'partials/signin.htm'
+            , controller: 'authController'
+        })
+        .when('/signup', {
+            templateUrl: 'partials/signin.htm'
+            , controller: 'authController'
+        })
         .when('/admin/inspiration/words-to-ignore', {
-                templateUrl: 'partials/admin-words-to-ignore.htm'
-                , controller: 'adminWordsToIgnoreController'
-            });
+            templateUrl: 'partials/admin-words-to-ignore.htm'
+            , controller: 'adminWordsToIgnoreController'
+        })
+        .when('/inspiration/authors', {
+            templateUrl: 'partials/authors.htm'
+            , controller: 'authorsController'
+        })
+        .when('/inspiration/authors/:authorId', {
+            templateUrl: 'partials/author-details.htm'
+            , controller: 'authorDetailsController'
+        })
+        .when('/inspiration/users/:userId', {
+            templateUrl: 'partials/user-details.htm'
+            , controller: 'userDetailsController'
+        });
 
 }]);

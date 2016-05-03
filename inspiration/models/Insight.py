@@ -15,5 +15,5 @@ class Insight(models.Model, InspirationBaseModelMixIn):
         return "<Insight - %s>" % (str(self.lesson))
 
     @classmethod
-    def search(cls, book, valid=True, **kwargs):
-        return Insight.objects.filter(book=book, valid=valid, **kwargs)
+    def search(cls, **kwargs):
+        return Insight.objects.filter(**kwargs)

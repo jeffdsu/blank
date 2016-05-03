@@ -118,8 +118,8 @@ blankApp.controller('addInsightController', ['$scope', '$resource', '$routeParam
     $scope.add_insight = function (insight) {
 
         var formData = {
-            lesson: insight
-            , book: bookService.id
+            lesson: insight,
+            book: $routeParams.bookId
         };
 
         bookService.add_insight(formData)

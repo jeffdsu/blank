@@ -58,8 +58,8 @@ blankApp.service('bookService', ['$http', '$localStorage', 'urls', '$q', functio
             });
     };
     
-    self.add_insight = function (insight) {
-        return $http.post(urls.BASE + "/inspiration-corner/books/" + self.id + "/insights", insight)
+    self.add_insight = function (id, insight) {
+        return $http.post(urls.BASE + "/inspiration-corner/books/" + id + "/insights", insight)
             .then(function (response) {
                 if (typeof response.data === 'object') {
                     self.insights.push(response.data);

@@ -16,4 +16,22 @@ blankApp.service('wordsToIgnoreService', ['$http', '$localStorage', 'urls', '$q'
 
     };
     
+    self.create = function (word) {
+        
+        var jsonData = {
+            word: word,
+        };
+        
+        return $http.post(urls.BASE + "/inspiration-corner/admin/words-to-ignore", jsonData)
+            .then(function (response) {
+                if (typeof response.data === 'object') {
+                    return response.data;
+                } else {
+                    return $q.reject(response.data)
+                }
+            }, function (response) {
+                return $q.reject(response.data)
+            });
+    };
+    
 }]);
