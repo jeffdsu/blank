@@ -21,6 +21,10 @@ blankApp.config(['$routeProvider', '$httpProvider', function ($routeProvider, $h
         .when('/signin', {
             templateUrl: 'partials/signin.htm'
             , controller: 'authController'
-        });
+        })
+        .when('/admin/inspiration/words-to-ignore', {
+                templateUrl: 'partials/admin-words-to-ignore.htm'
+                , controller: 'adminWordsToIgnoreController'
+            });
 
 }]);

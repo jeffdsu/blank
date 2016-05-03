@@ -21,3 +21,4 @@ class InspirationBaseModelMixIn():
     def respond_not_found(self):
         return Response(status=404, data="%s with id of %d"%(type(self), self.id))
 
+

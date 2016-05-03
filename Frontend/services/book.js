@@ -46,7 +46,7 @@ blankApp.service('bookService', ['$http', '$localStorage', 'urls', '$q', functio
     };
     
     self.get_top_10_keywords = function(id) {
-        return $http.get(urls.BASE + "/inspiration-corner/books/" + id + "/keywords?style='top_10'")
+        return $http.get(urls.BASE + "/inspiration-corner/books/" + id + "/keywords?style=top_10")
             .then(function (response) {
                 if (typeof response.data === 'object') {
                     return response.data;

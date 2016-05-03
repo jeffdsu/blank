@@ -15,9 +15,7 @@
             <table class="table table-hover">
                 <tbody>
                     <tr ng-repeat="insight in insights">
-                        <a href="#/users/{{lesson.user}}">
-                            <td>{{ insight.lesson }}</td>
-                        </a>
+                        <td><span ng-bind-html='insight | insightLinkToUserFilter' ></span></td>
                     </tr>
                 </tbody>
             </table>

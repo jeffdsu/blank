@@ -9,6 +9,7 @@ router.register(r'books', views.BookViewSet)
 router.register(r'authors', views.AuthorViewSet)
 router.register(r'mediums', views.MediumViewSet)
 router.register(r'insights', views.InsightViewSet)
+router.register(r'admin/words-to-ignore', views.WordsToIgnoreViewSet)
 
 
 mediums_router = routers.NestedSimpleRouter(router, r'mediums', lookup='books', trailing_slash=False)

@@ -1,0 +1,76 @@
+a{
+    color:#000;
+text-decoration: none;
+
+}
+
+a:hover{
+    color:#000;
+text-decoration: none;
+
+}
+
+.panel-heading:hover {
+  background-color: hotpink !important;
+}
+
+
+.impacted_word_1 {
+    font-weight: bold;
+    color: red;
+    font-size: 25px;
+}
+
+.impacted_word_2 {
+    font-weight: bold;
+    color: red;
+    font-size: 25px;
+}
+
+.impacted_word_3 {
+    font-weight: bold;
+    color: red;
+    font-size: 25px;
+}
+
+.impacted_word_4 {
+    font-weight: bold;
+    color: hotpink;
+    font-size: 25px;
+}
+
+.impacted_word_5 {
+    font-weight: bold;
+    color: hotpink;
+    font-size: 25px;
+}
+
+.impacted_word_6 {
+    font-weight: bold;
+    color: hotpink;
+    font-size: 25px;
+}
+
+.impacted_word_7 {
+    font-weight: bold;
+    color: coral;
+    font-size: 25px;
+}
+
+.impacted_word_8 {
+    font-weight: bold;
+    color: coral;
+    font-size: 25px;
+}
+
+.impacted_word_9 {
+    font-weight: bold;
+    color: coral;
+    font-size: 25px;
+}
+
+.impacted_word_10 {
+    font-weight: bold;
+    color: coral;
+    font-size: 25px;
+}

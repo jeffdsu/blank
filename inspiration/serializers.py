@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Book, Author, Checkout, Insight, Medium, BookKeywords
+from .models import Book, Author, Checkout, Insight, Medium, BookKeywords, WordsToIgnore
 
 
 class BookSerializer(serializers.ModelSerializer):
@@ -32,4 +32,10 @@ class MediumSerializer(serializers.ModelSerializer):
 class BookKeywordsSerializer(serializers.ModelSerializer):
     class Meta:
         model = BookKeywords
+        #fields = '__all__'
+
+
+class WordsToIgnoreSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = WordsToIgnore
         #fields = '__all__'

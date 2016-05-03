@@ -33,7 +33,7 @@ class BookKeywords(models.Model, InspirationBaseModelMixIn):
 
                 top_x = current_search_len if top_x > current_search_len else top_x
 
-                search_build = BookKeywords.objects.filter(book=book, *search).order_by('-count')[:top_x]
+                search_build = BookKeywords.objects.filter(book=book).order_by('-count')[:top_x]
 
                 return search_build
 
@@ -46,5 +46,12 @@ class BookKeywords(models.Model, InspirationBaseModelMixIn):
                 keyword_map[keyword.word] = keyword
 
             return keyword_map
+
+        return search_build
+
+    @classmethod
+    def admin_search(cls, **kwargs):
+
+        search_build = BookKeywords.objects.filter(**kwargs)
 
         return search_build

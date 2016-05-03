@@ -1,5 +1,5 @@
 from .models import Book, Author, Checkout, Insight, BookKeywords, WordsToIgnore, Medium
-from .serializers import BookSerializer, AuthorSerializer, CheckoutSerializer, InsightSerializer, MediumSerializer, BookKeywordsSerializer
+from .serializers import BookSerializer, AuthorSerializer, CheckoutSerializer, InsightSerializer, MediumSerializer, BookKeywordsSerializer, WordsToIgnoreSerializer
 from rest_framework import viewsets
 
 from rest_framework.authentication import SessionAuthentication, TokenAuthentication
@@ -27,9 +27,9 @@ class BookKeywordsViewSet(viewsets.ModelViewSet):
 
         book = Book.get(books_pk)
 
-        format_qp = self.request.query_params.get('format', None)
+        format_qp = self.request.query_params.get('style', None)
         kwargs = dict()
-        #kwargs['style'] = 'top_10'
+        kwargs['style'] = format_qp
         book_keywords = BookKeywords.search(book, **kwargs)
         print(len(book_keywords))
 
@@ -155,6 +155,28 @@ class InsightViewSet(viewsets.ModelViewSet):
             insight.save()
 
             return response
+
+        except Exception as exception:
+            return exception.args[0]
+
+
+class WordsToIgnoreViewSet(viewsets.ModelViewSet):
+    authentication_classes = (SessionAuthentication, TokenAuthentication)
+    permission_classes = (IsAuthenticated,)
+
+    queryset = WordsToIgnore.objects.all()
+    serializer_class = WordsToIgnoreSerializer
+
+    def create(self, request):
+
+        try:
+            new_word = WordsToIgnore(word=request.data['word'])
+            book_keywords = BookKeywords.admin_search(word=request.data['word'])
+
+            book_keywords.delete()
+            new_word.save()
+
+            return Response(WordsToIgnoreSerializer(new_word).data)
 
         except Exception as exception:
             return exception.args[0]
