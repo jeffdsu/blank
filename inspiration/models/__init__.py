@@ -8,4 +8,3 @@ from .Checkout import Checkout
 from .Insight import Insight
 from .WordsToIgnore import WordsToIgnore
 from .BookKeywords import BookKeywords
-from .User import User

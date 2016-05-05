@@ -16,8 +16,12 @@ blankApp.filter('insightColorFilter', function () {
             temp_arr = insight.lesson.split(" ");
             temp_str = "";
             for (i = 0; i < temp_arr.length; i++) {
-                if (temp_arr[i] in keywords) {
-                    temp_str += '<span class="impacted_word_' + keywords[temp_arr[i]][0] + '">' + temp_arr[i] + '</span>' + " ";
+                var myRegexp = /(\w+)/g;
+                var match = myRegexp.exec(temp_arr[i]);
+                if (match && match[1] in keywords) {
+                    var res = temp_arr[i].replace(match[1], '<span class="impacted_word_' + keywords[match[1]][0] + '">' + match[1] + '</span>');
+                    console.log(res);
+                    temp_str += res + " ";
                 } else {
                     temp_str += temp_arr[i] + " ";
                 }

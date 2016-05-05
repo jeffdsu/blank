@@ -27,7 +27,7 @@ class BookKeywords(models.Model, InspirationBaseModelMixIn):
             import re
             m = re.search('^top_(\d+)', kwargs['style'])
 
-            if m.group(1) is not None:
+            if m is not None:
                 current_search_len = len(search_build)
                 top_x = int(m.group(1))
 

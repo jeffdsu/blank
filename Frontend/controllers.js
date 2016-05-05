@@ -37,7 +37,7 @@ blankApp.controller('booksController', ['$scope', '$resource', '$routeParams', '
                         .then(function (data) {
                             value.keywords = {}
                             for (i = 0; i < data.length; i++) {
-                                value.keywords[data[i].word] = [i+1, data[i]];
+                                value.keywords[data[i].word] = [i + 1, data[i]];
                             }
                         }, function (err) {
 
@@ -118,8 +118,8 @@ blankApp.controller('addInsightController', ['$scope', '$resource', '$routeParam
     $scope.add_insight = function (insight) {
 
         var formData = {
-            lesson: insight,
-            book: $routeParams.bookId
+            lesson: insight
+            , book: $routeParams.bookId
         };
 
         bookService.add_insight(formData)
@@ -130,13 +130,32 @@ blankApp.controller('addInsightController', ['$scope', '$resource', '$routeParam
 
 }]);
 
-blankApp.controller('authController', ['urls', '$rootScope', '$scope', '$resource', '$routeParams', '$http', '$localStorage', '$location', 'Auth', function (urls, $rootScope, $scope, $resource, $routeParams, $http, $localStorage, $location, Auth) {
+blankApp.controller('errorController', ['urls', '$rootScope', '$scope', '$resource', '$routeParams', '$http', '$localStorage', '$location', 'errorService', function (urls, $rootScope, $scope, $resource, $routeParams, $http, $localStorage, $location, errorService) {
+
+    //$scope.error = errorService.error;
+
+    //console.log(errorService);
+
+
+    $scope.$watch('errorService.error', function (newVal, oldVal, scope) {
+        if (newVal) {
+            console.log("asdfasdfas");
+            scope.error = "qwer";
+        }
+    });
+
+}]);
+
+
+blankApp.controller('authController', ['urls', '$rootScope', '$scope', '$resource', '$routeParams', '$http', '$localStorage', '$location', 'Auth', 'errorService', function (urls, $rootScope, $scope, $resource, $routeParams, $http, $localStorage, $location, Auth, errorService) {
 
 
     function successAuth(res) {
-        $localStorage.token = res.token;
+        $localStorage.token = res.key;
         $location.path('inspiration').replace();
+
     }
+
 
     $scope.signin = function () {
 
@@ -145,16 +164,36 @@ blankApp.controller('authController', ['urls', '$rootScope', '$scope', '$resourc
             , password: $scope.password
         };
 
-        Auth.signin(formData, successAuth, function () {
-            console.log(urls.BASE);
-            $rootScope.error = 'Invalid credentials.';
+        Auth.signin(formData, successAuth, function (err) {
+
+            errorService.error = 'Invalid credentials.';
         })
     };
+
+    $scope.signup = function () {
+
+        var formData = {
+            "username": $scope.username
+            , "password1": $scope.password1
+            , "password2": $scope.password2
+            , "email": $scope.email
+        };
+
+        Auth.signup(formData
+            , function () {
+                $location.path('signin').replace();
+            }
+            , function (err) {
+
+                errorService.error = 'Invalid credentials.';
+            })
+    }
 
     $scope.logout = function () {
         Auth.logout(function () {
             window.location = "/"
         });
     };
+
 
 }]);

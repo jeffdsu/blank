@@ -1,9 +1,10 @@
-from .models import Book, Author, Checkout, Insight, BookKeywords, WordsToIgnore, Medium, User
+from .models import Book, Author, Checkout, Insight, BookKeywords, WordsToIgnore, Medium
 from .serializers import BookSerializer, AuthorSerializer, CheckoutSerializer, InsightSerializer, MediumSerializer, \
     UserSerializer, BookKeywordsSerializer, WordsToIgnoreSerializer
 from rest_framework import viewsets
+from django.contrib.auth.models import User
 
-from rest_framework.authentication import SessionAuthentication, TokenAuthentication
+from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.decorators import detail_route, list_route
@@ -11,7 +12,7 @@ from rest_framework.views import APIView
 
 
 class MediumViewSet(viewsets.ModelViewSet):
-    authentication_classes = (SessionAuthentication, TokenAuthentication)
+    authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
 
     queryset = Medium.objects.all()
@@ -19,7 +20,7 @@ class MediumViewSet(viewsets.ModelViewSet):
 
 
 class BookKeywordsViewSet(viewsets.ModelViewSet):
-    authentication_classes = (SessionAuthentication, TokenAuthentication)
+    authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
 
     queryset = BookKeywords.objects.filter()
@@ -30,7 +31,8 @@ class BookKeywordsViewSet(viewsets.ModelViewSet):
 
         format_qp = self.request.query_params.get('style', None)
         kwargs = dict()
-        kwargs['style'] = format_qp
+        if format_qp:
+            kwargs['style'] = format_qp
         book_keywords = BookKeywords.search(book, **kwargs)
         print(len(book_keywords))
 
@@ -40,7 +42,7 @@ class BookKeywordsViewSet(viewsets.ModelViewSet):
 
 
 class BookViewSet(viewsets.ModelViewSet):
-    authentication_classes = (SessionAuthentication, TokenAuthentication)
+    authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
 
     queryset = Book.objects.all()
@@ -55,7 +57,7 @@ class BookViewSet(viewsets.ModelViewSet):
 
 
 class AuthorViewSet(viewsets.ModelViewSet):
-    authentication_classes = (SessionAuthentication, TokenAuthentication)
+    authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
 
     queryset = Author.objects.all()
@@ -63,7 +65,7 @@ class AuthorViewSet(viewsets.ModelViewSet):
 
 
 class CheckoutViewSet(viewsets.ModelViewSet):
-    authentication_classes = (SessionAuthentication, TokenAuthentication)
+    authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
 
     queryset = Checkout.objects.all()
@@ -71,7 +73,7 @@ class CheckoutViewSet(viewsets.ModelViewSet):
 
 
 class BookInsightViewSet(viewsets.ModelViewSet):
-    authentication_classes = (SessionAuthentication, TokenAuthentication)
+    authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
 
     serializer_class = InsightSerializer
@@ -105,7 +107,7 @@ class BookInsightViewSet(viewsets.ModelViewSet):
 
 
 class InsightViewSet(viewsets.ModelViewSet):
-    authentication_classes = (SessionAuthentication, TokenAuthentication)
+    authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
 
     serializer_class = InsightSerializer
@@ -163,7 +165,7 @@ class InsightViewSet(viewsets.ModelViewSet):
 
 
 class WordsToIgnoreViewSet(viewsets.ModelViewSet):
-    authentication_classes = (SessionAuthentication, TokenAuthentication)
+    authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
 
     queryset = WordsToIgnore.objects.all()
@@ -190,7 +192,7 @@ class UserViewSet(viewsets.ModelViewSet):
 
 
 class AuthorBooksViewSet(viewsets.ModelViewSet):
-    authentication_classes = (SessionAuthentication, TokenAuthentication)
+    authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
 
     queryset = Book.objects.all()
@@ -208,7 +210,7 @@ class AuthorBooksViewSet(viewsets.ModelViewSet):
 
 
 class UserInsightsViewSet (viewsets.ModelViewSet):
-    authentication_classes = (SessionAuthentication, TokenAuthentication)
+    authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
 
     queryset = Insight.objects.all()

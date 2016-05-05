@@ -23,11 +23,11 @@ blankApp.config(['$routeProvider', '$httpProvider', function ($routeProvider, $h
             , controller: 'authController'
         })
         .when('/signout', {
-            templateUrl: 'partials/signin.htm'
+            templateUrl: 'partials/signout.htm'
             , controller: 'authController'
         })
         .when('/signup', {
-            templateUrl: 'partials/signin.htm'
+            templateUrl: 'partials/signup.htm'
             , controller: 'authController'
         })
         .when('/admin/inspiration/words-to-ignore', {

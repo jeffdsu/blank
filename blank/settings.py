@@ -12,6 +12,15 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 
 import os
 
+
+# TODO -  Needs to be setup correctly
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+ACCOUNT_ACTIVATION_DAYS = 7
+
+#  Jeff - Find out what this does
+SITE_ID=1
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -36,8 +45,8 @@ REST_FRAMEWORK = {
        'rest_framework.authentication.TokenAuthentication',
    ),
    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAdminUser'
-   ),
+    'rest_framework.permissions.IsAuthenticated'
+),
 }
 
 # Application definition
@@ -47,13 +56,24 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'inspiration.apps.InspirationConfig',
+    'django.contrib.sites',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_auth',
+    'allauth',
+    'allauth.account'
 ]
+
+AUTHENTICATION_BACKENDS = (
+    # Needed to login by username in Django admin, regardless of `allauth`
+    "django.contrib.auth.backends.ModelBackend",
+    # `allauth` specific authentication methods, such as login by e-mail
+    "allauth.account.auth_backends.AuthenticationBackend"
+)
 
 MIDDLEWARE_CLASSES = [
     'corsheaders.middleware.CorsMiddleware',

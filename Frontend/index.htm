@@ -45,6 +45,7 @@
         <script src="services/wordsToIgnore.js"></script>
         <script src="services/author.js"></script>
         <script src="services/user.js"></script>
+        <script src="services/error.js"></script>
         
         
     </head>
@@ -65,8 +66,12 @@
 		</header>
 
         <div class="container">
-
-            <div ng-view></div>
+            <div ng-controller="errorController">
+                {{ error }}
+            </div>
+            
+            <div ng-view>
+            </div>
 
 		</div>
 

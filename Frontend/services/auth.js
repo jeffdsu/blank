@@ -32,19 +32,20 @@ blankApp
 
        return {
            signup: function (data, success, error) {
-               $http.post(urls.BASE + '/signup', data).success(success).error(error)
+               $http.post(urls.BASE + '/rest-auth/registration/', data).success(success).error(error);
            },
            signin: function (data, success, error) {
-               $http.post('http://127.0.0.1:8000/api-token-auth/', data).success(success).error(error)
+               $http.post('http://127.0.0.1:8000/rest-auth/login/', data).success(success).error(error);
            },
-           logout: function (success) {
+           signout: function (success) {
+               $http.post('http://127.0.0.1:8000/rest-auth/logout/', data);
                tokenClaims = {};
                delete $localStorage.token;
                success();
            },
            getTokenClaims: function () {
                return tokenClaims;
-           }
+           },
        };
    }
    ]);
