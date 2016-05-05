@@ -14,7 +14,7 @@ blankApp.controller('adminWordsToIgnoreController', ['$scope', '$resource', '$ro
     $scope.add_word_to_ignore = function () {
         wordsToIgnoreService.create($scope.word_to_add)
         .then(function(data){
-            $scope.words_to_ignore.push(data);
+            $scope.words_to_ignore.append(data);
         }, function(err){});
     };
 }]);
