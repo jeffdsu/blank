@@ -12,13 +12,24 @@ class InspirationBaseModelMixIn():
             raise Exception(Response(status=404, data="[404] %s[%s] not found"%(str(cls.__name__), id)))
         return obj
 
-    def respond_ok(self, serializer, obj):
-        return Response(serializer(obj).data, status=200)
+    @classmethod
+    def search(cls, **kwargs):
+        return cls.objects.filter(**kwargs)
 
-    def respond_nothing_done(self):
-        return Response("Nothing Done", status=200)
+    @classmethod
+    def respond_already_found(cls, **kwargs):
+        return Response("[422] %s already found with [%s]"%(cls.__name__, kwargs), status=422)
+
+    def respond_ok(self, obj, serializer):
+        return Response(serializer(self).data, status=200)
+
+    @classmethod
+    def respond_nothing_done(cls):
+        return Response("[200] Nothing Done", status=200)
 
     def respond_not_found(self):
-        return Response(status=404, data="%s with id of %d"%(type(self), self.id))
+        return Response(status=404, data="[404] %s with id of %d"%(type(self), self.id))
+
+
 
 

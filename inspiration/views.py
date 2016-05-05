@@ -4,6 +4,8 @@ from .serializers import BookSerializer, AuthorSerializer, CheckoutSerializer, I
 from rest_framework import viewsets
 from django.contrib.auth.models import User
 
+
+from .InpsiprationBaseViewMixIn import InspirationBaseViewMixIn
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -11,7 +13,7 @@ from rest_framework.decorators import detail_route, list_route
 from rest_framework.views import APIView
 
 
-class MediumViewSet(viewsets.ModelViewSet):
+class MediumViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
 
@@ -19,7 +21,7 @@ class MediumViewSet(viewsets.ModelViewSet):
     serializer_class = MediumSerializer
 
 
-class BookKeywordsViewSet(viewsets.ModelViewSet):
+class BookKeywordsViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
 
@@ -41,7 +43,7 @@ class BookKeywordsViewSet(viewsets.ModelViewSet):
         return Response(BookKeywordsSerializer(book_keywords, many=True).data)
 
 
-class BookViewSet(viewsets.ModelViewSet):
+class BookViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
 
@@ -56,7 +58,7 @@ class BookViewSet(viewsets.ModelViewSet):
         return Response(content)
 
 
-class AuthorViewSet(viewsets.ModelViewSet):
+class AuthorViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
 
@@ -64,7 +66,7 @@ class AuthorViewSet(viewsets.ModelViewSet):
     serializer_class = AuthorSerializer
 
 
-class CheckoutViewSet(viewsets.ModelViewSet):
+class CheckoutViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
 
@@ -72,7 +74,7 @@ class CheckoutViewSet(viewsets.ModelViewSet):
     serializer_class = CheckoutSerializer
 
 
-class BookInsightViewSet(viewsets.ModelViewSet):
+class BookInsightViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
 
@@ -103,10 +105,10 @@ class BookInsightViewSet(viewsets.ModelViewSet):
                 return Response(InsightSerializer(insights, many=True).data)
 
         except Exception as exception:
-            return exception.args[0]
+            return self.__class__.respondToException(exception)
 
 
-class InsightViewSet(viewsets.ModelViewSet):
+class InsightViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
 
@@ -161,10 +163,10 @@ class InsightViewSet(viewsets.ModelViewSet):
             return response
 
         except Exception as exception:
-            return exception.args[0]
+            return self.__class__.respondToException(exception)
 
 
-class WordsToIgnoreViewSet(viewsets.ModelViewSet):
+class WordsToIgnoreViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
 
@@ -174,6 +176,12 @@ class WordsToIgnoreViewSet(viewsets.ModelViewSet):
     def create(self, request):
 
         try:
+
+            new_word = WordsToIgnore.search(word=request.data['word'])
+
+            if new_word:
+                return WordsToIgnore.respond_already_found(word=request.data['word'])
+
             new_word = WordsToIgnore(word=request.data['word'])
             book_keywords = BookKeywords.admin_search(word=request.data['word'])
 
@@ -183,15 +191,15 @@ class WordsToIgnoreViewSet(viewsets.ModelViewSet):
             return Response(WordsToIgnoreSerializer(new_word).data)
 
         except Exception as exception:
-            return exception.args[0]
+            return self.__class__.respondToException(exception)
 
 
-class UserViewSet(viewsets.ModelViewSet):
+class UserViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
     queryset = User.objects.all()
     serializer = UserSerializer()
 
 
-class AuthorBooksViewSet(viewsets.ModelViewSet):
+class AuthorBooksViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
 
@@ -206,10 +214,10 @@ class AuthorBooksViewSet(viewsets.ModelViewSet):
             return Response(BookSerializer(books, many=True).data)
 
         except Exception as exception:
-            return exception.args[0]
+            return self.__class__.respondToException(exception)
 
 
-class UserInsightsViewSet (viewsets.ModelViewSet):
+class UserInsightsViewSet (viewsets.ModelViewSet, InspirationBaseViewMixIn):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
 
@@ -225,8 +233,7 @@ class UserInsightsViewSet (viewsets.ModelViewSet):
             return Response(InsightSerializer(insights, many=True).data)
 
         except Exception as exception:
-            print(exception)
-            return exception.args[0]
+            return self.__class__.respondToException(exception)
 
 
 

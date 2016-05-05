@@ -1,4 +1,3 @@
-from .InspirationBaseObj import InspirationBaseObj
 from .InspirationBaseCollectionObj import InspirationBaseCollectionObj
 from .Medium import Medium
 

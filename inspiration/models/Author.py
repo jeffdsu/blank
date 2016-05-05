@@ -1,5 +1,4 @@
 from django.db import models
-from .InspirationBaseObj import InspirationBaseObj
 from .InspirationBaseModelMixin import InspirationBaseModelMixIn
 
 class Author(models.Model, InspirationBaseModelMixIn):
