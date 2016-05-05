@@ -12,7 +12,17 @@ blankApp.controller('adminInsightController', ['$scope', '$resource', '$routePar
         );
     
     $scope.validate = function (id) {
-        insightService.validate(id)
+            insightService.validate(id)
+            .then(function (data) {
+                
+                console.log(data);
+                $scope.response = data;
+            }
+            , function (err) {
+
+            }
+        );
+        
     }
 
 }]);

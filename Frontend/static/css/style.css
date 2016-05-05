@@ -79,3 +79,8 @@ text-decoration: none;
     color: coral;
     font-size: 25px;
 }
+
+.invalid_insight {
+    font-weight: bold;
+    color: coral;
+}
