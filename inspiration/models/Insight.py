@@ -16,4 +16,5 @@ class Insight(models.Model, InspirationBaseModelMixIn):
 
     @classmethod
     def search(cls, **kwargs):
+        print(kwargs)
         return Insight.objects.filter(**kwargs)

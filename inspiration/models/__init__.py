@@ -1,6 +1,6 @@
 from .InspirationBaseCollectionObj import InspirationBaseCollectionObj
 from .Medium import Medium
-
+from .User import User
 from .Author import Author
 from .Book import Book
 from .Checkout import Checkout

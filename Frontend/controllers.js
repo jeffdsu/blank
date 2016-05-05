@@ -119,10 +119,9 @@ blankApp.controller('addInsightController', ['$scope', '$resource', '$routeParam
 
         var formData = {
             lesson: insight
-            , book: $routeParams.bookId
         };
 
-        bookService.add_insight(formData)
+        bookService.add_insight($routeParams.bookId, formData)
             .then(function () {
                 $scope.dialogShown = !$scope.dialogShown;
             })

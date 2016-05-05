@@ -1,11 +1,13 @@
 blankApp.filter('authorFilter', function () {
     return function (author) {
-        temp_str = "<a href='#/inspiration/authors/" + author.id + "'>" + author.first_name + " ";
-        if (author.middle_initial) {
-            temp_str += author.middle_initial + " "
+        if (author) {
+            temp_str = "<a href='#/inspiration/authors/" + author.id + "'>" + author.first_name + " ";
+            if (author.middle_initial) {
+                temp_str += author.middle_initial + " "
+            }
+            temp_str += author.last_name + "</a>";
+            return temp_str;
         }
-        temp_str += author.last_name + "</a>";
-        return temp_str;
     };
 });
 
@@ -20,7 +22,6 @@ blankApp.filter('insightColorFilter', function () {
                 var match = myRegexp.exec(temp_arr[i]);
                 if (match && match[1] in keywords) {
                     var res = temp_arr[i].replace(match[1], '<span class="impacted_word_' + keywords[match[1]][0] + '">' + match[1] + '</span>');
-                    console.log(res);
                     temp_str += res + " ";
                 } else {
                     temp_str += temp_arr[i] + " ";

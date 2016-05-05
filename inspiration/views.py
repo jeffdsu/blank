@@ -3,6 +3,7 @@ from .serializers import BookSerializer, AuthorSerializer, CheckoutSerializer, I
     UserSerializer, BookKeywordsSerializer, WordsToIgnoreSerializer
 from rest_framework import viewsets
 from django.contrib.auth.models import User
+from django.db.models import Q
 
 
 from .InpsiprationBaseViewMixIn import InspirationBaseViewMixIn
@@ -89,24 +90,42 @@ class BookInsightViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
 
                 keywords = BookKeywords.get_top_10_keywords(book)
 
-                search = dict()
+                query = Q(book=book, valid=True)
+                keyword_q = Q()
+
                 for keyword in keywords:
-                    search['lesson__icontains'] = keyword.word
-                    search['book'] = book
-                insights = Insight.search(**search)
+                    keyword_q |= Q(lesson__icontains=keyword.word)
+
+                insights = Insight.objects.filter(query & keyword_q)
+                for i in insights:
+                    print(i.lesson)
 
                 import random
 
                 return Response(InsightSerializer(random.choice(insights)).data)
 
             else:
-                insights = Insight.search(book=book)
+                insights = Insight.search(book=book, valid=True)
 
                 return Response(InsightSerializer(insights, many=True).data)
 
         except Exception as exception:
             return self.__class__.respondToException(exception)
 
+    def create(self, request, books_pk=None):
+        try:
+            book = Book.get(books_pk)
+            user = request.user
+            lesson = request.data['lesson']
+
+            temp_insight = Insight(book=book, user=user, lesson=lesson, valid=False)
+
+            temp_insight.save()
+
+            return Response(InsightSerializer(temp_insight).data)
+
+        except Exception as exception:
+            return self.__class__.respondToException(exception)
 
 class InsightViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
     authentication_classes = (TokenAuthentication,)
@@ -226,8 +245,7 @@ class UserInsightsViewSet (viewsets.ModelViewSet, InspirationBaseViewMixIn):
 
     def list(self, request, users_pk=None):
         try:
-            user = User.get(users_pk)
-            print(user)
+            user = User.objects.get(id=users_pk)
             insights = Insight.search(user=user)
 
             return Response(InsightSerializer(insights, many=True).data)
