@@ -30,6 +30,20 @@ blankApp.service('bookService', ['$http', '$localStorage', 'urls', '$q', functio
                 return $q.reject(response.data)
             });
     };
+    
+    self.create = function () {
+        return $http.post(urls.BASE + "/inspiration-corner/books")
+            .then(function (response) {
+                if (typeof response.data === 'object') {
+                    return response.data
+
+                } else {
+                    return $q.reject(response.data)
+                }
+            }, function (response) {
+                return $q.reject(response.data)
+            });
+    };
 
     self.get_insights = function (id) {
         return $http.get(urls.BASE + "/inspiration-corner/books/" + id + "/insights")

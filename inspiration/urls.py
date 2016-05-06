@@ -1,6 +1,6 @@
 from django.conf.urls import url, patterns, include
 
-from . import views
+from inspiration import views
 
 from rest_framework_nested import routers
 
@@ -11,6 +11,8 @@ router.register(r'mediums', views.MediumViewSet)
 router.register(r'insights', views.InsightViewSet)
 router.register(r'users', views.UserViewSet)
 router.register(r'admin/words-to-ignore', views.WordsToIgnoreViewSet)
+router.register(r'admin/insights', views.admin.AdminInsightViewSet)
+
 
 
 mediums_router = routers.NestedSimpleRouter(router, r'mediums', lookup='books', trailing_slash=False)

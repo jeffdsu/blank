@@ -1,3 +1,3 @@
 // MODULE
-var blankApp = angular.module('blankApp', ['ngRoute', 'ngResource', 'ngStorage', 'ngModal', 'ngSanitize']);
+var blankApp = angular.module('blankApp', ['ngRoute', 'ngResource', 'ngStorage', 'ngModal', 'ngSanitize', 'ngMaterial', 'ngMessages']);
 

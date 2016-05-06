@@ -30,14 +30,6 @@ blankApp.config(['$routeProvider', '$httpProvider', function ($routeProvider, $h
             templateUrl: 'partials/signup.htm'
             , controller: 'authController'
         })
-        .when('/admin/inspiration/words-to-ignore', {
-            templateUrl: 'partials/admin-words-to-ignore.htm'
-            , controller: 'adminWordsToIgnoreController'
-        })
-        .when('/admin/inspiration/insights', {
-            templateUrl: 'partials/admin-insights.htm'
-            , controller: 'adminInsightController'
-        })
         .when('/inspiration/authors', {
             templateUrl: 'partials/authors.htm'
             , controller: 'authorsController'
@@ -49,6 +41,19 @@ blankApp.config(['$routeProvider', '$httpProvider', function ($routeProvider, $h
         .when('/inspiration/users/:userId', {
             templateUrl: 'partials/user-details.htm'
             , controller: 'userDetailsController'
+        })
+        // admin
+        .when('/admin/inspiration/books', {
+            templateUrl: 'partials/admin-books.htm'
+            , controller: 'adminBooksController'
+        })
+        .when('/admin/inspiration/words-to-ignore', {
+            templateUrl: 'partials/admin-words-to-ignore.htm'
+            , controller: 'adminWordsToIgnoreController'
+        })
+        .when('/admin/inspiration/insights', {
+            templateUrl: 'partials/admin-insights.htm'
+            , controller: 'adminInsightController'
         });
 
 }]);

@@ -1,17 +1,14 @@
-from .models import Book, Author, Checkout, Insight, BookKeywords, WordsToIgnore, Medium
-from .serializers import BookSerializer, AuthorSerializer, CheckoutSerializer, InsightSerializer, MediumSerializer, \
+from inspiration.models import Book, Author, Checkout, Insight, BookKeywords, WordsToIgnore, Medium
+from inspiration.serializers import BookSerializer, AuthorSerializer, CheckoutSerializer, InsightSerializer, MediumSerializer, \
     UserSerializer, BookKeywordsSerializer, WordsToIgnoreSerializer
-from rest_framework import viewsets
+from rest_framework import viewsets, permissions
 from django.contrib.auth.models import User
 from django.db.models import Q
-
-
-from .InpsiprationBaseViewMixIn import InspirationBaseViewMixIn
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from rest_framework.decorators import detail_route, list_route
-from rest_framework.views import APIView
+
+from inspiration.views.InpsiprationBaseViewMixIn import InspirationBaseViewMixIn
 
 
 class MediumViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
@@ -127,6 +124,8 @@ class BookInsightViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
         except Exception as exception:
             return self.__class__.respondToException(exception)
 
+
+
 class InsightViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
@@ -153,36 +152,7 @@ class InsightViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
 
         return Response(InsightSerializer(insight).data)
 
-    # TODO - this should be an admin only api
-    @detail_route(methods=['put'])
-    def validate(self, request, pk=None):
-        '''
-        Used to validate a specific insight.  This will call the parse lesson function.
-        :param request:
-        :param books_pk:
-        :return:
-        '''
 
-        try:
-            insight = Insight.get(pk)
-            book = Book.get(insight.book.id)
-
-            # if the insight is already set to true, don't do anything
-            # should this be a 200 response?
-            if insight.valid == True:
-                return insight.respond_nothing_done()
-
-            from inspiration.learning.BookLearning import BookLearning
-
-            response = BookLearning.learn(book, insight)
-
-            insight.valid = True
-            insight.save()
-
-            return response
-
-        except Exception as exception:
-            return self.__class__.respondToException(exception)
 
 
 class WordsToIgnoreViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
