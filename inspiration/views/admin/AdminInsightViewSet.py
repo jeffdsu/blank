@@ -31,7 +31,7 @@ class AdminInsightViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
             response = MediumLearning.learn(medium, insight)
 
             insight.valid = True
-            #insight.save()
+            insight.save()
 
             return response
 
