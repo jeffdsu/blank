@@ -67,8 +67,7 @@
     "fields": {
       "user": 1,
       "lesson": "When you truly believe in an idea, you should let your passion drive that idea to become a reality.",
-      "medium": 2,
-      "valid": true
+      "medium": 2
     }
   },
   {
@@ -77,8 +76,7 @@
     "fields": {
       "user": 1,
       "lesson": "In the modern world, all relationships (career, family and etc.) should be treated with equality in mind",
-      "medium": 1,
-      "valid": true
+      "medium": 1
     }
   },
   {
@@ -97,8 +95,7 @@
     "fields": {
       "medium": 1,
       "word": "relationship",
-      "count": 1,
-      "list_of_insights": "[2]"
+      "count": 1
     }
   },
   {
@@ -107,8 +104,7 @@
     "fields": {
       "medium": 2,
       "word": "idea",
-      "count": 1,
-      "list_of_insights": "[1]"
+      "count": 1
     }
   }
 ]

@@ -41,7 +41,6 @@ class MediumLearning(Learning):
                     known_medium_keywords.append(cls.analyze_known_key_word(known_keyword, insight))
                     print("{%s} known word! %s" % (function, found_word))
 
-
             cls.save_new(new_medium_keywords)
             cls.analyze(known_medium_keywords)
 
@@ -80,8 +79,10 @@ class MediumLearning(Learning):
             temp_insight_list = []
             temp_insight_list.append(insight.id)
             medium_keyword_dict['list_of_insights'] = str(temp_insight_list)
-        except:
-            # should return response
+            return Keyword(**medium_keyword_dict)
+
+        except Exception as e:
+            print(e)
             return
 
     @classmethod
