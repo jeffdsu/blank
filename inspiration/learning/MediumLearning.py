@@ -1,14 +1,14 @@
 from .Learning import Learning
-from inspiration.models import Book
-from inspiration.models import BookKeywords
+from inspiration.models import Medium
+from inspiration.models import Keyword
 import ast
 
 
 
-class BookLearning(Learning):
+class MediumLearning(Learning):
 
     @classmethod
-    def learn (cls, book, insight, **kwargs):
+    def learn (cls, medium, insight, **kwargs):
 
         try:
             # TODO - if debug mode:
@@ -17,44 +17,44 @@ class BookLearning(Learning):
 
             list_of_found_words = cls.parse_lesson(insight.lesson)
             kwargs['format'] = dict
-            book_known_keywords = BookKeywords().search(book, **kwargs)
+            medium_known_keywords = Keyword().search(medium, **kwargs)
 
             #  TODO - make this print out only in debug mode later
             print(list_of_found_words)
-            print(book_known_keywords)
+            print(medium_known_keywords)
 
-            new_book_keywords = []
-            known_book_keywords = []
+            new_medium_keywords = []
+            known_medium_keywords = []
 
             # TODO - probably move this to something else later
             for found_word in list_of_found_words:
-                if found_word not in book_known_keywords:
+                if found_word not in medium_known_keywords:
 
                     #TODO - make this a debug statement:
                     print("{%s} new word! %s"%(function, found_word))
 
-                    new_book_keywords.append(cls.gen_keyword(found_word, book, insight))
+                    new_medium_keywords.append(cls.gen_keyword(found_word, medium, insight))
 
                 else:
-                    known_keyword = book_known_keywords[found_word]
+                    known_keyword = medium_known_keywords[found_word]
 
-                    known_book_keywords.append(cls.analyze_known_key_word(known_keyword, insight))
+                    known_medium_keywords.append(cls.analyze_known_key_word(known_keyword, insight))
                     print("{%s} known word! %s" % (function, found_word))
 
 
-            cls.save_new(new_book_keywords)
-            cls.analyze(known_book_keywords)
+            cls.save_new(new_medium_keywords)
+            cls.analyze(known_medium_keywords)
 
-            return cls.respond_learned(book, insight)
+            return cls.respond_learned(medium, insight)
         except:
             return cls.respond_issues_with_learning()
 
     @classmethod
-    def analyze(cls, known_book_keywords):
+    def analyze(cls, known_medium_keywords):
         try:
-            for book_keyword in known_book_keywords:
+            for medium_keyword in known_medium_keywords:
                 print("here!")
-                book_keyword.save()
+                medium_keyword.save()
         except:
             return cls.respond_issues_with_learning()
 
@@ -70,24 +70,24 @@ class BookLearning(Learning):
         return known_keyword
 
     @classmethod
-    def gen_keyword(cls, found_word, book, insight):
+    def gen_keyword(cls, found_word, medium, insight):
 
         try:
-            book_keyword_dict = dict()
-            book_keyword_dict['word'] = found_word
-            book_keyword_dict['book'] = book
+            medium_keyword_dict = dict()
+            medium_keyword_dict['word'] = found_word
+            medium_keyword_dict['medium'] = medium
 
             temp_insight_list = []
             temp_insight_list.append(insight.id)
-            book_keyword_dict['list_of_insights'] = str(temp_insight_list)
+            medium_keyword_dict['list_of_insights'] = str(temp_insight_list)
         except:
             # should return response
             return
 
     @classmethod
-    def save_new(cls, new_book_keywords):
+    def save_new(cls, new_medium_keywords):
         try:
-            for book_keyword in new_book_keywords:
-                book_keyword.save()
+            for medium_keyword in new_medium_keywords:
+                medium_keyword.save()
         except:
             return cls.respond_issues_with_learning()

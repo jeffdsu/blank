@@ -8,7 +8,7 @@ blankApp.controller('booksController', ['$scope', '$resource', '$routeParams', '
     $scope.get_random_insight_for_each_book = function () {
 
         angular.forEach($scope.books, function (value, key) {
-            bookService.get_random_insight(value.id)
+            bookService.get_random_insight(value.id, $scope.query)
                 .then(function (data) {
                     value.insight = data;
                 }, function (err) {
@@ -57,12 +57,12 @@ blankApp.controller('booksController', ['$scope', '$resource', '$routeParams', '
 }]);
 
 
-blankApp.controller('inspirationController', ['$scope', '$resource', '$routeParams', '$http', 'mediumService', function ($scope, $resource, $routeParams, $http, mediumService) {
+blankApp.controller('inspirationController', ['$scope', '$resource', '$routeParams', '$http', 'mediumTypeService', function ($scope, $resource, $routeParams, $http, mediumTypeService) {
 
 
-    mediumService.get_collection()
+    mediumTypeService.get_collection()
         .then(function (data) {
-                $scope.mediums = data;
+                $scope.mediums_types = data;
             }
             , function (err) {
 

@@ -2,19 +2,15 @@ blankApp.config(['$routeProvider', '$httpProvider', function ($routeProvider, $h
 
     $routeProvider
 
-        .when('/', {
-            templateUrl: 'partials/home.htm'
-            , controller: 'homeController'
-        })
-        .when('/inspiration', {
+        .when('/inspiration-corner', {
             templateUrl: 'partials/inspiration.htm'
             , controller: 'inspirationController'
         })
-        .when('/inspiration/books', {
+        .when('/inspiration-corner/books', {
             templateUrl: 'partials/books.htm'
             , controller: 'booksController'
         })
-        .when('/inspiration/books/:bookId', {
+        .when('/inspiration-corner/books/:bookId', {
             templateUrl: 'partials/book-details.htm'
             , controller: 'booksDetailController'
         })
@@ -30,28 +26,40 @@ blankApp.config(['$routeProvider', '$httpProvider', function ($routeProvider, $h
             templateUrl: 'partials/signup.htm'
             , controller: 'authController'
         })
-        .when('/inspiration/authors', {
+        .when('/inspiration-corner/authors', {
             templateUrl: 'partials/authors.htm'
             , controller: 'authorsController'
         })
-        .when('/inspiration/authors/:authorId', {
+        .when('/inspiration-corner/authors/:authorId', {
             templateUrl: 'partials/author-details.htm'
             , controller: 'authorDetailsController'
         })
-        .when('/inspiration/users/:userId', {
+        .when('/inspiration-corner/users/:userId', {
             templateUrl: 'partials/user-details.htm'
             , controller: 'userDetailsController'
         })
         // admin
-        .when('/admin/inspiration/books', {
-            templateUrl: 'partials/admin-books.htm'
+        .when('/inspiration-corner/admin', {
+            templateUrl: 'partials/admin.htm'
+            , 
+        })
+        .when('/inspiration-corner/admin/mediums/books/add', {
+            templateUrl: 'partials/admin/mediums/books/add-book.htm'
             , controller: 'adminBooksController'
         })
-        .when('/admin/inspiration/words-to-ignore', {
+        .when('/inspiration-corner/admin/authors/add', {
+            templateUrl: 'partials/admin-add-author.htm'
+            , controller: 'adminAuthorController'
+        })
+        .when('/inspiration-corner/admin/mediums/books', {
+            templateUrl: 'partials/admin/mediums/books/add-book.htm'
+            , controller: 'adminBooksController'
+        })
+        .when('/inspiration-corner/admin/words-to-ignore', {
             templateUrl: 'partials/admin-words-to-ignore.htm'
             , controller: 'adminWordsToIgnoreController'
         })
-        .when('/admin/inspiration/insights', {
+        .when('/inspiration-corner/admin/insights', {
             templateUrl: 'partials/admin-insights.htm'
             , controller: 'adminInsightController'
         });

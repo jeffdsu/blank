@@ -1,27 +1,25 @@
 from django.db import models
 from .InspirationBaseModelMixin import InspirationBaseModelMixIn
 
-class BookKeywords(models.Model, InspirationBaseModelMixIn):
-    book = models.ForeignKey('Book', on_delete=models.CASCADE)
+class Keyword(models.Model, InspirationBaseModelMixIn):
+    medium = models.ForeignKey('Medium', on_delete=models.CASCADE)
     word = models.CharField(max_length=50)
     count = models.IntegerField(default=0)
     list_of_insights = models.TextField()
 
     def __str__(self):
-        return "<BookKeywords - %s - %d>" % (self.word, self.count)
-
+        return "<Keyword - %s - %d>" % (self.word, self.count)
 
     @classmethod
-    def get_top_10_keywords(cls, book):
-        search_build = BookKeywords.objects.filter(book=book).order_by('-count')[:10]
+    def get_top_10_keywords(cls, medium):
+        search_build = Keyword.objects.filter(medium=medium).order_by('-count')[:10]
 
         return search_build
 
     @classmethod
-    def search(cls, book, **kwargs):
+    def search(cls, medium, **kwargs):
 
-        search_build = BookKeywords.objects.filter(book=book)
-
+        search_build = Keyword.objects.filter(medium=medium)
 
         if 'style' in kwargs:
             import re
@@ -33,7 +31,7 @@ class BookKeywords(models.Model, InspirationBaseModelMixIn):
 
                 top_x = current_search_len if top_x > current_search_len else top_x
 
-                search_build = BookKeywords.objects.filter(book=book).order_by('-count')[:top_x]
+                search_build = Keyword.objects.filter(medium=medium).order_by('-count')[:top_x]
 
                 return search_build
 
@@ -52,6 +50,6 @@ class BookKeywords(models.Model, InspirationBaseModelMixIn):
     @classmethod
     def admin_search(cls, **kwargs):
 
-        search_build = BookKeywords.objects.filter(**kwargs)
+        search_build = Keyword.objects.filter(**kwargs)
 
         return search_build

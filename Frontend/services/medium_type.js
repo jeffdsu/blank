@@ -1,9 +1,9 @@
-blankApp.service('mediumService', ['$http', '$localStorage', 'urls', '$q', function ($http, $localStorage, urls, $q) {
+blankApp.service('mediumTypeService', ['$http', '$localStorage', 'urls', '$q', function ($http, $localStorage, urls, $q) {
     
     self = this;
     
     self.get_collection = function () {
-        return $http.get(urls.BASE + "/inspiration-corner/mediums")
+        return $http.get(urls.BASE + "/inspiration-corner/medium-types")
             .then(function (response) {
                 if (typeof response.data === 'object') {
                     return response.data

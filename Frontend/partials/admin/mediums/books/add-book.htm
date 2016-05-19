@@ -1,0 +1,11 @@
+<form>
+    Book Title: <input type='text' class="form-control" ng-model="book.title">
+    Author: <select ng-model="book.author">
+      <option ng-repeat="author in authors" value="{{author.id}}">{{author.first_name}} {{author.last_name}}</option>
+    </select>
+    <md-content class="datepickerdemoBasicUsage" ng-cloak="">
+        Publication Date: <md-datepicker ng-model="pub_date" md-placeholder="Enter date"></md-datepicker></md-content>
+    Book Summary: <textarea class="form-control" rows="5" ng-model="book.summary"></textarea>
+    Cover Url: <input type='text' class="form-control" ng-model="book.cover_url">
+    <input class="form-control" type="submit" value="Submit", ng-click="add_book(book)">
+</form>

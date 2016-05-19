@@ -1,5 +1,5 @@
 from rest_framework.response import Response
-from inspiration.models import WordsToIgnore
+from inspiration.models import WordToIgnore
 import string
 
 class Learning ():
@@ -7,7 +7,7 @@ class Learning ():
     @classmethod
     def parse_lesson(self, lesson):
 
-        list_of_words_to_ignore = WordsToIgnore.objects.all()
+        list_of_words_to_ignore = WordToIgnore.objects.all()
         parsed_list = []
         split_list = lesson.split()
 

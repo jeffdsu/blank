@@ -6,5 +6,9 @@ blankApp.controller('adminBooksController', ['$scope', '$resource', '$routeParam
     }, function(err){});
     
 
-
+    $scope.add_book = function (book) {
+        bookService.create(book).then(function(data) {
+            
+        }, function (err){})
+    }
 }]);

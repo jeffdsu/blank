@@ -1,9 +1,12 @@
 from .InspirationBaseCollectionObj import InspirationBaseCollectionObj
-from .Medium import Medium
 from .User import User
-from .Author import Author
-from .Book import Book
+
+from .Keyword import Keyword
+from .Medium import Medium
+from .MediumType import MediumType
+from .Contributor import Contributor
+
 from .Checkout import Checkout
 from .Insight import Insight
-from .WordsToIgnore import WordsToIgnore
-from .BookKeywords import BookKeywords
+from .WordToIgnore import WordToIgnore
+

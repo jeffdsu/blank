@@ -1,18 +1,17 @@
 from rest_framework import serializers
-from .models import Book, Author, Checkout, Insight, Medium, BookKeywords, WordsToIgnore
+from .models import MediumType, Contributor, Checkout, Insight, Medium, Keyword, WordToIgnore
 from django.contrib.auth.models import User
 
 
-class BookSerializer(serializers.ModelSerializer):
+class MediumSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Book
+        model = Medium
         fields = '__all__'
         depth = 2
 
-
-class AuthorSerializer(serializers.ModelSerializer):
+class ContributorSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Author
+        model = Contributor
         fields = '__all__'
         depth = 2
 
@@ -26,19 +25,20 @@ class InsightSerializer(serializers.ModelSerializer):
         model = Insight
         #fields = '__all__'
 
-class MediumSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Medium
 
-class BookKeywordsSerializer(serializers.ModelSerializer):
+class MediumTypeSerializer(serializers.ModelSerializer):
     class Meta:
-        model = BookKeywords
+        model = MediumType
+
+class KeywordSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Keyword
         #fields = '__all__'
 
 
-class WordsToIgnoreSerializer(serializers.ModelSerializer):
+class WordToIgnoreSerializer(serializers.ModelSerializer):
     class Meta:
-        model = WordsToIgnore
+        model = WordToIgnore
         #fields = '__all__'
 
 class UserSerializer(serializers.ModelSerializer):

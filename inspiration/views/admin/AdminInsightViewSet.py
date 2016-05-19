@@ -1,4 +1,4 @@
-from inspiration.models import Book, Insight
+from inspiration.models import Medium, Insight
 from inspiration.serializers import  InsightSerializer
 from rest_framework import viewsets, permissions
 from inspiration.views import InspirationBaseViewMixIn
@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.db.models import Q
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.decorators import detail_route
+from inspiration.learning.MediumLearning import MediumLearning
 
 class AdminInsightViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
     authentication_classes = (TokenAuthentication,)
@@ -17,25 +18,17 @@ class AdminInsightViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
     # TODO - this should be an admin only api
     @detail_route(methods=['put'])
     def validate(self, request, pk=None):
-        '''
-        Used to validate a specific insight.  This will call the parse lesson function.
-        :param request:
-        :param books_pk:
-        :return:
-        '''
 
         try:
             insight = Insight.get(pk)
-            book = Book.get(insight.book.id)
+            medium = Medium.get(insight.medium.id)
 
             # if the insight is already set to true, don't do anything
             # should this be a 200 response?
             if insight.valid == True:
                 return insight.respond_nothing_done()
 
-            from inspiration.learning.BookLearning import BookLearning
-
-            response = BookLearning.learn(book, insight)
+            response = MediumLearning.learn(medium, insight)
 
             insight.valid = True
             insight.save()

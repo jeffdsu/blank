@@ -1,9 +1,19 @@
-from .InspirationBaseModelMixin import InspirationBaseModelMixIn
 from django.db import models
+from django.contrib.auth.models import User
+from .InspirationBaseModelMixin import InspirationBaseModelMixIn
 
 class Medium(models.Model, InspirationBaseModelMixIn):
-    type = models.CharField(max_length=255)
-    icon_url = models.CharField(max_length=255)
+    contributors = models.ForeignKey('Contributor', null=True, on_delete=models.SET_NULL, related_name='works')
+    type = models.ForeignKey('MediumType', null=True, on_delete=models.SET_NULL)
+    title = models.CharField(max_length=255)
+    pub_date = models.DateField(null=True)
+    summary = models.TextField()
+    cover = models.CharField(max_length=255)
 
     def __str__(self):
-        return "<Author - %s %s>" % (self.first_name, self.last_name)
+        return "<Medium [%s]- %s - %s>" % (self.title, self.type, str(self.contributors))
+
+    @classmethod
+    def search(cls, **kwargs):
+        return Medium.objects.filter(**kwargs)
+

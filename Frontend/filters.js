@@ -1,7 +1,7 @@
 blankApp.filter('authorFilter', function () {
     return function (author) {
         if (author) {
-            temp_str = "<a href='#/inspiration/authors/" + author.id + "'>" + author.first_name + " ";
+            temp_str = "<a href='#/inspiration-corner/authors/" + author.id + "'>" + author.first_name + " ";
             if (author.middle_initial) {
                 temp_str += author.middle_initial + " "
             }
@@ -37,8 +37,29 @@ blankApp.filter('insightColorFilter', function () {
 blankApp.filter('insightLinkToUserFilter', function () {
     return function (insight) {
         if (insight) {
-            return "<a href='#/inspiration/users/" + insight.user + "'>" + insight.lesson + "</a>";
+            return "<a href='#/inspiration-corner/users/" + insight.user + "'>" + insight.lesson + "</a>";
         }
         return "";
+    };
+});
+
+
+blankApp.filter('keywordsFilter', function () {
+    return function (items, search) {
+        var filtered = [];
+        if (search) {
+            search_words = search.split(" ");
+
+            angular.forEach(search_words, function (word) {
+                angular.forEach(items, function (item) {
+                    if (word.toLowerCase() in item.keywords) {
+                        filtered.push(item);
+                    }
+                });
+            });
+            return filtered;
+        }
+        return items;
+
     };
 });
