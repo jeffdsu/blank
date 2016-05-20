@@ -6,13 +6,13 @@ blankApp.config(['$routeProvider', '$httpProvider', function ($routeProvider, $h
             templateUrl: 'partials/inspiration.htm'
             , controller: 'inspirationController'
         })
-        .when('/inspiration-corner/books', {
+        .when('/inspiration-corner/media/:mediaType', {
             templateUrl: 'partials/books.htm'
-            , controller: 'booksController'
+            , controller: 'mediaController'
         })
-        .when('/inspiration-corner/books/:bookId', {
+        .when('/inspiration-corner/media/:mediaType/:mediaId', {
             templateUrl: 'partials/book-details.htm'
-            , controller: 'booksDetailController'
+            , controller: 'mediaDetailController'
         })
         .when('/signin', {
             templateUrl: 'partials/signin.htm'

@@ -8,6 +8,10 @@ class MediumSerializer(serializers.ModelSerializer):
         model = Medium
         fields = '__all__'
         depth = 2
+        lookup_field = 'type__name'
+        extra_kwargs = {
+            'url': {'lookup_field': 'type__name'}
+        }
 
 class ContributorSerializer(serializers.ModelSerializer):
     class Meta:

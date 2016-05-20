@@ -1,7 +1,7 @@
 <img ng-src="{{book.images[0]}}" class="phone">
 
 <h1>{{book.title}}</h1>
-<span ng-bind-html='book.author | authorFilter' ></span>
+<span ng-bind-html='book.contributors | authorFilter' ></span>
 <img ng-src="{{book.cover_url}}">
 <p>{{book.summary}}</p>
 <p>{{book.pub_date}}</p>

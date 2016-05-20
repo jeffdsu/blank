@@ -1,14 +1,15 @@
-blankApp.controller('booksController', ['$scope', '$resource', '$routeParams', '$http', '$interval', 'bookService', 'insightService', function ($scope, $resource, $routeParams, $http, $interval, bookService, insightService) {
+blankApp.controller('mediaController', ['$scope', '$resource', '$routeParams', '$http', '$interval', 'mediaService', 'insightService', function ($scope, $resource, $routeParams, $http, $interval, mediaService, insightService) {
 
     var insights_interval;
-    //var $scope.top_10_words = {};
+    $scope.mediaType = $routeParams.mediaType;
+    mediaService.mediaType = $scope.mediaType;
 
 
 
     $scope.get_random_insight_for_each_book = function () {
 
         angular.forEach($scope.books, function (value, key) {
-            bookService.get_random_insight(value.id, $scope.query)
+            mediaService.get_random_insight(value.id, $scope.query)
                 .then(function (data) {
                     value.insight = data;
                 }, function (err) {
@@ -25,7 +26,7 @@ blankApp.controller('booksController', ['$scope', '$resource', '$routeParams', '
     }
 
 
-    bookService.get_collection()
+    mediaService.get_collection()
         .then(function (data) {
                 $scope.books = data;
                 $scope.get_random_insight_for_each_book();
@@ -33,7 +34,7 @@ blankApp.controller('booksController', ['$scope', '$resource', '$routeParams', '
                 insights_interval = $interval($scope.get_random_insight_for_each_book, 5000);
 
                 angular.forEach($scope.books, function (value, key) {
-                    bookService.get_top_10_keywords(value.id)
+                    mediaService.get_top_10_keywords(value.id)
                         .then(function (data) {
                             value.keywords = {}
                             for (i = 0; i < data.length; i++) {
@@ -72,19 +73,24 @@ blankApp.controller('inspirationController', ['$scope', '$resource', '$routePara
 
 }]);
 
-blankApp.controller('booksDetailController', ['$scope', '$resource', '$routeParams', '$http', 'bookService', function ($scope, $resource, $routeParams, $http, bookService) {
+blankApp.controller('mediaDetailController', ['$scope', '$resource', '$routeParams', '$http', 'mediaService', function ($scope, $resource, $routeParams, $http, mediaService) {
 
+    
+    $scope.mediaType = $routeParams.mediaType;
+    mediaService.mediaType = $scope.mediaType;
+    
+    
     $scope.dialogShown = false;
-    bookService.id = $routeParams.bookId;
+    mediaService.id = $routeParams.mediaId;
 
-    bookService.get($routeParams.bookId)
+    mediaService.get($routeParams.mediaId)
         .then(function (data) {
             $scope.book = data;
         }, function (err) {
 
         });
 
-    bookService.get_insights($routeParams.bookId)
+    mediaService.get_insights($routeParams.mediaId)
         .then(function (data) {
             $scope.insights = data;
         }, function (err) {
@@ -112,7 +118,7 @@ blankApp.controller('signInController', ['$scope', '$resource', '$routeParams', 
 
 }]);
 
-blankApp.controller('addInsightController', ['$scope', '$resource', '$routeParams', '$http', 'bookService', function ($scope, $resource, $routeParams, $http, bookService) {
+blankApp.controller('addInsightController', ['$scope', '$resource', '$routeParams', '$http', 'mediaService', function ($scope, $resource, $routeParams, $http, mediaService) {
 
 
     $scope.add_insight = function (insight) {
@@ -121,7 +127,7 @@ blankApp.controller('addInsightController', ['$scope', '$resource', '$routeParam
             lesson: insight
         };
 
-        bookService.add_insight($routeParams.bookId, formData)
+        mediaService.add_insight($routeParams.bookId, formData)
             .then(function () {
                 $scope.dialogShown = !$scope.dialogShown;
             })
@@ -151,7 +157,7 @@ blankApp.controller('authController', ['urls', '$rootScope', '$scope', '$resourc
 
     function successAuth(res) {
         $localStorage.token = res.key;
-        $location.path('inspiration').replace();
+        $location.path('inspiration-corner').replace();
 
     }
 

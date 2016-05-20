@@ -5,7 +5,7 @@ from inspiration import views
 from rest_framework_nested import routers
 
 router = routers.DefaultRouter(trailing_slash=False)
-router.register(r'media/books', views.MediumViewSet)
+router.register(r'media/(?P<type>\w+)', views.MediumViewSet)
 router.register(r'contributors', views.ContributorViewSet)
 router.register(r'medium-types', views.MediumTypeViewSet)
 router.register(r'insights', views.InsightViewSet)
@@ -17,7 +17,7 @@ router.register(r'admin/insights', views.admin.AdminInsightViewSet)
 
 medium_types_router = routers.NestedSimpleRouter(router, r'medium-types', lookup='media', trailing_slash=False)
 
-books_router = routers.NestedSimpleRouter(router, r'media/books', lookup='media', trailing_slash=False)
+books_router = routers.NestedSimpleRouter(router, r'media/(?P<type>\w+)', lookup='media', trailing_slash=False)
 books_router.register(r'checkouts', views.CheckoutViewSet, base_name='media-checkouts')
 books_router.register(r'insights', views.MediumInsightViewSet, base_name='media-insights')
 books_router.register(r'keywords', views.KeywordsViewSet, base_name='media-keywords')

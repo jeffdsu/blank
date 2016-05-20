@@ -1,0 +1,39 @@
+.panel-default>.panel-heading {
+    color: #ffffff;
+    background-color: #000000;
+    border-color: #000000;
+}
+
+
+.panel-primary>.panel-body {
+    color: #000000;
+    border-color: #000000;
+}
+
+.panel-primary:hover {
+    color: #000000;
+    border-color: #000000;
+}
+
+
+.panel-primary>.panel-heading {
+    color: #ffffff;
+    background-color: #000000;
+    border-color: #000000;
+}
+
+.panel-default:hover {
+  border-color: #bbf9ff;
+    color: #000000;
+  -webkit-transition:  all .3s ease;
+}
+
+.panel:hover>.panel-heading {
+    background-color: #bbf9ff;
+    color: #000000;
+    border-color: #bbf9ff;
+    -webkit-transition:  all .3s ease;
+}
+
+
+

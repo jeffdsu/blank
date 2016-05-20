@@ -49,12 +49,14 @@ class MediumViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
     queryset = Medium.objects.all()
     serializer_class = MediumSerializer
 
-    def get(self, request, format=None):
-        content = {
-            'user': request.user,  # `django.contrib.auth.User` instance.
-            'auth': request.auth,  # None
-        }
-        return Response(content)
+    def list(self, request, type=None):
+        mediums = Medium.objects.filter(type__name=type)
+
+        return Response(MediumSerializer(mediums, many=True).data)
+
+
+
+
 
 
 class ContributorViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
