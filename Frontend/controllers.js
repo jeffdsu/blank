@@ -1,6 +1,7 @@
 blankApp.controller('mediaController', ['$scope', '$resource', '$routeParams', '$http', '$interval', 'mediaService', 'insightService', function ($scope, $resource, $routeParams, $http, $interval, mediaService, insightService) {
 
     var insights_interval;
+    $scope.checked = 'I';
     $scope.mediaType = $routeParams.mediaType;
     mediaService.mediaType = $scope.mediaType;
 
@@ -75,11 +76,11 @@ blankApp.controller('inspirationController', ['$scope', '$resource', '$routePara
 
 blankApp.controller('mediaDetailController', ['$scope', '$resource', '$routeParams', '$http', 'mediaService', function ($scope, $resource, $routeParams, $http, mediaService) {
 
-    
+
     $scope.mediaType = $routeParams.mediaType;
     mediaService.mediaType = $scope.mediaType;
-    
-    
+
+
     $scope.dialogShown = false;
     mediaService.id = $routeParams.mediaId;
 

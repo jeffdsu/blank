@@ -1,11 +1,11 @@
 blankApp.filter('authorFilter', function () {
     return function (author) {
         if (author) {
-            temp_str = "<a href='#/inspiration-corner/authors/" + author.id + "'>" + author.first_name + " ";
+            temp_str = "<h4><a class=\"contributor\"/href='#/inspiration-corner/authors/" + author.id + "'>" + author.first_name + " ";
             if (author.middle_initial) {
                 temp_str += author.middle_initial + " "
             }
-            temp_str += author.last_name + "</a>";
+            temp_str += author.last_name + "</a><h4>";
             return temp_str;
         }
     };

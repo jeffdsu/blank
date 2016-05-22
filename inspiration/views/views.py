@@ -27,7 +27,7 @@ class KeywordsViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
     queryset = Keyword.objects.filter()
     serializer_class = KeywordSerializer
 
-    def list(self, request, media_pk=None):
+    def list(self, request, type=None, media_pk=None):
         medium = Medium.get(media_pk)
 
         format_qp = self.request.query_params.get('style', None)
@@ -81,7 +81,7 @@ class MediumInsightViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
 
     serializer_class = InsightSerializer
 
-    def list(self, request, media_pk=None):
+    def list(self, request, type=None, media_pk=None):
         try:
             medium = Medium.get(media_pk)
 
@@ -106,6 +106,8 @@ class MediumInsightViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
                 for i in insights:
                     print(i.lesson)
 
+                if len(insights) == 0:
+                    return self.respond_not_found("No Insight found")
 
                 return Response(InsightSerializer(random.choice(insights)).data)
 

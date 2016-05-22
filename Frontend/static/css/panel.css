@@ -35,5 +35,7 @@
     -webkit-transition:  all .3s ease;
 }
 
-
+a.media-panel {
+    color: #000000;
+}
 

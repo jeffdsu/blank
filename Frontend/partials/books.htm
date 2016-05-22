@@ -1,36 +1,38 @@
 <div class="header">
-<div class="row">
-    <div class="col-md-8"><h1>{{ mediaType }}</h1></div>
-    
-  <div class="col-md-4">
-    
+    <div class="row">
+        <div class="col-md-8">
+            <h1>{{ mediaType }}</h1></div>
+        
+        <div class="col-md-4">
+            
 
-    
-        <form id="search-form" class="form-inline pull-right" role="form">
 
-            <div class="input-group">
-                <input type="text" class="form-control search-form" placeholder="Search" ng-model="query">
-                <span class="input-group-btn"><button type="submit" class="btn btn-primary search-btn" data-target="#search-form" name="q"><i class="glyphicon glyphicon-search"></i>
+
+            <form id="search-form" class="form-inline pull-right" role="form">
+
+                <div class="input-group">
+                    <input type="text" class="form-control search-form" placeholder="Search" ng-model="query">
+                    <span class="input-group-btn"><button type="submit" class="btn btn-primary search-btn" data-target="#search-form" name="q"><i class="glyphicon glyphicon-search"></i>
 											</button></span>
-            </div>
+                </div>
 
-        </form>
+            </form>
+        </div>
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-secondary" ng-click="checked='I'">I</button>
+            <button type="button" class="btn btn-secondary" ng-click="checked='T'">T</button>
+        </div>
+        <hr>
     </div>
-    <hr>
-</div>
 </div>
 
-<div class="row">
-    <input type="checkbox" ng-model="checked" ng-init="checked=true" />
-</div>
 <br>
 
 <div class="row">
     <div ng-repeat="b in books | keywordsFilter:query">
-        <div class="row" ng-href='#'>
-
-            <div ng-switch on="checked">
-                <div ng-switch-when="true">
+        <div ng-switch on="checked">
+            <div class="row" ng-href='#'>
+                <div ng-switch-when='I'>
                     <div class="col-md-12">
                         <a href="#/inspiration-corner/media/books/{{b.id}}">
                             <div class="panel panel-default">
@@ -40,28 +42,30 @@
                                 </div>
                                 <div class="panel-body">
                                     <div styled-insight book="b">
-                                        <!-- code to render a large video block-->
                                     </div>
                                 </div>
                             </div>
                         </a>
                     </div>
                 </div>
-                <div ng-switch-when="false">
-                    <a href="#/inspiration-corner/media/books/{{b.id}}">
-                        <div class="col-md-4">
+                <div ng-switch-when='T'>
+                    <div class="col-md-4">
+                        <a href="#/inspiration-corner/media/books/{{b.id}}">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <h3 class="panel-title">{{ b.title }}</h3>
                                 </div>
                                 <div class="panel-body">
-                                    <div styled-keywords book="b">
-                                        <!-- code to render a large video block-->
+                                    <div class="typography">
+                                        <div styled-keywords book="b">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </a>
+
+
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

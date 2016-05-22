@@ -89,7 +89,8 @@
     "fields": {
       "user": 1,
       "lesson": "When you truly believe in an idea, you should let your passion drive that idea to become a reality.",
-      "medium": 2
+      "medium": 2,
+      "valid": true
     }
   },
   {
@@ -98,7 +99,18 @@
     "fields": {
       "user": 1,
       "lesson": "In the modern world, all relationships (career, family and etc.) should be treated with equality in mind",
-      "medium": 1
+      "medium": 1,
+      "valid": true
+    }
+  },
+  {
+    "model": "inspiration.insight",
+    "pk": 3,
+    "fields": {
+      "user": 1,
+      "lesson": "All minds are equal.",
+      "medium": 1,
+      "valid": false
     }
   },
   {
