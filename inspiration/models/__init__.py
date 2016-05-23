@@ -5,8 +5,11 @@ from .Keyword import Keyword
 from .Medium import Medium
 from .MediumType import MediumType
 from .Contributor import Contributor
+from .ContributionType import ContributionType
+from .MediumContribution import MediumContribution
 
 from .Checkout import Checkout
 from .Insight import Insight
 from .WordToIgnore import WordToIgnore
+
 

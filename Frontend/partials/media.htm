@@ -34,11 +34,11 @@
             <div class="row" ng-href='#'>
                 <div ng-switch-when='I'>
                     <div class="col-md-12">
-                        <a href="#/inspiration-corner/media/books/{{b.id}}">
+                        <a href="#/inspiration-corner/media/books/{{b.id}}" class="insight">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <h3 class="panel-title">{{ b.title }}</h3>
-                                    <span ng-bind-html='b.contributor | authorFilter'></span>
+                                    <span ng-bind-html='b.contributor | contributorFilter'></span>
                                 </div>
                                 <div class="panel-body">
                                     <div styled-insight book="b">
@@ -50,7 +50,7 @@
                 </div>
                 <div ng-switch-when='T'>
                     <div class="col-md-4">
-                        <a href="#/inspiration-corner/media/books/{{b.id}}">
+                        <a class="insight" href="#/inspiration-corner/media/books/{{b.id}}">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <h3 class="panel-title">{{ b.title }}</h3>

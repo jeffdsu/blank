@@ -7,11 +7,11 @@ blankApp.config(['$routeProvider', '$httpProvider', function ($routeProvider, $h
             , controller: 'inspirationController'
         })
         .when('/inspiration-corner/media/:mediaType', {
-            templateUrl: 'partials/books.htm'
+            templateUrl: 'partials/media.htm'
             , controller: 'mediaController'
         })
         .when('/inspiration-corner/media/:mediaType/:mediaId', {
-            templateUrl: 'partials/book-details.htm'
+            templateUrl: 'partials/medium-details.htm'
             , controller: 'mediaDetailController'
         })
         .when('/signin', {
@@ -26,13 +26,13 @@ blankApp.config(['$routeProvider', '$httpProvider', function ($routeProvider, $h
             templateUrl: 'partials/signup.htm'
             , controller: 'authController'
         })
-        .when('/inspiration-corner/authors', {
-            templateUrl: 'partials/authors.htm'
-            , controller: 'authorsController'
+        .when('/inspiration-corner/contributors', {
+            templateUrl: 'partials/contributors.htm'
+            , controller: 'contributorsController'
         })
-        .when('/inspiration-corner/authors/:authorId', {
-            templateUrl: 'partials/author-details.htm'
-            , controller: 'authorDetailsController'
+        .when('/inspiration-corner/contributors/:contributorId', {
+            templateUrl: 'partials/contributor-details.htm'
+            , controller: 'contributorDetailsController'
         })
         .when('/inspiration-corner/users/:userId', {
             templateUrl: 'partials/user-details.htm'

@@ -1,24 +1,23 @@
-<img ng-src="{{book.images[0]}}" class="phone">
-
 <h1>{{book.title}}</h1>
 <hr>
+<br>
 <h3>Contributors</h3>
 <ul class="dashed">
-  <li ng-bind-html='book.contributors | authorFilter' ></li>
+  <li ng-bind-html='book.contributors | contributorFilter' ></li>
 </ul>
+<br>
 <h3>Summary</h3>
 <p>{{ book.summary }}</p>
 <p>{{ book.pub_date }}</p>
 
 
-
-<h3>Lessons Learned</h3>
+<br>
+<h3>Insights</h3>
        
             <table class="table table-hover">
                 <tbody>
                     <tr ng-repeat="insight in insights">
-                        <div styled-insight book="b"></div>
-                        <td><span ng-bind-html='insight | insightLinkToUserFilter' ></span></td>
+                        <td><span ng-bind-html='insight | insightColorFilter: keywords | addUserLinkFilter:insight' ></span></td>
                     </tr>
                 </tbody>
             </table>

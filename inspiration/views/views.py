@@ -1,6 +1,6 @@
 from inspiration.models import MediumType, Contributor, Checkout, Insight, Keyword, WordToIgnore, Medium
 from inspiration.serializers import MediumTypeSerializer, ContributorSerializer, CheckoutSerializer, InsightSerializer, MediumSerializer, \
-    UserSerializer, KeywordSerializer, WordToIgnoreSerializer
+    UserPublicSerializer, KeywordSerializer, WordToIgnoreSerializer
 from rest_framework import viewsets, permissions
 from django.contrib.auth.models import User
 from django.db.models import Q
@@ -52,6 +52,8 @@ class MediumViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
     def list(self, request, type=None):
         mediums = Medium.objects.filter(type__name=type)
 
+        print("asdfasdfasdfasdfasdfas")
+
         return Response(MediumSerializer(mediums, many=True).data)
 
 
@@ -64,7 +66,7 @@ class ContributorViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
     permission_classes = (IsAuthenticated,)
 
     queryset = Contributor.objects.all()
-    serializer_class = Contributor
+    serializer_class = ContributorSerializer
 
 
 class CheckoutViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
@@ -82,6 +84,7 @@ class MediumInsightViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
     serializer_class = InsightSerializer
 
     def list(self, request, type=None, media_pk=None):
+
         try:
             medium = Medium.get(media_pk)
 
@@ -195,20 +198,20 @@ class WordsToIgnoreViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
 
 class UserViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
     queryset = User.objects.all()
-    serializer = UserSerializer()
+    serializer_class = UserPublicSerializer
 
 
-class ContributorMediaViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
+class ContributorWorksViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
 
     queryset = Medium.objects.all()
     serializer_class = ContributorSerializer
 
-    def list(self, request, medium_contributor_pk=None):
+    def list(self, request, contributors_pk=None):
         try:
-            contributor = Contributor.get(medium_contributor_pk)
-            mediums = Medium.search(contributor=contributor)
+            contributor = Contributor.get(contributors_pk)
+            mediums = Medium.search(contributors=contributor)
 
             return Response(MediumSerializer(mediums, many=True).data)
 

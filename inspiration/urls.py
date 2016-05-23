@@ -25,7 +25,7 @@ books_router.register(r'keywords', views.KeywordsViewSet, base_name='media-keywo
 insights_router = routers.NestedSimpleRouter(router, r'insights', lookup='insights', trailing_slash=False)
 
 contributor_router = routers.NestedSimpleRouter(router, r'contributors', lookup='contributors', trailing_slash=False)
-contributor_router.register(r'media', views.ContributorMediaViewSet, base_name='contributors-media')
+contributor_router.register(r'works', views.ContributorWorksViewSet, base_name='contributors-works')
 
 users_router = routers.NestedSimpleRouter(router, r'users', lookup='users', trailing_slash=False)
 users_router.register(r'insights', views.UserInsightsViewSet, base_name='users-insights')

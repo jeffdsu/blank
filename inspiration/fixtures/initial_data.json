@@ -24,12 +24,34 @@
     }
   },
   {
+    "model": "inspiration.contributiontype",
+    "pk": 1,
+    "fields": {
+      "name": "author"
+      }
+  },
+  {
+    "model": "inspiration.contributiontype",
+    "pk": 2,
+    "fields": {
+      "name": "illustrator"
+      }
+  },
+  {
+    "model": "inspiration.contributiontype",
+    "pk": 3,
+    "fields": {
+      "name": "director"
+      }
+  },
+  {
     "model": "inspiration.contributor",
     "pk": 1,
     "fields": {
       "first_name": "Sheryl",
       "last_name": "Sandberg",
-      "type": "Author"
+      "type": 1,
+      "biography": "Sheryl Sandberg was born in Washington, D.C., in 1969. She went to Harvard for her bachelor's degree in economics and worked at the World Bank after graduating summa cum laude. She then attended Harvard Business School and went to work in the U.S. Department of the Treasury during the Clinton administration. When the Republicans swept the Democrats out of office in November 2000, Sandberg moved to Silicon Valley and worked for Google for seven years. She then moved to Facebook, where she has been COO since 2008. Sandberg is the author of Lean In: Women, Work, and the Will to Lead, which has sold more than a million copies."
     }
   },
   {
@@ -38,7 +60,8 @@
     "fields": {
       "first_name": "Kobi",
       "last_name": "Yamada",
-      "type": "Author"
+      "type": 1,
+      "biography": "Kobi Yamada is the creator of many inspiring gift books and ideas as well as the President of Compendium, a company of amazing people doing amazing things. He happily lives with the love of his life and their two super fun kids in the land of flying salmon where he gets to believe in his ideas all day long. He thinks he just might be the luckiest person on the planet."
     }
   },
   {
@@ -47,8 +70,80 @@
     "fields": {
       "first_name": "Brad",
       "last_name": "Bird",
-      "type": "Director"
+      "type": 3,
+      "biography": "Brad Bird was born on September 24, 1957 in Kalispell, Montana, USA as Phillip Bradley Bird. He is known for his work on Ratatouille (2007), The Incredibles (2004) and The Simpsons (1989). He has been married to Elizabeth Canney since 1988. They have three children."
     }
+  },
+  {
+    "model": "inspiration.contributor",
+    "pk": 4,
+    "fields": {
+      "first_name": "Mae",
+      "last_name": "Besom",
+      "type": 2,
+      "biography": "Illustrator"
+    }
+  },
+  {
+    "model": "inspiration.contributiontype",
+    "pk": 1,
+    "fields": {
+      "name": "author"
+      }
+  },
+  {
+    "model": "inspiration.contributiontype",
+    "pk": 2,
+    "fields": {
+      "name": "illustrator"
+      }
+  },
+  {
+    "model": "inspiration.contributiontype",
+    "pk": 3,
+    "fields": {
+      "name": "director"
+      }
+  },
+  {
+    "model": "inspiration.mediumcontribution",
+    "pk": 1,
+    "fields": {
+      "contributor": 1,
+      "type": 1,
+      "medium": 1,
+      "rank": 1
+      }
+  },
+  {
+    "model": "inspiration.mediumcontribution",
+    "pk": 2,
+    "fields": {
+      "contributor": 2,
+      "type": 1,
+      "medium": 2,
+      "rank": 1
+      }
+  },
+  {
+    "model": "inspiration.mediumcontribution",
+    "pk": 3,
+    "fields": {
+      "contributor": 3,
+      "type": 1,
+      "medium": 3,
+      "rank": 1
+      }
+  },
+  {
+    "model": "inspiration.mediumcontribution",
+    "pk": 4,
+    "fields": {
+      "contributor": 4,
+      "type": 2,
+      "medium": 2,
+      "rank": 2
+      }
   },
   {
     "model": "inspiration.medium",
@@ -110,6 +205,16 @@
       "user": 1,
       "lesson": "All minds are equal.",
       "medium": 1,
+      "valid": false
+    }
+  },
+  {
+    "model": "inspiration.insight",
+    "pk": 4,
+    "fields": {
+      "user": 1,
+      "lesson": "The world is full of talented people, you just have to be willing to find and meet them.",
+      "medium": 3,
       "valid": false
     }
   },

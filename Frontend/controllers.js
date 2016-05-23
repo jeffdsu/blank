@@ -79,10 +79,21 @@ blankApp.controller('mediaDetailController', ['$scope', '$resource', '$routePara
 
     $scope.mediaType = $routeParams.mediaType;
     mediaService.mediaType = $scope.mediaType;
+    
 
 
     $scope.dialogShown = false;
     mediaService.id = $routeParams.mediaId;
+    
+    mediaService.get_top_10_keywords(mediaService.id)
+                        .then(function (data) {
+                            $scope.keywords = {}
+                            for (i = 0; i < data.length; i++) {
+                                $scope.keywords[data[i].word] = [i + 1, data[i]];
+                            }
+                        }, function (err) {
+
+                        })
 
     mediaService.get($routeParams.mediaId)
         .then(function (data) {
@@ -178,14 +189,8 @@ blankApp.controller('authController', ['urls', '$rootScope', '$scope', '$resourc
 
     $scope.signup = function () {
 
-        var formData = {
-            "username": $scope.username
-            , "password1": $scope.password1
-            , "password2": $scope.password2
-            , "email": $scope.email
-        };
 
-        Auth.signup(formData
+        Auth.signup($scope.user_signup
             , function () {
                 $location.path('signin').replace();
             }

@@ -5,6 +5,7 @@ body {
 	font-variant: normal;
 	font-weight: 500;
 	line-height: 26.4px;
+    text-align: justify;
 }
 
 ul {
@@ -26,11 +27,6 @@ text-decoration: none;
 
 }
 
-a:hover{
-    color:#000;
-text-decoration: none;
-
-}
 
 .impacted_word_1 {
     font-weight: bold;
@@ -101,15 +97,26 @@ text-decoration: none;
     position: relative;
 }
 
-a.contributor {
+a.insight {
+    color: #black;
+    text-decoration: none;
+}
+
+a.insight:hover {
+    color: #ff8957;
+    text-decoration: none;
+    
+}
+
+a {
     color: #black;
     font-style: bold;
     text-decoration: underline;
     
 }
 
-a.contributor:hover {
-    color: #bbf9ff;
+a:hover {
+    color: #ff8957;
     
 }
 
@@ -121,4 +128,16 @@ hr {
     margin-right: auto;
     border-style: inset;
     border-width: 1px;
+}
+
+a.inspiration-nav-title{
+    
+    font-family: otto;
+    font-size: 60px;
+    text-decoration: none;
+}
+
+a.inspiration-nav{
+    
+    text-decoration: none;
 }

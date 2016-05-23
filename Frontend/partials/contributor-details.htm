@@ -1,0 +1,14 @@
+<h1>{{contributor.first_name}} {{contributor.last_name}}</h1>
+<hr>
+<br>
+
+<h3>Biography</h3>
+<p>{{contributor.biography}}</p>
+
+<br>
+<h3>Works</h3>
+<ul class="dashed">
+    <div ng-repeat="work in works">
+        <a href="#/inspiration-corner/media/{{work.type.name}}/{{work.id}}"><li>{{ work.title }}</li></a>
+    </div>
+</ul>

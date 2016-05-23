@@ -50,3 +50,8 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('username', 'email','password')
         write_only_fields = ('password',)
+
+class UserPublicSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name')

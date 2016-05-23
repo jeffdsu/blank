@@ -7,10 +7,14 @@ class InspirationBaseModelMixIn():
     @classmethod
     def get(cls, id):
 
-        obj = cls.objects.get(id=id)
+        try:
+            obj = cls.objects.get(id=id)
 
-        if obj is None:
-            raise Exception(Response(status=404, data="[404] %s[%s] not found"%(str(cls.__name__), id)))
+        except:
+            kwargs = dict()
+            kwargs['cls'] = cls
+            kwargs['id'] = id
+            raise Exception(Response(status=404, data=blankError(blankError.ERROR_TYPES.OBJ_NOT_FOUND, **kwargs).serialize()))
         return obj
 
     @classmethod

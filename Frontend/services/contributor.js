@@ -1,8 +1,8 @@
-blankApp.service('authorService', ['$http', '$localStorage', 'urls', '$q', function ($http, $localStorage, urls, $q) {
+blankApp.service('contributorService', ['$http', '$localStorage', 'urls', '$q', function ($http, $localStorage, urls, $q) {
     self = this;
 
     self.get_collection = function () {
-        return $http.get(urls.BASE + "/inspiration-corner/authors")
+        return $http.get(urls.BASE + "/inspiration-corner/contributors")
             .then(function (response) {
                 if (typeof response.data === 'object') {
                     return response.data
@@ -16,7 +16,7 @@ blankApp.service('authorService', ['$http', '$localStorage', 'urls', '$q', funct
     };
 
     self.get = function (id) {
-        return $http.get(urls.BASE + "/inspiration-corner/authors/" + id)
+        return $http.get(urls.BASE + "/inspiration-corner/contributors/" + id)
             .then(function (response) {
                 if (typeof response.data === 'object') {
                     return response.data
@@ -29,7 +29,7 @@ blankApp.service('authorService', ['$http', '$localStorage', 'urls', '$q', funct
     };
     
     self.get_books = function (id) {
-        return $http.get(urls.BASE + "/inspiration-corner/authors/" + id + "/books")
+        return $http.get(urls.BASE + "/inspiration-corner/contributors/" + id + "/works")
             .then(function (response) {
                 if (typeof response.data === 'object') {
                     return response.data
