@@ -3,6 +3,11 @@ from rest_framework.response import Response
 
 class InspirationBaseViewMixIn():
 
+
+    # TODO - make this read in inputs
+    def read_return_params(self):
+        return {'top_10_keywords':1}
+
     @classmethod
     def respondToException(self, exception):
         if isinstance(exception.args[0], Response):

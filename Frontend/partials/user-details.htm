@@ -5,5 +5,5 @@
 
 <h3>Insights</h3>
 <div ng-repeat="insight in insights">
-    {{ insight.lesson }}
+    <span ng-bind-html='insight | insightColorFilter:insight.related_medium_top_10_keywords | addMediumLinkFilter:insight' ></span>
 </div>

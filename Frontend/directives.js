@@ -17,3 +17,5 @@ blankApp.directive('styledKeywords', ['insightService', function(insightService)
     
   };
 }]);
+
+

@@ -12,7 +12,7 @@ blankApp.controller('mediaController', ['$scope', '$resource', '$routeParams', '
         angular.forEach($scope.books, function (value, key) {
             mediaService.get_random_insight(value.id, $scope.query)
                 .then(function (data) {
-                    value.insight = data;
+                    value.insight = data[0];
                 }, function (err) {
 
                 })
@@ -33,19 +33,6 @@ blankApp.controller('mediaController', ['$scope', '$resource', '$routeParams', '
                 $scope.get_random_insight_for_each_book();
                 if (angular.isDefined(insights_interval)) return;
                 insights_interval = $interval($scope.get_random_insight_for_each_book, 5000);
-
-                angular.forEach($scope.books, function (value, key) {
-                    mediaService.get_top_10_keywords(value.id)
-                        .then(function (data) {
-                            value.keywords = {}
-                            for (i = 0; i < data.length; i++) {
-                                value.keywords[data[i].word] = [i + 1, data[i]];
-                            }
-                        }, function (err) {
-
-                        })
-                });
-
 
             }
             , function (err) {
@@ -85,15 +72,6 @@ blankApp.controller('mediaDetailController', ['$scope', '$resource', '$routePara
     $scope.dialogShown = false;
     mediaService.id = $routeParams.mediaId;
     
-    mediaService.get_top_10_keywords(mediaService.id)
-                        .then(function (data) {
-                            $scope.keywords = {}
-                            for (i = 0; i < data.length; i++) {
-                                $scope.keywords[data[i].word] = [i + 1, data[i]];
-                            }
-                        }, function (err) {
-
-                        })
 
     mediaService.get($routeParams.mediaId)
         .then(function (data) {

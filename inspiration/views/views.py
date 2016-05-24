@@ -1,5 +1,5 @@
 from inspiration.models import MediumType, Contributor, Checkout, Insight, Keyword, WordToIgnore, Medium
-from inspiration.serializers import MediumTypeSerializer, ContributorSerializer, CheckoutSerializer, InsightSerializer, MediumSerializer, \
+from inspiration.serializers import MediumTypeSerializer, ContributorSerializer, CheckoutSerializer, InsightSerializer, InsightWithKeywordsSerializer, MediumSerializer, \
     UserPublicSerializer, KeywordSerializer, WordToIgnoreSerializer
 from rest_framework import viewsets, permissions
 from django.contrib.auth.models import User
@@ -10,7 +10,6 @@ from rest_framework.response import Response
 import random
 
 from inspiration.views.InpsiprationBaseViewMixIn import InspirationBaseViewMixIn
-
 
 class MediumTypeViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
     authentication_classes = (TokenAuthentication,)
@@ -88,10 +87,16 @@ class MediumInsightViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
 
     def list(self, request, type=None, media_pk=None):
 
+
         try:
+
+            return_params_dict = self.read_return_params()
+
             medium = Medium.get(media_pk)
 
             random_top_10_qp = self.request.query_params.get('random_top_10', None)
+
+
             if random_top_10_qp is not None:
 
                 keywords = None
@@ -115,15 +120,26 @@ class MediumInsightViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
                 if len(insights) == 0:
                     return self.respond_not_found("No Insight found")
 
-                return Response(InsightSerializer(random.choice(insights)).data)
+
+                return Response(self.serializer(insights, return_params_dict).data)
 
             else:
                 insights = Insight.search(medium=medium, valid=True)
 
-                return Response(InsightSerializer(insights, many=True).data)
+                return Response(self.serializer(insights, return_params_dict).data)
 
         except Exception as exception:
             return self.__class__.respondToException(exception)
+
+
+    def serializer (self, objs, return_params_dict):
+        if 'top_10_keywords' in return_params_dict:
+            return InsightWithKeywordsSerializer(objs, many=True)
+        else:
+            return InsightSerializer(objs, many=True)
+
+
+
 
     def create(self, request, media_pk=None):
         try:
@@ -231,15 +247,21 @@ class UserInsightsViewSet (viewsets.ModelViewSet, InspirationBaseViewMixIn):
 
     def list(self, request, users_pk=None):
         try:
+            return_params_dict = self.read_return_params()
+
             user = User.objects.get(id=users_pk)
             insights = Insight.search(user=user)
 
-            return Response(InsightSerializer(insights, many=True).data)
+            return Response(self.serializer(insights, return_params_dict).data)
 
         except Exception as exception:
             return self.__class__.respondToException(exception)
 
-
+    def serializer(self, objs, return_params_dict):
+        if 'top_10_keywords' in return_params_dict:
+            return InsightWithKeywordsSerializer(objs, many=True)
+        else:
+            return InsightSerializer(objs, many=True)
 
 
 

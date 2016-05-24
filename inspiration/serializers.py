@@ -28,7 +28,12 @@ class KeywordSerializer(serializers.ModelSerializer):
 class MediumSerializer(serializers.ModelSerializer):
 
     contributions = MediumContributionSerializer(many=True)
-    keywords = KeywordSerializer(many=True)
+    top_10_keywords = serializers.SerializerMethodField()
+
+    def get_top_10_keywords(self, medium):
+        keywords = Keyword.get_top_10_keywords(medium)
+        return KeywordSerializer(keywords, many=True).data
+
     class Meta:
         model = Medium
         fields = '__all__'
@@ -45,7 +50,32 @@ class CheckoutSerializer(serializers.ModelSerializer):
         model = Checkout
         #fields = '__all__'
 
+
+class InsightWithKeywordsSerializer(serializers.ModelSerializer):
+
+    related_medium_top_10_keywords = serializers.SerializerMethodField()
+    related_medium_type = serializers.SerializerMethodField()
+
+    def get_related_medium_type(self, insight):
+        return insight.medium.type.name
+
+    def get_related_medium_top_10_keywords(self, insight):
+        medium = Medium.get(id=insight.medium.id)
+        keywords = Keyword.get_top_10_keywords(medium)
+
+
+        return KeywordSerializer(keywords, many=True).data
+
+    class Meta:
+        model = Insight
+
 class InsightSerializer(serializers.ModelSerializer):
+
+    medium_type = serializers.SerializerMethodField()
+
+    def get_medium_type(self, insight):
+        return insight.medium.type.name
+
     class Meta:
         model = Insight
         #fields = '__all__'

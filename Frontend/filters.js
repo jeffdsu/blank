@@ -17,9 +17,26 @@ blankApp.filter('addUserLinkFilter', function(){
         return input_str;
     };             
 });
+
+blankApp.filter('addMediumLinkFilter', function(){
+    return function (input_str, obj) {
+         input_str = "<a href=\"#inspiration-corner/media/" + obj.related_medium_type + "/" + obj.medium + "\" class=\"insight\">" + input_str + "</a>";
+        return input_str;
+    };             
+});
+
+
 blankApp.filter('insightColorFilter', function () {
-    return function (insight, keywords) {
-        if (insight && keywords) {
+    return function (insight, list_of_keywords) {
+        if (insight && list_of_keywords) {
+        
+            var keywords = {};
+//            Jeff - I need helpd with this syntax
+            for (var i=0; i < list_of_keywords.length; i++){
+                keywords [list_of_keywords[i].word] = list_of_keywords[i];
+            }
+            
+            
             temp_arr = insight.lesson.split(" ");
             temp_str = "";
             
@@ -28,7 +45,7 @@ blankApp.filter('insightColorFilter', function () {
                 var match = myRegexp.exec(temp_arr[i]);
                 if (match && match[1].toLowerCase() in keywords) {
                    
-                    var res = temp_arr[i].replace(match[1], '<span class="impacted_word_' + keywords[match[1].toLowerCase()][0] + '">' + match[1] + '</span>');
+                    var res = temp_arr[i].replace(match[1], '<span class="impacted_word_' + i + '">' + match[1] + '</span>');
                     temp_str += res + " ";
                 } else {
                     temp_str += temp_arr[i] + " ";
