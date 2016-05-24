@@ -1,15 +1,28 @@
 from rest_framework import serializers
-from .models import MediumType, Contributor, Checkout, Insight, Medium, Keyword, WordToIgnore, MediumContribution
+from .models import MediumType, Contributor, Checkout, Insight, Medium, Keyword, WordToIgnore, MediumContribution, ContributionType
 from django.contrib.auth.models import User
 
+class ContributionTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ContributionType
+        fields = '__all__'
+
+class ContributorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Contributor
+        fields = '__all__'
+        depth = 2
+
 class MediumContributionSerializer(serializers.ModelSerializer):
+    contributor = ContributorSerializer()
+    type = ContributionTypeSerializer()
     class Meta:
         model = MediumContribution
         #fields = '__all__'
 
 class MediumSerializer(serializers.ModelSerializer):
 
-    contributors = MediumContributionSerializer(many=True)
+    contributions = MediumContributionSerializer(many=True)
     class Meta:
         model = Medium
         fields = '__all__'
@@ -19,11 +32,7 @@ class MediumSerializer(serializers.ModelSerializer):
             'url': {'lookup_field': 'type__name'}
         }
 
-class ContributorSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Contributor
-        fields = '__all__'
-        depth = 2
+
 
 class CheckoutSerializer(serializers.ModelSerializer):
     class Meta:

@@ -1,11 +1,11 @@
-blankApp.filter('contributorFilter', function () {
-    return function (author) {
-        if (author) {
-            temp_str = "<h4><a class=\"contributor\"/href='#/inspiration-corner/contributors/" + author.id + "'>" + author.first_name + " ";
-            if (author.middle_initial) {
-                temp_str += author.middle_initial + " "
+blankApp.filter('contributionFilter', function () {
+    return function (contribution) {
+        if (contribution) {
+            temp_str = "<h4><a class=\"contributor\"/href='#/inspiration-corner/contributors/" + contribution.contributor.id + "'>" + contribution.contributor.first_name + " ";
+            if (contribution.contributor.middle_initial) {
+                temp_str += contribution.contributor.middle_initial + " "
             }
-            temp_str += author.last_name + "</a><h4>";
+            temp_str += contribution.contributor.last_name + "</a><h4>";
             return temp_str;
         }
     };

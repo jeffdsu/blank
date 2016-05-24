@@ -10,7 +10,7 @@ class Medium(models.Model, InspirationBaseModelMixIn):
     cover = models.CharField(max_length=255, null=True)
 
     def __str__(self):
-        return "<Medium [%s]- %s - %s>" % (self.title, self.type, str(self.contributors))
+        return "<Medium [%s]- %s - %s>" % (self.title, self.type, str(self.contributions))
 
     @classmethod
     def search(cls, **kwargs):

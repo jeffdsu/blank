@@ -51,8 +51,6 @@ class MediumViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
 
     def list(self, request, type=None):
         mediums = Medium.objects.filter(type__name=type)
-        for medium in mediums:
-            print(medium.mediumcontribution_set.list())
 
         return Response(MediumSerializer(mediums, many=True).data)
 

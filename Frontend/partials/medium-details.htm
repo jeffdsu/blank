@@ -3,7 +3,7 @@
 <br>
 <h3>Contributors</h3>
 <ul class="dashed">
-  <li ng-bind-html='book.contributors | contributorFilter' ></li>
+  <li ng-repeat="contribution in book.contributions" ng-bind-html='contribution | contributionFilter' ></li>
 </ul>
 <br>
 <h3>Summary</h3>
