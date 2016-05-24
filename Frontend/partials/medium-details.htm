@@ -13,14 +13,7 @@
 
 <br>
 <h3>Insights</h3>
-       
-            <table class="table table-hover">
-                <tbody>
-                    <tr ng-repeat="insight in insights">
-                        <td><span ng-bind-html='insight | insightColorFilter: insight.related_medium_top_10_keywords | addUserLinkFilter:insight' ></span></td>
-                    </tr>
-                </tbody>
-            </table>
+<styled-insights-list insights-list="insights" link-type="user"></styled-insights-list>
         
 
 <button type="button" ng-click="add_insight_modal()">Add Insight</button>

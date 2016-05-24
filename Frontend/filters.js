@@ -25,6 +25,21 @@ blankApp.filter('addMediumLinkFilter', function(){
     };             
 });
 
+blankApp.filter('addLinkFilter', function(){
+    return function (input_str, obj, type) {
+        console.log(type);
+        if (type==='medium') {
+            input_str = "<a href=\"#inspiration-corner/media/" + obj.related_medium_type + "/" + obj.medium + "\" class=\"insight\">" + input_str + "</a>";
+            return input_str;
+        }
+        else if (type==='user'){
+            input_str = "<a href=\"#inspiration-corner/users/" + obj.user + "\" class=\"insight\">" + input_str + "</a>";
+            return input_str;
+        }
+         
+    };             
+});
+
 
 blankApp.filter('insightColorFilter', function () {
     return function (insight, list_of_keywords) {

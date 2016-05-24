@@ -19,3 +19,13 @@ blankApp.directive('styledKeywords', ['insightService', function(insightService)
 }]);
 
 
+blankApp.directive('styledInsightsList', ['insightService', function(insightService) {
+  return {
+    templateUrl: 'partials/styled-insights-list.htm',
+    scope: {
+        insightsList: '=',
+        linkType: '@'
+    },
+    
+  };
+}]);

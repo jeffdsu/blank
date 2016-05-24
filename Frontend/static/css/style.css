@@ -146,3 +146,20 @@ a.inspiration-nav{
     
     text-decoration: none;
 }
+
+div.insights-list-container{
+    border-style: solid;
+    border-color: lightgray;
+    border-width: 2px;
+    padding:20px;
+    height:400px;
+    overflow:scroll;
+    border-radius: 25px;
+}
+
+
+a.insight {
+    display: block;
+    height: 100%;
+    width: 100%;
+}

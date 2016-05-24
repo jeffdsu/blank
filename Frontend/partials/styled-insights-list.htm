@@ -1,0 +1,8 @@
+
+<div class="insights-list-container">
+    <table class="table table-hover">
+        <tr ng-repeat="insight in insightsList">
+                <td ng-bind-html='insight | insightColorFilter:insight.related_medium_top_10_keywords | addLinkFilter:insight:linkType'></td>
+        </tr>
+    </table>
+</div>
