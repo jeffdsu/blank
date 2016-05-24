@@ -8,7 +8,7 @@ import ast
 class MediumLearning(Learning):
 
     @classmethod
-    def learn (cls, medium, insight, **kwargs):
+    def learn (cls, medium, insight, words_to_ignore_dict, **kwargs):
 
         try:
             # TODO - if debug mode:
@@ -30,10 +30,13 @@ class MediumLearning(Learning):
             for found_word in list_of_found_words:
                 if found_word not in medium_known_keywords:
 
-                    #TODO - make this a debug statement:
-                    print("{%s} new word! %s"%(function, found_word))
+                    if found_word not in words_to_ignore_dict:
+                        #TODO - make this a debug statement:
+                        print("{%s} new word! %s"%(function, found_word))
 
-                    new_medium_keywords.append(cls.gen_keyword(found_word, medium, insight))
+                        new_medium_keywords.append(cls.gen_keyword(found_word, medium, insight))
+                    else:
+                        print("{%s} new word but ignored! %s" % (function, found_word))
 
                 else:
                     known_keyword = medium_known_keywords[found_word]

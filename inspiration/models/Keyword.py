@@ -2,7 +2,7 @@ from django.db import models
 from .InspirationBaseModelMixin import InspirationBaseModelMixIn
 
 class Keyword(models.Model, InspirationBaseModelMixIn):
-    medium = models.ForeignKey('Medium', on_delete=models.CASCADE)
+    medium = models.ForeignKey('Medium', on_delete=models.CASCADE, related_name='keywords')
     word = models.CharField(max_length=50)
     count = models.IntegerField(default=0)
     list_of_insights = models.TextField()

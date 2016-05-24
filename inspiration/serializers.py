@@ -20,9 +20,15 @@ class MediumContributionSerializer(serializers.ModelSerializer):
         model = MediumContribution
         #fields = '__all__'
 
+class KeywordSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Keyword
+        #fields = '__all__'
+
 class MediumSerializer(serializers.ModelSerializer):
 
     contributions = MediumContributionSerializer(many=True)
+    keywords = KeywordSerializer(many=True)
     class Meta:
         model = Medium
         fields = '__all__'
@@ -49,10 +55,7 @@ class MediumTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = MediumType
 
-class KeywordSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Keyword
-        #fields = '__all__'
+
 
 
 class WordToIgnoreSerializer(serializers.ModelSerializer):

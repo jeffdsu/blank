@@ -1,4 +1,4 @@
-from inspiration.models import Medium, Insight
+from inspiration.models import Medium, Insight, WordToIgnore
 from inspiration.serializers import  InsightSerializer
 from rest_framework import viewsets, permissions
 from inspiration.views import InspirationBaseViewMixIn
@@ -22,13 +22,14 @@ class AdminInsightViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
         try:
             insight = Insight.get(pk)
             medium = Medium.get(insight.medium.id)
+            words_to_ignore_dict = WordToIgnore.get_dict()
 
             # if the insight is already set to true, don't do anything
             # should this be a 200 response?
             if insight.valid == True:
                 return insight.respond_nothing_done()
 
-            response = MediumLearning.learn(medium, insight)
+            response = MediumLearning.learn(medium, insight, words_to_ignore_dict)
 
             insight.valid = True
             insight.save()
