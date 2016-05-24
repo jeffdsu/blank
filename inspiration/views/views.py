@@ -214,7 +214,7 @@ class ContributorWorksViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
     def list(self, request, contributors_pk=None):
         try:
             contributor = Contributor.get(contributors_pk)
-            mediums = Medium.search(contributors=contributor)
+            mediums = Medium.search(contributions__contributor=contributor)
 
             return Response(MediumSerializer(mediums, many=True).data)
 
