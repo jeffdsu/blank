@@ -1,9 +1,15 @@
 from rest_framework import serializers
-from .models import MediumType, Contributor, Checkout, Insight, Medium, Keyword, WordToIgnore
+from .models import MediumType, Contributor, Checkout, Insight, Medium, Keyword, WordToIgnore, MediumContribution
 from django.contrib.auth.models import User
 
+class MediumContributionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MediumContribution
+        #fields = '__all__'
 
 class MediumSerializer(serializers.ModelSerializer):
+
+    contributors = MediumContributionSerializer(many=True)
     class Meta:
         model = Medium
         fields = '__all__'

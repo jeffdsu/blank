@@ -51,10 +51,15 @@ class MediumViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
 
     def list(self, request, type=None):
         mediums = Medium.objects.filter(type__name=type)
-
-        print("asdfasdfasdfasdfasdfas")
+        for medium in mediums:
+            print(medium.mediumcontribution_set.list())
 
         return Response(MediumSerializer(mediums, many=True).data)
+
+    def retrieve(self, request, type=None, pk=None):
+
+        medium = Medium.get(pk)
+        return Response(MediumSerializer(medium).data)
 
 
 

@@ -129,13 +129,18 @@ hr {
     border-style: inset;
     border-width: 1px;
 }
+.inspiration-nav-title{
+    color: #bbf9ff;
+}
 
 a.inspiration-nav-title{
     
     font-family: otto;
     font-size: 60px;
     text-decoration: none;
+    
 }
+
 
 a.inspiration-nav{
     
