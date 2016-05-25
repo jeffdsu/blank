@@ -27,6 +27,11 @@ text-decoration: none;
 
 }
 
+.impacted_word_0 {
+    font-weight: bold;
+    color: red;
+    font-size: 25px;
+}
 
 .impacted_word_1 {
     font-weight: bold;
@@ -82,11 +87,6 @@ text-decoration: none;
     font-size: 25px;
 }
 
-.impacted_word_10 {
-    font-weight: bold;
-    color: coral;
-    font-size: 25px;
-}
 
 .invalid_insight {
     font-weight: bold;

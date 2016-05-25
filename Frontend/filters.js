@@ -12,41 +12,40 @@ blankApp.filter('contributionFilter', function () {
 });
 
 
-blankApp.filter('addLinkFilter', function(){
+blankApp.filter('addLinkFilter', function () {
     return function (input_str, obj, type) {
         console.log(type);
-        if (type==='medium') {
+        if (type === 'medium') {
             input_str = "<a href=\"#inspiration-corner/media/" + obj.related_medium_type + "/" + obj.medium + "\" class=\"insight\">" + input_str + "</a>";
             return input_str;
-        }
-        else if (type==='user'){
+        } else if (type === 'user') {
             input_str = "<a href=\"#inspiration-corner/users/" + obj.user + "\" class=\"insight\">" + input_str + "</a>";
             return input_str;
         }
-         
-    };             
+
+    };
 });
 
 
 blankApp.filter('insightColorFilter', function () {
     return function (insight, list_of_keywords) {
         if (insight && list_of_keywords) {
-        
+
             var keywords = {};
-//            Jeff - I need helpd with this syntax
-            for (var i=0; i < list_of_keywords.length; i++){
-                keywords [list_of_keywords[i].word] = [i, list_of_keywords[i]];
+            //            Jeff - I need helpd with this syntax
+            for (var i = 0; i < list_of_keywords.length; i++) {
+                keywords[list_of_keywords[i].word] = [i, list_of_keywords[i]];
             }
-            
-            
+
+
             temp_arr = insight.lesson.split(" ");
             temp_str = "";
-            
+
             for (i = 0; i < temp_arr.length; i++) {
                 var myRegexp = /(\w+)/i;
                 var match = myRegexp.exec(temp_arr[i]);
                 if (match && match[1].toLowerCase() in keywords) {
-                   
+
                     var res = temp_arr[i].replace(match[1], '<span class="impacted_word_' + keywords[match[1].toLowerCase()][0] + '">' + match[1] + '</span>');
                     temp_str += res + " ";
                 } else {
@@ -70,8 +69,34 @@ blankApp.filter('insightLinkToUserFilter', function () {
 });
 
 
+blankApp.filter('insightsFilter', function () {
+    return function (items, search) {
+
+
+
+        var filtered = [];
+        if (search) {
+
+            search_words = search.split(" ");
+            angular.forEach(search_words, function (word) {
+                angular.forEach(items, function (item) {
+                    var re = new RegExp(word, "i");
+                    if (item.lesson.search(re)>=0) {
+
+                        filtered.push(item);
+                    }
+                });
+            });
+            return filtered;
+        }
+        return items;
+
+    };
+});
+
 blankApp.filter('keywordsFilter', function () {
     return function (items, search) {
+        console.log(search);
         var filtered = [];
         if (search) {
             search_words = search.split(" ");
