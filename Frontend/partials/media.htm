@@ -11,7 +11,7 @@
             <form id="search-form" class="form-inline pull-right" role="form">
 
                 <div class="input-group">
-                    <input type="text" class="form-control search-form" placeholder="Search" ng-model="query">
+                    <input type="text" class="form-control search-form" placeholder="Keywords Search" ng-model="mediumKeywordsSearch">
                     <span class="input-group-btn"><button type="submit" class="btn btn-primary search-btn" data-target="#search-form" name="q"><i class="glyphicon glyphicon-search"></i>
 											</button></span>
                 </div>
@@ -29,7 +29,7 @@
 <br>
 
 <div class="row">
-    <div ng-repeat="b in books | keywordsFilter:query">
+    <div ng-repeat="b in books | keywordsFilter:mediumKeywordsSearch">
         <div ng-switch on="checked">
             <div class="row" ng-href='#'>
                 <div ng-switch-when='I'>

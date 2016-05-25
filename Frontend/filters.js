@@ -101,9 +101,17 @@ blankApp.filter('keywordsFilter', function () {
         if (search) {
             search_words = search.split(" ");
 
+            
             angular.forEach(search_words, function (word) {
                 angular.forEach(items, function (item) {
-                    if (word.toLowerCase() in item.keywords) {
+                    var keywords = {};
+                        //            Jeff - I need helpd with this syntax
+                        for (var i = 0; i < item.top_10_keywords.length; i++) {
+                            keywords[item.top_10_keywords[i].word] = [i, item.top_10_keywords[i]];
+                        }
+                    if (word.toLowerCase() in keywords) {
+                        
+            
                         filtered.push(item);
                     }
                 });
