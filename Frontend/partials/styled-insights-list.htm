@@ -19,3 +19,12 @@
     </table>
 </div>
 </div>
+
+<div ng-if="medium">
+<div ng-controller="addInsightController">
+    <button type="button" ng-click="add_insight_modal()">Add Insight</button>
+    <modal-dialog show='dialogShown' width='500px' dialog-title='Add Insight' on-close='logClose()'>
+        <ng-include src="'partials/add-insight.htm'"></ng-include>
+    </modal-dialog>
+</div>
+    </div>

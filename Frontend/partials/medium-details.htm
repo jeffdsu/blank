@@ -13,14 +13,9 @@
 
 <br>
 <h3>Insights</h3>
-<styled-insights-list insights-list="insights" link-type="user"></styled-insights-list>
+<styled-insights-list insights-list="insights" link-type="user" medium="book"></styled-insights-list>
         
 
-<button type="button" ng-click="add_insight_modal()">Add Insight</button>
 
 
-<div ng-controller="addInsightController">
-    <modal-dialog show='dialogShown' width='500px' dialog-title='Add Insight' on-close='logClose()'>
-        <ng-include src="'partials/add-insight.htm'"></ng-include>
-    </modal-dialog>
-</div>
+

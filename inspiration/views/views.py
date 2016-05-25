@@ -141,7 +141,7 @@ class MediumInsightViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
 
 
 
-    def create(self, request, media_pk=None):
+    def create(self, request,  type=None, media_pk=None):
         try:
             medium = Medium.get(media_pk)
             user = request.user

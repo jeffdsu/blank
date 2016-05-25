@@ -24,7 +24,8 @@ blankApp.directive('styledInsightsList', ['insightService', function(insightServ
     templateUrl: 'partials/styled-insights-list.htm',
     scope: {
         insightsList: '=',
-        linkType: '@'
+        linkType: '@',
+        medium:'='
     },
     
   };

@@ -88,10 +88,7 @@ blankApp.controller('mediaDetailController', ['$scope', '$resource', '$routePara
 
         });
 
-    $scope.add_insight_modal = function () {
-        console.log($scope.dialogShown);
-        $scope.dialogShown = !$scope.dialogShown;
-    }
+
 
 
 }]);
@@ -116,11 +113,17 @@ blankApp.controller('addInsightController', ['$scope', '$resource', '$routeParam
         var formData = {
             lesson: insight
         };
-
-        mediaService.add_insight($routeParams.bookId, formData)
+        
+        
+        mediaService.add_insight($scope.medium, formData)
             .then(function () {
                 $scope.dialogShown = !$scope.dialogShown;
             })
+    }
+    
+    $scope.add_insight_modal = function () {
+        console.log($scope.dialogShown);
+        $scope.dialogShown = !$scope.dialogShown;
     }
 
 }]);
