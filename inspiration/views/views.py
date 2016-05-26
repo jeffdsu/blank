@@ -107,21 +107,13 @@ class MediumInsightViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
                 else:
                     keywords = Keyword.get_top_10_keywords(medium)
 
-                query = Q(medium=medium, valid=True)
-                keyword_q = Q()
+                insight = Insight.random_for_medium(medium, keywords)
 
-                for keyword in keywords:
-                    keyword_q |= Q(lesson__icontains=keyword.word)
-
-                insights = Insight.objects.filter(query & keyword_q)
-                for i in insights:
-                    print(i.lesson)
-
-                if len(insights) == 0:
+                if insight==None:
                     return self.respond_not_found("No Insight found")
 
 
-                return Response(self.serializer(insights, return_params_dict).data)
+                return Response(self.serializer([insight], return_params_dict).data)
 
             else:
                 insights = Insight.search(medium=medium, valid=True)

@@ -12,6 +12,7 @@ blankApp.controller('mediaController', ['$scope', '$resource', '$routeParams', '
         angular.forEach($scope.books, function (value, key) {
             mediaService.get_random_insight(value.id, $scope.query)
                 .then(function (data) {
+                    console.log(data);
                     value.insight = data[0];
                 }, function (err) {
 

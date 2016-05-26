@@ -101,6 +101,7 @@ blankApp.service('mediaService', ['$http', '$localStorage', 'urls', '$q', functi
         return $http.get(url)
             .then(function (response) {
                 if (typeof response.data === 'object') {
+                    console.log(response.data);
                     return response.data;
                 } else {
                     return $q.reject(response.data)

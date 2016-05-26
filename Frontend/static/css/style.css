@@ -163,3 +163,33 @@ a.insight {
     height: 100%;
     width: 100%;
 }
+
+.ng-modal-title {
+    font-weight:normal;
+    font-size: 100%;
+}
+
+.ng-modal-close-x {
+    font-weight: normal;
+    font-family: Verdana, Geneva, sans-serif;
+}
+
+.ng-modal-dialog {
+    z-index: 10000;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    background-color: #fff;
+    box-shadow: 4px 4px 80px #000;
+    -webkit-box-shadow: 4px 4px 80px #000;
+    -moz-box-shadow: 4px 4px 80px #000;
+    -ms-box-shadow: 4px 4px 80px #000;
+    -o-box-shadow: 4px 4px 80px #000;
+    padding: 40px;
+}
