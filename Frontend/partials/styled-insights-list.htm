@@ -1,3 +1,5 @@
+
+
 <div class="row">
 <form id="search-form" class="form-inline pull-right" role="form">
 
@@ -10,6 +12,20 @@
             </form>
 </div>
 <br>
+<div ng-if="medium">
+<div ng-controller="addInsightController" class="pull-right">
+    <button class="btn btn-xs" type="button" ng-click="add_insight_modal()">
+    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+    <modal-dialog show='dialogShown' width='500px' dialog-title='Add Insight' on-close='logClose()'>
+        <ng-include src="'partials/add-insight.htm'"></ng-include>
+    </modal-dialog>
+    
+</div>
+    <br>
+    <br>
+</div>
+
+
 <div class="row">
 <div class="insights-list-container">
     <table class="table table-hover">
@@ -20,11 +36,3 @@
 </div>
 </div>
 
-<div ng-if="medium">
-<div ng-controller="addInsightController">
-    <button type="button" ng-click="add_insight_modal()">Add Insight</button>
-    <modal-dialog show='dialogShown' width='500px' dialog-title='Add Insight' on-close='logClose()'>
-        <ng-include src="'partials/add-insight.htm'"></ng-include>
-    </modal-dialog>
-</div>
-    </div>

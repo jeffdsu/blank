@@ -6,6 +6,7 @@ body {
 	font-weight: 500;
 	line-height: 26.4px;
     text-align: justify;
+    margin-bottom: 100px;
 }
 
 ul {
@@ -90,6 +91,8 @@ text-decoration: none;
 
 .invalid_insight {
     font-weight: bold;
+    
+
     color: coral;
 }
 
@@ -192,4 +195,8 @@ a.insight {
     -ms-box-shadow: 4px 4px 80px #000;
     -o-box-shadow: 4px 4px 80px #000;
     padding: 40px;
+}
+h4.singular_medium_italics {
+    font-style: italic;
+    color: #ff8957;
 }
