@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import MediumType, Contributor, Checkout, Insight, Medium, Keyword, WordToIgnore, MediumContribution, ContributionType
+from inspiration.models import MediumType, Contributor, Checkout, Insight, Medium, Keyword, WordToIgnore, MediumContribution, ContributionType
 from django.contrib.auth.models import User
 
 class ContributionTypeSerializer(serializers.ModelSerializer):
