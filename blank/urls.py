@@ -16,10 +16,10 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from rest_framework.authtoken import views
-
-print()
+from django.http import HttpResponseRedirect, HttpResponse
 
 urlpatterns = [
+    url(r'^$', lambda r: HttpResponseRedirect('static/index.htm#/inspiration-corner')),
     url(r'^rest-auth/', include('rest_auth.urls')),
     url(r'^rest-auth/registration/', include('rest_auth.registration.urls')),
     url(r'^inspiration-corner/', include('inspiration.urls')),
