@@ -35,10 +35,10 @@ blankApp
                $http.post(urls.BASE + '/rest-auth/registration/', data).success(success).error(error);
            },
            signin: function (data, success, error) {
-               $http.post('http://127.0.0.1:8000/rest-auth/login/', data).success(success).error(error);
+               $http.post(urls.BASE + '/rest-auth/login/', data).success(success).error(error);
            },
            signout: function (success) {
-               $http.post('http://127.0.0.1:8000/rest-auth/logout/', data);
+               $http.post(urls.BASE + '/rest-auth/logout/', data);
                tokenClaims = {};
                delete $localStorage.token;
                success();
