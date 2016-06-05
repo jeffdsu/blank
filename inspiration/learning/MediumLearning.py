@@ -40,7 +40,7 @@ class MediumLearning(Learning):
 
                 else:
                     known_keyword = medium_known_keywords[found_word]
-
+                    print(known_keyword)
                     known_medium_keywords.append(cls.analyze_known_key_word(known_keyword, insight))
                     print("{%s} known word! %s" % (function, found_word))
 
@@ -48,7 +48,8 @@ class MediumLearning(Learning):
             cls.analyze(known_medium_keywords)
 
             return cls.respond_learned(medium, insight)
-        except:
+        except Exception as e :
+            print(e)
             return cls.respond_issues_with_learning()
 
     @classmethod
@@ -64,6 +65,7 @@ class MediumLearning(Learning):
     def analyze_known_key_word(cls, known_keyword, insight):
 
         known_keyword.count += 1
+
         list_of_insights = ast.literal_eval(known_keyword.list_of_insights)
         list_of_insights.append(insight.id)
 

@@ -240,7 +240,8 @@
     "fields": {
       "medium": 2,
       "word": "idea",
-      "count": 1
+      "count": 1,
+      "list_of_insights": "[1]"
     }
   }
 ]
