@@ -1,4 +1,4 @@
 <div ng-repeat="keyword in book.top_10_keywords">
-    <div class="impacted_word_{{ keyword[0] }}">{{ keyword.word }}</div>
+    <div class="impacted_word_{{ $index }}">{{ keyword.word }}</div>
 </div>
 
