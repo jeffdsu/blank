@@ -16,14 +16,6 @@
     }
   },
   {
-    "model": "inspiration.mediumtype",
-    "pk": 3,
-    "fields": {
-      "name": "music",
-      "icon_url": "http://uxrepo.com/static/icon-sets/elusive/svg/music.svg"
-    }
-  },
-  {
     "model": "inspiration.contributiontype",
     "pk": 1,
     "fields": {
@@ -82,6 +74,16 @@
       "last_name": "Besom",
       "type": 2,
       "biography": "Illustrator"
+    }
+  },
+  {
+    "model": "inspiration.contributor",
+    "pk": 5,
+    "fields": {
+      "first_name": "Paulo",
+      "last_name": "Coelho",
+      "type": 1,
+      "biography": "Paulo Coelho de Souza is a Brazilian lyricist and novelist. He is the recipient of numerous international awards, amongst them the Crystal Award by the World Economic Forum. His novel The Alchemist has been translated into 80 languages.[1] The author has sold over 200 million copies worldwide and is the all-time bestselling Portuguese language author."
     }
   },
   {
@@ -146,6 +148,16 @@
       }
   },
   {
+    "model": "inspiration.mediumcontribution",
+    "pk": 5,
+    "fields": {
+      "contributor": 5,
+      "type": 1,
+      "medium": 4,
+      "rank": 1
+      }
+  },
+  {
     "model": "inspiration.medium",
     "pk": 1,
     "fields": {
@@ -172,6 +184,16 @@
       "title": "Ratatouille",
       "type": 2,
       "summary": "Remy, a provincial rat with a wonderful sense of smell, hates garbage and risks death to enter a human kitchen where he discovers real food and the cooking of five-star chef, Anton Gusteau, author of \"Anyone Can Cook.\" On the day Remy learns his hero has died, he is evicted and ends up alone in Paris. By luck, he discovers Gasteau's restaurant, down to three stars and run by a frozen-food-hawking chef. As Remy enters, so does Linguini, a clumsy youth hired as a garbage boy. To save the soup that Linguini accidentally fouls, Remy throws in some ingredients; the soup is a success and Linguini's career as a chef is born. Can Remy find a way to maintain the fiction and use his gift?",
+      "cover": "http://ecx.images-amazon.com/images/I/41qt5Bst99L._SX418_BO1,204,203,200_.jpg"
+    }
+  },
+  {
+    "model": "inspiration.medium",
+    "pk": 4,
+    "fields": {
+      "title": "The Alchemist",
+      "type": 1,
+      "summary": "The Alchemist by Paulo Coelho continues to change the lives of its readers forever. With more than two million copies sold around the world, The Alchemist has established itself as a modern classic, universally admired.Paulo Coelho's masterpiece tells the magical story of Santiago, an Andalusian shepherd boy who yearns to travel in search of a worldly treasure as extravagant as any ever found.The story of the treasures Santiago finds along the way teaches us, as only a few stories can, about the essential wisdom of listening to our hearts, learning to read the omens strewn along life's path, and, above all, following our dreams.",
       "cover": "http://ecx.images-amazon.com/images/I/41qt5Bst99L._SX418_BO1,204,203,200_.jpg"
     }
   },
