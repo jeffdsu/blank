@@ -1,13 +1,17 @@
-blankApp.controller('adminBooksController', ['$scope', '$resource', '$routeParams', '$http', 'bookService', 'authorService', function ($scope, $resource, $routeParams, $http, bookService, authorService) {
+blankApp.controller('adminMediaController', ['$scope', '$resource', '$routeParams', '$http', 'mediaService', 'contributorService', 'mediumTypeService', function ($scope, $resource, $routeParams, $http, mediaService, contributorService, mediumTypeService) {
     
-    authorService.get_collection()
+    contributorService.get_collection()
     .then(function(data){
         $scope.authors = data;
     }, function(err){});
     
+    mediumTypeService.get_collection()
+    .then(function(data){
+        $scope.medium_types = data;
+    }, function(err){});
 
-    $scope.add_book = function (book) {
-        bookService.create(book).then(function(data) {
+    $scope.add_medium = function (medium) {
+        mediaService.create(medium).then(function(data) {
             
         }, function (err){})
     }

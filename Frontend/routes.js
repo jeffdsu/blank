@@ -30,7 +30,7 @@ blankApp.config(['$routeProvider', '$httpProvider', function ($routeProvider, $h
             templateUrl: 'partials/contributors.htm'
             , controller: 'contributorsController'
         })
-        .when('/inspiration-corner/contributors/:contributorId', {
+        .when('/inspiration-corner/contributors/:contributoId', {
             templateUrl: 'partials/contributor-details.htm'
             , controller: 'contributorDetailsController'
         })
@@ -43,9 +43,9 @@ blankApp.config(['$routeProvider', '$httpProvider', function ($routeProvider, $h
             templateUrl: 'partials/admin.htm'
             , 
         })
-        .when('/inspiration-corner/admin/mediums/books/add', {
-            templateUrl: 'partials/admin/mediums/books/add-book.htm'
-            , controller: 'adminBooksController'
+        .when('/inspiration-corner/admin/media/medium/add', {
+            templateUrl: 'partials/admin/media/medium/add-medium.htm'
+            , controller: 'adminMediaController'
         })
         .when('/inspiration-corner/admin/authors/add', {
             templateUrl: 'partials/admin-add-author.htm'
