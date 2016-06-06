@@ -62,6 +62,18 @@ blankApp.controller('inspirationController', ['$scope', '$resource', '$routePara
 
 }]);
 
+blankApp.controller('navController', ['$scope', '$resource', '$routeParams', '$http', '$location', 'Auth', function ($scope, $resource, $routeParams, $http, $location, Auth) {
+
+    $scope.signout = function () {
+        Auth.signout(function () {
+            $location.path('inspiration-corner').replace();
+        });
+    };
+   
+
+
+}]);
+
 blankApp.controller('mediaDetailController', ['$scope', '$resource', '$routeParams', '$http', 'mediaService', function ($scope, $resource, $routeParams, $http, mediaService) {
 
 
@@ -150,6 +162,7 @@ blankApp.controller('authController', ['urls', '$rootScope', '$scope', '$resourc
 
 
     function successAuth(res) {
+        console.log(res);
         $localStorage.token = res.key;
         $location.path('inspiration-corner').replace();
 
@@ -157,14 +170,13 @@ blankApp.controller('authController', ['urls', '$rootScope', '$scope', '$resourc
 
 
     $scope.signin = function () {
-
+        
         var formData = {
             username: $scope.username
             , password: $scope.password
         };
-
         Auth.signin(formData, successAuth, function (err) {
-
+            console.log(err);
             errorService.error = 'Invalid credentials.';
         })
     };
@@ -182,11 +194,6 @@ blankApp.controller('authController', ['urls', '$rootScope', '$scope', '$resourc
             })
     }
 
-    $scope.logout = function () {
-        Auth.logout(function () {
-            window.location = "/"
-        });
-    };
 
 
 }]);

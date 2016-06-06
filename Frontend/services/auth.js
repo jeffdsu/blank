@@ -1,52 +1,47 @@
-blankApp
-   .factory('Auth', ['$http', '$localStorage', 'urls', function ($http, $localStorage, urls) {
-       function urlBase64Decode(str) {
-           var output = str.replace('-', '+').replace('_', '/');
-           switch (output.length % 4) {
-               case 0:
-                   break;
-               case 2:
-                   output += '==';
-                   break;
-               case 3:
-                   output += '=';
-                   break;
-               default:
-                   throw 'Illegal base64url string!';
-           }
-           return window.atob(output);
-       }
+blankApp.service('Auth', ['$http', '$localStorage', 'urls', '$q', function ($http, $localStorage, urls, $q) {
+    self = this;
+    
+    
+   
+   self.signin = function (data, success) {
+        return $http.post(urls.BASE + '/rest-auth/login/', data)
+            .then(function (response) {
+                
+               success(response.data);
+                
+            }, function (response) {
+                return $q.reject(response.data)
+            });
 
-       function getClaimsFromToken() {
-           var token = $localStorage.token;
-           var user = {};
-           if (typeof token !== 'undefined') {
-               var encoded = token.split('.')[1];
-               user = JSON.parse(urlBase64Decode(encoded));
-           }
-           return user;
-       }
-       
-       delete $localStorage.token;
-       var tokenClaims = getClaimsFromToken();
+    };
 
-       return {
-           signup: function (data, success, error) {
-               $http.post(urls.BASE + '/rest-auth/registration/', data).success(success).error(error);
-           },
-           signin: function (data, success, error) {
-               $http.post(urls.BASE + '/rest-auth/login/', data).success(success).error(error);
-           },
-           signout: function (success) {
-               $http.post(urls.BASE + '/rest-auth/logout/', data);
-               tokenClaims = {};
-               delete $localStorage.token;
-               success();
-           },
-           getTokenClaims: function () {
-               return tokenClaims;
-           },
-       };
-   }
-   ]);
+    self.signout = function (data) {
+        return $http.post(urls.BASE + '/rest-auth/logout/', data)
+            .then(function (response) {
+                if (typeof response.data === 'object') {
+                    $localStorage.token = null;
+                    return response.data
+                } else {
+                    return $q.reject(response.data)
+                }
+            }, function (response) {
+                return $q.reject(response.data)
+            });
 
+    };
+    
+    self.signup = function (data) {
+        return $http.post(urls.BASE + '/rest-auth/registration/', data)
+            .then(function (response) {
+                if (typeof response.data === 'object') {
+                    return response.data
+                } else {
+                    return $q.reject(response.data)
+                }
+            }, function (response) {
+                return $q.reject(response.data)
+            });
+
+    };
+    
+}]);

@@ -71,7 +71,7 @@
     <body>
 
         <header>
-			<nav class="navbar navbar-default">
+			<nav class="navbar navbar-default" ng-controller="navController">
 			<div class="container">
 				<div class="navbar-header">
 					<a class="navbar-brand inspiration-nav-title" href="#/inspiration-corner" >inspiration corner</a>
@@ -79,6 +79,7 @@
 
 				<ul class="nav navbar-nav navbar-right">
 					<li><a class="inspiration-nav" href="#/inspiration-corner">home</a></li>
+                    <li><a class="inspiration-nav" ng-click="signout()">sign out</a></li>
 				</ul>
 			</div>
 			</nav>
