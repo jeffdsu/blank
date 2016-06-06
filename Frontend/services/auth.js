@@ -15,7 +15,7 @@ blankApp.service('Auth', ['$http', '$localStorage', 'urls', '$q', function ($htt
 
     };
     
-    $localStorage.token = null;
+    
     self.signout = function (success) {
         return $http.post(urls.BASE + '/rest-auth/logout/')
             .then(function (response) {
