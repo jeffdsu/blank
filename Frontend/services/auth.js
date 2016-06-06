@@ -6,7 +6,7 @@ blankApp.service('Auth', ['$http', '$localStorage', 'urls', '$q', function ($htt
    self.signin = function (data, success) {
         return $http.post(urls.BASE + '/rest-auth/login/', data)
             .then(function (response) {
-                
+            
                success(response.data);
                 
             }, function (response) {
@@ -14,7 +14,8 @@ blankApp.service('Auth', ['$http', '$localStorage', 'urls', '$q', function ($htt
             });
 
     };
-
+    
+    $localStorage.token = null;
     self.signout = function (success) {
         return $http.post(urls.BASE + '/rest-auth/logout/')
             .then(function (response) {
