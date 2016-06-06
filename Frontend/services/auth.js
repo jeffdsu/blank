@@ -15,12 +15,12 @@ blankApp.service('Auth', ['$http', '$localStorage', 'urls', '$q', function ($htt
 
     };
 
-    self.signout = function (data) {
-        return $http.post(urls.BASE + '/rest-auth/logout/', data)
+    self.signout = function (success) {
+        return $http.post(urls.BASE + '/rest-auth/logout/')
             .then(function (response) {
                 if (typeof response.data === 'object') {
                     $localStorage.token = null;
-                    return response.data
+                    success(response.data);
                 } else {
                     return $q.reject(response.data)
                 }

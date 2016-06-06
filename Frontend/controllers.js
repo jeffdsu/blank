@@ -66,7 +66,7 @@ blankApp.controller('navController', ['$scope', '$resource', '$routeParams', '$h
 
     $scope.signout = function () {
         Auth.signout(function () {
-            $location.path('inspiration-corner').replace();
+            $location.path('signin').replace();
         });
     };
    
