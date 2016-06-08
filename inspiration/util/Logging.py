@@ -31,5 +31,5 @@ class blankLogging():
         message.status = response.status_code
         message.user = request.user.id
         message.query_params = request.query_params
-        message.data = response.data
+        #message.data = response.data
         cls.logger.warning(json.dumps(message.__dict__))
