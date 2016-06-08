@@ -14,7 +14,7 @@ class InspirationBaseModelMixIn():
             kwargs = dict()
             kwargs['cls'] = cls
             kwargs['id'] = id
-            raise Exception(Response(status=404, data=blankError(blankError.ERROR_TYPES.OBJ_NOT_FOUND, **kwargs).serialize()))
+            cls.throw_not_found_exception(**kwargs)
         return obj
 
     @classmethod
@@ -24,6 +24,10 @@ class InspirationBaseModelMixIn():
 
     def respond_ok(self, obj, serializer):
         return Response(serializer(self).data, status=200)
+
+    @classmethod
+    def throw_not_found_exception(cls, **kwargs):
+        raise Exception(Response(status=404, data=blankError(blankError.ERROR_TYPES.OBJ_NOT_FOUND, **kwargs).serialize()))
 
     def respond_not_found(self):
         return Response(status=404, data="[404] %s with id of %d"%(type(self), self.id))

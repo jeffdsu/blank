@@ -6,7 +6,6 @@ from django.contrib.auth.models import User
 from django.db.models import Q
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.response import Response
 import random
 
 from inspiration.views.InpsiprationBaseViewMixIn import InspirationBaseViewMixIn
@@ -39,7 +38,7 @@ class KeywordsViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
 
         # if format_qp is not None:
 
-        return Response(KeywordSerializer(medium_keywords, many=True).data)
+        return self.respond_ok(self.log_msg, self.request, KeywordSerializer(medium_keywords, many=True).data)
 
 
 class MediumViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
@@ -53,13 +52,13 @@ class MediumViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
     def list(self, request, type=None):
         mediums = Medium.objects.filter(type__name=type)
 
-        return Response(MediumSerializer(mediums, many=True).data)
+        return self.respond_ok(self.log_msg, self.request, MediumSerializer(mediums, many=True).data)
 
     @InspirationBaseViewMixIn.blank_logging_decorator
     def retrieve(self, request, type=None, pk=None):
 
         medium = Medium.get(pk)
-        return Response(MediumSerializer(medium).data)
+        return self.respond_ok(self.log_msg, self.request, MediumSerializer(medium).data)
 
 
 
@@ -113,16 +112,12 @@ class MediumInsightViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
 
                 insight = Insight.random_for_medium(medium, keywords)
 
-                if insight==None:
-                    return self.respond_not_found("No Insight found")
-
-
-                return Response(self.serializer([insight], return_params_dict).data)
+                return self.respond_ok(self.log_msg, self.request, self.serializer([insight], return_params_dict).data)
 
             else:
                 insights = Insight.search(medium=medium, valid=True)
 
-                return Response(self.serializer(insights, return_params_dict).data)
+                return self.respond_ok(self.log_msg, self.request, self.serializer(insights, return_params_dict).data)
 
         except Exception as exception:
             return self.__class__.respondToException(exception, self.log_msg, self.request)
@@ -147,7 +142,7 @@ class MediumInsightViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
 
             temp_insight.save()
 
-            return Response(InsightSerializer(temp_insight).data)
+            return self.respond_ok(self.log_msg, self.request, InsightSerializer(temp_insight).data)
 
         except Exception as exception:
             return self.__class__.respondToException(exception, self.log_msg, self.request)
@@ -166,7 +161,7 @@ class InsightViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
 
         insights = Insight.objects.all()
 
-        return Response(InsightSerializer(insights, many=True).data)
+        return self.respond_ok(self.log_msg, self.request, InsightSerializer(insights, many=True).data)
 
     @InspirationBaseViewMixIn.blank_logging_decorator
     def create(self, request, media_pk=None):
@@ -180,7 +175,7 @@ class InsightViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
         insight = Insight(**insight_dict)
         insight.save()
 
-        return Response(InsightSerializer(insight).data)
+        return self.respond_ok(self.log_msg, self.request, InsightSerializer(insight).data)
 
 
 
@@ -208,7 +203,7 @@ class WordsToIgnoreViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
             medium_keywords.delete()
             new_word.save()
 
-            return Response(WordToIgnoreSerializer(new_word).data)
+            return self.respond_ok(self.log_msg, self.request, WordToIgnoreSerializer(new_word).data)
 
         except Exception as exception:
             return self.__class__.respondToException(exception, self.log_msg, self.request)
@@ -232,7 +227,7 @@ class ContributorWorksViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
             contributor = Contributor.get(contributors_pk)
             mediums = Medium.search(contributions__contributor=contributor)
 
-            return Response(MediumSerializer(mediums, many=True).data)
+            return self.respond_ok(self.log_msg, self.request, MediumSerializer(mediums, many=True).data)
 
         except Exception as exception:
             return self.__class__.respondToException(exception, self.log_msg, self.request)
@@ -245,6 +240,7 @@ class UserInsightsViewSet (viewsets.ModelViewSet, InspirationBaseViewMixIn):
     queryset = Insight.objects.all()
     serializer_class = InsightSerializer
 
+    @InspirationBaseViewMixIn.blank_logging_decorator
     def list(self, request, users_pk=None):
         try:
             return_params_dict = self.read_return_params()
@@ -252,7 +248,7 @@ class UserInsightsViewSet (viewsets.ModelViewSet, InspirationBaseViewMixIn):
             user = User.objects.get(id=users_pk)
             insights = Insight.search(user=user)
 
-            return Response(self.serializer(insights, return_params_dict).data)
+            return self.respond_ok(self.log_msg, self.request, self.serializer(insights, return_params_dict).data)
 
         except Exception as exception:
             return self.__class__.respondToException(exception, self.log_msg, self.request)

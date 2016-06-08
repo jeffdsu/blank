@@ -8,13 +8,14 @@ class blankLogMessage():
 
     def __init__(self, view):
         self.api=""
-        self.msg = ""
+        self.log_msg = ""
         self.status = None
         self.user = None
         self.time = time.time()
+        self.query_params = None
 
-    def add_log_msg(self, msg):
-        self.msg += str(msg)
+    def add_log_msg(self, log_msg):
+        self.log_msg += str(log_msg)
 
 class blankLogging():
 
@@ -28,5 +29,5 @@ class blankLogging():
         message.api = request.get_full_path()
         message.status = status
         message.user = request.user.id
+        message.query_params = request.query_params
         cls.logger.warning(json.dumps(message.__dict__))
-        pass

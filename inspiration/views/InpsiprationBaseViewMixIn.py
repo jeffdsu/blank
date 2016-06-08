@@ -26,6 +26,14 @@ class InspirationBaseViewMixIn():
         return response
 
     @classmethod
+    def respond_ok(cls, log_message, request, data):
+        status=200
+        response = Response(status=status, data=data)
+        cls.logger.write_log_message(log_message, request, status)
+
+        return response
+
+    @classmethod
     def respondToException(cls, exception, log_message, request):
 
         response = None
