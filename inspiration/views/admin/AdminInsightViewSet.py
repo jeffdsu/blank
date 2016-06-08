@@ -37,8 +37,7 @@ class AdminInsightViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
             insight.valid = True
             insight.save()
 
-            self.__class__.logger.write_log_message(self.log_msg, request, 200)
-            return response
+            return self.respond_updated(self.log_msg, self.request, InsightSerializer(insight).data)
 
         except Exception as exception:
             return self.__class__.respondToException(exception, self.log_msg, self.request)

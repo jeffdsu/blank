@@ -19,9 +19,9 @@ class InspirationBaseViewMixIn():
         return {'top_10_keywords':1}
 
     @classmethod
-    def respond(cls, log_message, request, status, response):
+    def respond(cls, log_message, request, response):
 
-        cls.logger.write_log_message(log_message, request, status)
+        cls.logger.write_log_message(log_message, request, response)
 
         return response
 
@@ -29,7 +29,16 @@ class InspirationBaseViewMixIn():
     def respond_ok(cls, log_message, request, data):
         status=200
         response = Response(status=status, data=data)
-        cls.logger.write_log_message(log_message, request, status)
+        cls.logger.write_log_message(log_message, request, response)
+
+        return response
+
+    @classmethod
+    def respond_updated(cls, log_message, request, data):
+        status=200
+
+        response = Response(status=status, data=data)
+        cls.logger.write_log_message(log_message, request, response)
 
         return response
 
@@ -43,16 +52,14 @@ class InspirationBaseViewMixIn():
             print(exception)
             response = Response(status=400, data="Unknown Issue")
 
-        return cls.respond(log_message, request, 400, response)
-
-
+        return cls.respond(log_message, request, response)
 
     @classmethod
     def respond_nothing_done(cls, log_message, request):
         msg="[200] Nothing Done"
         log_message.add_log_msg(msg)
 
-        return cls.respond(log_message, request, 200, Response(status=200, data=msg))
+        return cls.respond(log_message, request, Response(status=200, data=msg))
 
 
 

@@ -13,6 +13,7 @@ class blankLogMessage():
         self.user = None
         self.time = time.time()
         self.query_params = None
+        self.data = None
 
     def add_log_msg(self, log_msg):
         self.log_msg += str(log_msg)
@@ -25,9 +26,10 @@ class blankLogging():
         self.logger.setLevel(log_level)
 
     @classmethod
-    def write_log_message (cls, message, request, status):
+    def write_log_message (cls, message, request, response):
         message.api = request.get_full_path()
-        message.status = status
+        message.status = response.status_code
         message.user = request.user.id
         message.query_params = request.query_params
+        message.data = response.data
         cls.logger.warning(json.dumps(message.__dict__))
