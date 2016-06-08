@@ -28,10 +28,6 @@ class InspirationBaseModelMixIn():
     def respond_ok(self, obj, serializer):
         return Response(serializer(self).data, status=200)
 
-    @classmethod
-    def respond_nothing_done(cls):
-        return Response("[200] Nothing Done", status=200)
-
     def respond_not_found(self):
         return Response(status=404, data="[404] %s with id of %d"%(type(self), self.id))
 

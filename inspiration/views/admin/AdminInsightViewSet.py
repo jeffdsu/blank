@@ -15,26 +15,32 @@ class AdminInsightViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
     serializer_class = InsightSerializer
     queryset = Insight.objects.all()
 
+
     # TODO - this should be an admin only api
     @detail_route(methods=['put'])
+    @InspirationBaseViewMixIn.blank_logging_decorator
     def validate(self, request, pk=None):
 
         try:
+
             insight = Insight.get(pk)
             medium = Medium.get(insight.medium.id)
             words_to_ignore_dict = WordToIgnore.get_dict()
 
-            # if the insight is already set to true, don't do anything
-            # should this be a 200 response?
+            # Blank - if the insight is already set to true, don't do anything
+            # Jeff - should this be a 200 response?
             if insight.valid == True:
-                return insight.respond_nothing_done()
+                return self.respond_nothing_done()
 
-            response = MediumLearning.learn(medium, insight, words_to_ignore_dict)
+            response = MediumLearning.learn(medium, insight, words_to_ignore_dict, log_msg=self.log_msg)
 
             insight.valid = True
             insight.save()
 
+            self.logger.write_log_message(self.log_msg, request, 200)
             return response
 
         except Exception as exception:
-            return self.__class__.respondToException(exception)
+            return self.respondToException(exception)
+
+

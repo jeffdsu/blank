@@ -69,7 +69,7 @@ blankApp.controller('navController', ['$scope', '$resource', '$routeParams', '$h
             $location.path('signin').replace();
         });
     };
-   
+
 
 
 }]);
@@ -79,12 +79,12 @@ blankApp.controller('mediaDetailController', ['$scope', '$resource', '$routePara
 
     $scope.mediaType = $routeParams.mediaType;
     mediaService.mediaType = $scope.mediaType;
-    
+
 
 
     $scope.dialogShown = false;
     mediaService.id = $routeParams.mediaId;
-    
+
 
     mediaService.get($routeParams.mediaId)
         .then(function (data) {
@@ -126,14 +126,14 @@ blankApp.controller('addInsightController', ['$scope', '$resource', '$routeParam
         var formData = {
             lesson: insight
         };
-        
-        
+
+
         mediaService.add_insight($scope.medium, formData)
             .then(function () {
                 $scope.dialogShown = !$scope.dialogShown;
             })
     }
-    
+
     $scope.add_insight_modal = function () {
         console.log($scope.dialogShown);
         $scope.dialogShown = !$scope.dialogShown;
@@ -161,24 +161,27 @@ blankApp.controller('errorController', ['urls', '$rootScope', '$scope', '$resour
 blankApp.controller('authController', ['urls', '$rootScope', '$scope', '$resource', '$routeParams', '$http', '$localStorage', '$location', 'Auth', 'errorService', function (urls, $rootScope, $scope, $resource, $routeParams, $http, $localStorage, $location, Auth, errorService) {
 
 
-    function successAuth(res) {
-        console.log(res);
-        $localStorage.token = res.key;
-        $location.path('inspiration-corner').replace();
-
-    }
-
 
     $scope.signin = function () {
-        
+
         var formData = {
             username: $scope.username
             , password: $scope.password
         };
-        Auth.signin(formData, successAuth, function (err) {
-            console.log(err);
-            errorService.error = 'Invalid credentials.';
-        })
+
+        Auth.signin(formData)
+            .then(function (data) {
+                    console.log(res);
+                    $localStorage.token = res.key;
+                    $location.path('inspiration-corner').replace();
+
+                }
+                , function (err) {
+                    console.log(err);
+                    errorService.error = 'Invalid credentials.';
+                }
+            );
+
     };
 
     $scope.signup = function () {

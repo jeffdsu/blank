@@ -13,6 +13,7 @@ blankApp.config(['$routeProvider', '$httpProvider', function ($routeProvider, $h
             }
             , 'responseError': function (response) {
                 if (response.status === 401 || response.status === 403) {
+                    $localStorage.token = null;
                     $location.path('/signin');
                 }
                 return $q.reject(response);

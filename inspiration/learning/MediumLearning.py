@@ -17,11 +17,13 @@ class MediumLearning(Learning):
 
             list_of_found_words = cls.parse_lesson(insight.lesson)
             kwargs['format'] = dict
+
             medium_known_keywords = Keyword().search(medium, **kwargs)
 
             #  TODO - make this print out only in debug mode later
-            print(list_of_found_words)
-            print(medium_known_keywords)
+
+            cls.add_msg(kwargs['log_msg'], list_of_found_words)
+            cls.add_msg(kwargs['log_msg'], medium_known_keywords)
 
             new_medium_keywords = []
             known_medium_keywords = []
@@ -32,17 +34,17 @@ class MediumLearning(Learning):
 
                     if found_word not in words_to_ignore_dict:
                         #TODO - make this a debug statement:
-                        print("{%s} new word! %s"%(function, found_word))
+                        cls.add_msg(kwargs['log_msg'], "{%s} new word! %s"%(function, found_word))
 
                         new_medium_keywords.append(cls.gen_keyword(found_word, medium, insight))
                     else:
-                        print("{%s} new word but ignored! %s" % (function, found_word))
+                        cls.add_msg(kwargs['log_msg'], "{%s} new word but ignored! %s" % (function, found_word))
 
                 else:
                     known_keyword = medium_known_keywords[found_word]
-                    print(known_keyword)
+                    cls.add_msg(kwargs['log_msg'], known_keyword)
                     known_medium_keywords.append(cls.analyze_known_key_word(known_keyword, insight))
-                    print("{%s} known word! %s" % (function, found_word))
+                    cls.add_msg(kwargs['log_msg'], "{%s} known word! %s" % (function, found_word))
 
             cls.save_new(new_medium_keywords)
             cls.analyze(known_medium_keywords)
@@ -53,16 +55,15 @@ class MediumLearning(Learning):
             return cls.respond_issues_with_learning()
 
     @classmethod
-    def analyze(cls, known_medium_keywords):
+    def analyze(cls, known_medium_keywords, **kwargs):
         try:
             for medium_keyword in known_medium_keywords:
-                print("here!")
                 medium_keyword.save()
         except:
             return cls.respond_issues_with_learning()
 
     @classmethod
-    def analyze_known_key_word(cls, known_keyword, insight):
+    def analyze_known_key_word(cls, known_keyword, insight, **kwargs):
 
         known_keyword.count += 1
 
@@ -74,7 +75,7 @@ class MediumLearning(Learning):
         return known_keyword
 
     @classmethod
-    def gen_keyword(cls, found_word, medium, insight):
+    def gen_keyword(cls, found_word, medium, insight, **kwargs):
 
         try:
             medium_keyword_dict = dict()
@@ -91,9 +92,10 @@ class MediumLearning(Learning):
             return
 
     @classmethod
-    def save_new(cls, new_medium_keywords):
+    def save_new(cls, new_medium_keywords, **kwargs):
         try:
             for medium_keyword in new_medium_keywords:
                 medium_keyword.save()
         except:
             return cls.respond_issues_with_learning()
+

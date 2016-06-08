@@ -3,11 +3,11 @@ blankApp.service('Auth', ['$http', '$localStorage', 'urls', '$q', function ($htt
     
     
    
-   self.signin = function (data, success) {
+   self.signin = function (data) {
         return $http.post(urls.BASE + '/rest-auth/login/', data)
             .then(function (response) {
             
-               success(response.data);
+               return response.data;
                 
             }, function (response) {
                 return $q.reject(response.data)
@@ -16,12 +16,12 @@ blankApp.service('Auth', ['$http', '$localStorage', 'urls', '$q', function ($htt
     };
     
     
-    self.signout = function (success) {
+    self.signout = function () {
         return $http.post(urls.BASE + '/rest-auth/logout/')
             .then(function (response) {
                 if (typeof response.data === 'object') {
                     $localStorage.token = null;
-                    success(response.data);
+                    return response.data;
                 } else {
                     return $q.reject(response.data)
                 }

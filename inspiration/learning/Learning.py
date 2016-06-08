@@ -38,3 +38,10 @@ class Learning ():
     def respond_issues_with_learning(cls):
 
         return Response(status=400)
+
+    @classmethod
+    def add_msg(cls, log_msg, msg):
+        if (log_msg):
+            log_msg.add_log_msg(msg)
+        else:
+            print(str(log_msg))

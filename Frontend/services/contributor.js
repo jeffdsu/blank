@@ -40,5 +40,18 @@ blankApp.service('contributorService', ['$http', '$localStorage', 'urls', '$q', 
                 return $q.reject(response.data)
             })
     };
+    
+    self.create = function (id) {
+        return $http.post(urls.BASE + "/inspiration-corner/contributors")
+            .then(function (response) {
+                if (typeof response.data === 'object') {
+                    return response.data
+                } else {
+                    return $q.reject(response.data)
+                }
+            }, function (response) {
+                return $q.reject(response.data)
+            })
+    };
 
 }]);
