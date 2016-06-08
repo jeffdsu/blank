@@ -32,4 +32,17 @@ class blankLogging():
         message.user = request.user.id
         message.query_params = request.query_params
         #message.data = response.data
+        message.ip = cls.get_ip(request)
         cls.logger.warning(json.dumps(message.__dict__))
+
+
+    @classmethod
+    def get_ip(cls, request):
+        http_x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+
+        if http_x_forwarded_for:
+            ip_address = http_x_forwarded_for.split(',')[0]
+        else:
+            ip_address = request.META.get('REMOTE_ADDR')
+
+        return ip_address

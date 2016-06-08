@@ -10,6 +10,8 @@ class InspirationBaseViewMixIn():
 
         def decorator(self, *args, **kwargs):
             self.log_msg = blankLogMessage(self)
+
+
             return fn(self, *args, **kwargs)
 
         return decorator
@@ -60,6 +62,8 @@ class InspirationBaseViewMixIn():
         log_message.add_log_msg(msg)
 
         return cls.respond(log_message, request, Response(status=200, data=msg))
+
+
 
 
 
