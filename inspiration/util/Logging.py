@@ -1,6 +1,7 @@
 from enum import Enum
 import json
 import logging
+import time
 
 
 class blankLogMessage():
@@ -9,6 +10,8 @@ class blankLogMessage():
         self.api=""
         self.msg = ""
         self.status = None
+        self.user = None
+        self.time = time.time()
 
     def add_log_msg(self, msg):
         self.msg += str(msg)
@@ -20,8 +23,10 @@ class blankLogging():
     def __init__ (self, log_level = logging.WARN):
         self.logger.setLevel(log_level)
 
-    def write_log_message (self, message, request, status):
+    @classmethod
+    def write_log_message (cls, message, request, status):
         message.api = request.get_full_path()
         message.status = status
-        print(json.dumps(message.__dict__))
+        message.user = request.user.id
+        cls.logger.warning(json.dumps(message.__dict__))
         pass

@@ -21,9 +21,6 @@ class InspirationBaseModelMixIn():
     def search(cls, **kwargs):
         return cls.objects.filter(**kwargs)
 
-    @classmethod
-    def respond_already_found(cls, **kwargs):
-        return Response("[422] %s already found with [%s]"%(cls.__name__, kwargs), status=422)
 
     def respond_ok(self, obj, serializer):
         return Response(serializer(self).data, status=200)

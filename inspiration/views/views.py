@@ -26,6 +26,7 @@ class KeywordsViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
     queryset = Keyword.objects.filter()
     serializer_class = KeywordSerializer
 
+    @InspirationBaseViewMixIn.blank_logging_decorator
     def list(self, request, type=None, media_pk=None):
         medium = Medium.get(media_pk)
 
@@ -48,11 +49,13 @@ class MediumViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
     queryset = Medium.objects.all()
     serializer_class = MediumSerializer
 
+    @InspirationBaseViewMixIn.blank_logging_decorator
     def list(self, request, type=None):
         mediums = Medium.objects.filter(type__name=type)
 
         return Response(MediumSerializer(mediums, many=True).data)
 
+    @InspirationBaseViewMixIn.blank_logging_decorator
     def retrieve(self, request, type=None, pk=None):
 
         medium = Medium.get(pk)
@@ -85,6 +88,7 @@ class MediumInsightViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
 
     serializer_class = InsightSerializer
 
+    @InspirationBaseViewMixIn.blank_logging_decorator
     def list(self, request, type=None, media_pk=None):
 
 
@@ -121,7 +125,7 @@ class MediumInsightViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
                 return Response(self.serializer(insights, return_params_dict).data)
 
         except Exception as exception:
-            return self.__class__.respondToException(exception)
+            return self.__class__.respondToException(exception, self.log_msg, self.request)
 
 
     def serializer (self, objs, return_params_dict):
@@ -146,7 +150,7 @@ class MediumInsightViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
             return Response(InsightSerializer(temp_insight).data)
 
         except Exception as exception:
-            return self.__class__.respondToException(exception)
+            return self.__class__.respondToException(exception, self.log_msg, self.request)
 
 
 
@@ -157,12 +161,14 @@ class InsightViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
     serializer_class = InsightSerializer
     queryset = Insight.objects.all()
 
+    @InspirationBaseViewMixIn.blank_logging_decorator
     def list(self, request):
 
         insights = Insight.objects.all()
 
         return Response(InsightSerializer(insights, many=True).data)
 
+    @InspirationBaseViewMixIn.blank_logging_decorator
     def create(self, request, media_pk=None):
 
         insight_dict = dict()
@@ -186,6 +192,7 @@ class WordsToIgnoreViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
     queryset = WordToIgnore.objects.all()
     serializer_class = WordToIgnoreSerializer
 
+    @InspirationBaseViewMixIn.blank_logging_decorator
     def create(self, request):
 
         try:
@@ -193,7 +200,7 @@ class WordsToIgnoreViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
             new_word = WordToIgnore.search(word=request.data['word'])
 
             if new_word:
-                return WordToIgnore.respond_already_found(word=request.data['word'])
+                return self.respond(WordToIgnore.respond_already_found(word=request.data['word']))
 
             new_word = WordToIgnore(word=request.data['word'])
             medium_keywords = Keyword.admin_search(word=request.data['word'])
@@ -204,7 +211,7 @@ class WordsToIgnoreViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
             return Response(WordToIgnoreSerializer(new_word).data)
 
         except Exception as exception:
-            return self.__class__.respondToException(exception)
+            return self.__class__.respondToException(exception, self.log_msg, self.request)
 
 
 class UserViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
@@ -219,6 +226,7 @@ class ContributorWorksViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
     queryset = Medium.objects.all()
     serializer_class = ContributorSerializer
 
+    @InspirationBaseViewMixIn.blank_logging_decorator
     def list(self, request, contributors_pk=None):
         try:
             contributor = Contributor.get(contributors_pk)
@@ -227,7 +235,7 @@ class ContributorWorksViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
             return Response(MediumSerializer(mediums, many=True).data)
 
         except Exception as exception:
-            return self.__class__.respondToException(exception)
+            return self.__class__.respondToException(exception, self.log_msg, self.request)
 
 
 class UserInsightsViewSet (viewsets.ModelViewSet, InspirationBaseViewMixIn):
@@ -247,7 +255,7 @@ class UserInsightsViewSet (viewsets.ModelViewSet, InspirationBaseViewMixIn):
             return Response(self.serializer(insights, return_params_dict).data)
 
         except Exception as exception:
-            return self.__class__.respondToException(exception)
+            return self.__class__.respondToException(exception, self.log_msg, self.request)
 
     def serializer(self, objs, return_params_dict):
         if 'top_10_keywords' in return_params_dict:

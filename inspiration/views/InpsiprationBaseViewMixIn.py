@@ -9,7 +9,6 @@ class InspirationBaseViewMixIn():
     def blank_logging_decorator(fn):
 
         def decorator(self, *args, **kwargs):
-            from inspiration.util.Logging import blankLogMessage
             self.log_msg = blankLogMessage(self)
             return fn(self, *args, **kwargs)
 
@@ -19,19 +18,33 @@ class InspirationBaseViewMixIn():
     def read_return_params(self):
         return {'top_10_keywords':1}
 
-    def respondToException(self, exception):
+    @classmethod
+    def respond(cls, log_message, request, status, response):
 
-        self.logger.write_log_message(self.log_msg)
+        cls.logger.write_log_message(log_message, request, status)
 
+        return response
+
+    @classmethod
+    def respondToException(cls, exception, log_message, request):
+
+        response = None
         if isinstance(exception.args[0], Response):
-            return exception.args[0]
+            response = exception.args[0]
         else:
             print(exception)
-            return Response(status=400, data="Unknown Issue")
+            response = Response(status=400, data="Unknown Issue")
 
-    def respond_nothing_done(self):
-        msg = "[200] Nothing Done"
-        status = 200
-        self.log_msg.add_log_msg(msg)
-        self.logger.write_log_message(self.log_msg, self.request, status)
-        return Response(msg, status=status)
+        return cls.respond(log_message, request, 400, response)
+
+
+
+    @classmethod
+    def respond_nothing_done(cls, log_message, request):
+        msg="[200] Nothing Done"
+        log_message.add_log_msg(msg)
+
+        return cls.respond(log_message, request, 200, Response(status=200, data=msg))
+
+
+
