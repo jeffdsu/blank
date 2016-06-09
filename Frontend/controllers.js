@@ -171,8 +171,8 @@ blankApp.controller('authController', ['urls', '$rootScope', '$scope', '$resourc
 
         Auth.signin(formData)
             .then(function (data) {
-                    console.log(res);
-                    $localStorage.token = res.key;
+                    console.log(data);
+                    $localStorage.token = data.key;
                     $location.path('inspiration-corner').replace();
 
                 }
