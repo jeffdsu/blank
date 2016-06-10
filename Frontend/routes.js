@@ -30,7 +30,7 @@ blankApp.config(['$routeProvider', '$httpProvider', function ($routeProvider, $h
             templateUrl: 'partials/contributors.htm'
             , controller: 'contributorsController'
         })
-        .when('/inspiration-corner/contributors/:contributoId', {
+        .when('/inspiration-corner/contributors/:contributorId', {
             templateUrl: 'partials/contributor-details.htm'
             , controller: 'contributorDetailsController'
         })

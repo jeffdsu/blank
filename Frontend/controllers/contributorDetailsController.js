@@ -2,6 +2,7 @@ blankApp.controller('contributorDetailsController', ['$scope', '$resource', '$ro
     
     self = this;
     contributorId = $routeParams.contributorId;
+    console.log(contributorId);
         
      contributorService.get(contributorId)
         .then(function (data) {
