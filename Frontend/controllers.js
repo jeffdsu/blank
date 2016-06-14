@@ -63,12 +63,17 @@ blankApp.controller('inspirationController', ['$scope', '$resource', '$routePara
 blankApp.controller('navController', ['$scope', '$resource', '$routeParams', '$http', '$location', 'Auth', function ($scope, $resource, $routeParams, $http, $location, Auth) {
 
     $scope.signout = function () {
-        Auth.signout(function () {
-            $location.path('signin').replace();
-        });
+     Auth.signout()
+            .then(function (data) {
+                    $location.path('signin').replace();
+
+                }
+                , function (err) {
+                    $scope.error = 'Invalid credentials.';
+                }
+            );
     };
-
-
+    
 
 }]);
 
