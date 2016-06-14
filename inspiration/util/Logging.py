@@ -8,7 +8,7 @@ class blankLogMessage():
 
     def __init__(self, view):
         self.api=""
-        self.log_msg = ""
+        self.log_msg = []
         self.status = None
         self.user = None
         self.time = time.time()
@@ -16,7 +16,7 @@ class blankLogMessage():
         self.data = None
 
     def add_log_msg(self, log_msg):
-        self.log_msg += str(log_msg)
+        self.log_msg.append(str(log_msg))
 
 class blankLogging():
 

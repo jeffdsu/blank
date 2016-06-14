@@ -200,3 +200,6 @@ h4.singular_medium_italics {
     font-style: italic;
     color: #ff8957;
 }
+.error {
+    color: red;
+}

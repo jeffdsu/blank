@@ -12,7 +12,6 @@ blankApp.controller('mediaController', ['$scope', '$resource', '$routeParams', '
         angular.forEach($scope.books, function (value, key) {
             mediaService.get_random_insight(value.id, $scope.query)
                 .then(function (data) {
-                    console.log(data);
                     value.insight = data[0];
                 }, function (err) {
 
@@ -22,7 +21,6 @@ blankApp.controller('mediaController', ['$scope', '$resource', '$routeParams', '
 
     $scope.stop_getting_of_insights = function () {
         if (angular.isDefined(insights_interval)) {
-            console.log("HEREERERER");
             $interval.cancel(insights_interval);
         }
     }
@@ -143,17 +141,12 @@ blankApp.controller('addInsightController', ['$scope', '$resource', '$routeParam
 
 blankApp.controller('errorController', ['urls', '$rootScope', '$scope', '$resource', '$routeParams', '$http', '$localStorage', '$location', 'errorService', function (urls, $rootScope, $scope, $resource, $routeParams, $http, $localStorage, $location, errorService) {
 
-    //$scope.error = errorService.error;
-
-    //console.log(errorService);
-
-
+    
+    $scope.error = errorService.error;
+    
     $scope.$watch('errorService.error', function (newVal, oldVal, scope) {
-        if (newVal) {
-            console.log("asdfasdfas");
-            scope.error = "qwer";
-        }
-    });
+        console.log(newVal);
+    }, true);
 
 }]);
 
@@ -177,8 +170,7 @@ blankApp.controller('authController', ['urls', '$rootScope', '$scope', '$resourc
 
                 }
                 , function (err) {
-                    console.log(err);
-                    errorService.error = 'Invalid credentials.';
+                    $scope.error = 'Invalid credentials.';
                 }
             );
 
@@ -187,16 +179,16 @@ blankApp.controller('authController', ['urls', '$rootScope', '$scope', '$resourc
     $scope.signup = function () {
 
 
-        Auth.signup($scope.user_signup
-            , function () {
-                $location.path('signin').replace();
-            }
-            , function (err) {
+        Auth.signup($scope.user_signup)
+            .then(function (data) {
+                   $location.path('signin').replace();
 
-                errorService.error = 'Invalid credentials.';
-            })
-    }
-
+                }
+                , function (err) {
+                    $scope.error = err;
+                }
+            );
+    };
 
 
 }]);
