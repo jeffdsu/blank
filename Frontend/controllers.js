@@ -109,19 +109,8 @@ blankApp.controller('mediaDetailController', ['$scope', '$resource', '$routePara
 
 }]);
 
-blankApp.controller('signInController', ['$scope', '$resource', '$routeParams', '$http', function ($scope, $resource, $routeParams, $http) {
 
-    $http.get("http://127.0.0.1:8000/inspiration-corner/books")
-        .success(function (data, status, headers, config) {
-            console.log(status)
-            $scope.booksResult = data;
-        }).error(function (data, status, headers, config) {
-            console.log(status);
-        });
-
-}]);
-
-blankApp.controller('addInsightController', ['$scope', '$resource', '$routeParams', '$http', 'mediaService', function ($scope, $resource, $routeParams, $http, mediaService) {
+blankApp.controller('InsightsComController', ['$scope', '$resource', '$routeParams', '$http', 'mediaService', function ($scope, $resource, $routeParams, $http, mediaService) {
 
 
     $scope.add_insight = function (insight) {
@@ -132,7 +121,8 @@ blankApp.controller('addInsightController', ['$scope', '$resource', '$routeParam
 
 
         mediaService.add_insight($scope.medium, formData)
-            .then(function () {
+            .then(function (data) {
+                $scope.insightsList.push(data);
                 $scope.dialogShown = !$scope.dialogShown;
             })
     }
@@ -169,7 +159,6 @@ blankApp.controller('authController', ['urls', '$rootScope', '$scope', '$resourc
 
         Auth.signin(formData)
             .then(function (data) {
-                    console.log(data);
                     $localStorage.token = data.key;
                     $location.path('inspiration-corner').replace();
 

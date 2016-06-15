@@ -77,7 +77,6 @@ blankApp.service('mediaService', ['$http', '$localStorage', 'urls', '$q', functi
         return $http.post(urls.BASE + "/inspiration-corner/media/" + medium.type.name + "/" + medium.id + "/insights", insight)
             .then(function (response) {
                 if (typeof response.data === 'object') {
-                    self.insights.push(response.data);
                     return response.data;
                 } else {
                     return $q.reject(response.data)

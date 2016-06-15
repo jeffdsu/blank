@@ -203,3 +203,7 @@ h4.singular_medium_italics {
 .error {
     color: red;
 }
+
+.invalid {
+    color: red;
+}

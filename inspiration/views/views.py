@@ -129,9 +129,7 @@ class MediumInsightViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
         else:
             return InsightSerializer(objs, many=True)
 
-
-
-
+    @InspirationBaseViewMixIn.blank_logging_decorator
     def create(self, request,  type=None, media_pk=None):
         try:
             medium = Medium.get(media_pk)

@@ -54,6 +54,12 @@ blankApp.filter('insightColorFilter', function () {
             }
             return temp_str;
         }
+        else if (insight){
+            if (insight.valid === false) {
+                return '<div class="invalid">' + insight.lesson + '</div>';
+            }
+            return insight.lesson;
+        }
         return "";
     };
 });
