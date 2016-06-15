@@ -39,7 +39,7 @@ a.media-panel {
     color: #000000;
 }
 
-.panel-body {
+.panel-medium-types>.panel-body {
     text-align:center;
 }
 
