@@ -1,10 +1,12 @@
-<div class="row">
+<div ng-controller="authController">
+<div class="row" >
     <div class="col-lg-6 col-lg-offset-3">
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <strong>Sign in</strong>
             </div>
             <div class="panel-body">
+                {{ message }}
                 <form class="form-horizontal" role="form" ng-submit="signin()">
                     <div class="form-group">
                         <label for="email" class="col-sm-2 control-label">User Name</label>
@@ -34,3 +36,4 @@
         </div>
     </div>
 </div>
+    </div>

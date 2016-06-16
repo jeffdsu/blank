@@ -112,7 +112,7 @@ blankApp.controller('mediaDetailController', ['$scope', '$resource', '$routePara
 
 blankApp.controller('InsightsComController', ['$scope', '$resource', '$routeParams', '$http', 'mediaService', function ($scope, $resource, $routeParams, $http, mediaService) {
 
-
+    $scope.message ="";
     $scope.add_insight = function (insight) {
 
         var formData = {
@@ -123,7 +123,7 @@ blankApp.controller('InsightsComController', ['$scope', '$resource', '$routePara
         mediaService.add_insight($scope.medium, formData)
             .then(function (data) {
                 $scope.insightsList.push(data);
-                $scope.dialogShown = !$scope.dialogShown;
+                $scope.message = "Success: Insight has been submitted for validation";
             })
     }
 
@@ -149,7 +149,10 @@ blankApp.controller('errorController', ['urls', '$rootScope', '$scope', '$resour
 blankApp.controller('authController', ['urls', '$rootScope', '$scope', '$resource', '$routeParams', '$http', '$localStorage', '$location', 'Auth', 'errorService', function (urls, $rootScope, $scope, $resource, $routeParams, $http, $localStorage, $location, Auth, errorService) {
 
 
-
+        $scope.$watch('$scope.message', function (newVal, oldVal, scope) {
+        console.log(newVal);
+    }, true);
+    
     $scope.signin = function () {
 
         var formData = {
@@ -175,8 +178,8 @@ blankApp.controller('authController', ['urls', '$rootScope', '$scope', '$resourc
 
         Auth.signup($scope.user_signup)
             .then(function (data) {
-                   $location.path('signin').replace();
-
+            $scope.message = "Sign Up Successful"
+                    
                 }
                 , function (err) {
                     $scope.error = err;

@@ -1,5 +1,5 @@
 <div ng-repeat="insight in insights">
-    {{insight.id}} {{ insight.lesson }}  <span ng-if="insight.valid===false"><a class="invalid_insight" ng-click="validate(insight.id)">validate</a></span>
+    {{insight.id}} <a href="#/inspiration-corner/users/{{insight.user}}">{{ insight.user }}</a> {{ insight.lesson }}  <span ng-if="insight.valid===false"><a class="invalid_insight" ng-click="validate(insight.id)">validate</a></span>
 </div>
 
 {{ response }}
