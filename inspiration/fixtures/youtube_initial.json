@@ -1,0 +1,27 @@
+[
+  {
+    "model": "inspiration.mediumtype",
+    "pk": 4,
+    "fields": {
+      "name": "video clips",
+      "icon_url": "https://d30y9cdsu7xlg0.cloudfront.net/png/5020-200.png"
+    }
+  },
+  {
+    "model": "inspiration.mediumlink",
+    "pk": 2,
+    "fields": {
+      "medium": 2,
+      "link": "https://www.amazon.com/What-Do-You-Idea/dp/1938298071/ref=sr_1_1?s=books&ie=UTF8&qid=1466045656&sr=1-1&keywords=what+to+do+with+an+idea"
+    }
+  },
+  {
+    "model": "inspiration.mediumtype",
+    "pk": 2,
+    "fields": {
+      "name": "movies",
+      "icon_url": "http://e-mysore.com/cssimages/short-film.png"
+    }
+  }
+
+]

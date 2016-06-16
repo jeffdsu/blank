@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from inspiration.models import MediumType, Contributor, Checkout, Insight, Medium, Keyword, WordToIgnore, MediumContribution, ContributionType
+from inspiration.models import MediumLink, MediumType, Contributor, Checkout, Insight, Medium, Keyword, WordToIgnore, MediumContribution, ContributionType
 from django.contrib.auth.models import User
 
 class ContributionTypeSerializer(serializers.ModelSerializer):
@@ -25,10 +25,16 @@ class KeywordSerializer(serializers.ModelSerializer):
         model = Keyword
         #fields = '__all__'
 
+
+class MediumLinkSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MediumLink
+
 class MediumSerializer(serializers.ModelSerializer):
 
     contributions = MediumContributionSerializer(many=True)
     top_10_keywords = serializers.SerializerMethodField()
+    links = MediumLinkSerializer(many=True)
 
     def get_top_10_keywords(self, medium):
         keywords = Keyword.get_top_10_keywords(medium)
