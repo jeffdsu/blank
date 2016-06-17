@@ -19,7 +19,7 @@ blankApp.directive('styledKeywords', ['insightService', function(insightService)
 }]);
 
 
-blankApp.directive('styledInsightsList', ['insightService', function(insightService) {
+blankApp.directive('styledInsightsList', ['insightService', 'Auth', function(insightService, Auth) {
   return {
     templateUrl: 'partials/styled-insights-list.htm',
     scope: {

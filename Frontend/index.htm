@@ -1,102 +1,114 @@
 <!DOCTYPE html>
 <html lang="en-us" ng-app="blankApp">
-    <head>
-        <title>Blank Inspiration Corner</title>
-        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-        <meta charset="UTF-8">
 
-        <!-- load bootstrap and fontawesome via CDN -->
-        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
-                <link rel="stylesheet" href="ngmodal/dist/ng-modal.css"/>
-<!--        <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css">-->
-        <link rel="stylesheet" href="static/css/navbar.css" />
-        <link rel="stylesheet" href="static/css/panel.css" />
-        <link rel="stylesheet" href="static/css/style.css" />
-        <link rel="stylesheet" href="static/css/header.css" />
-        <link href='https://fonts.googleapis.com/css?family=Cedarville+Cursive' rel='stylesheet' type='text/css'>
+<head>
+    <title>Blank Inspiration Corner</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta charset="UTF-8">
 
-        <style>
-            html, body, input, select, textarea
-            {
-                font-size: 1.05em !important;
-            }
-        </style>
-        
-        
-        
-        <!-- load angular via CDN -->
-        <script src="//code.angularjs.org/1.5.3/angular.min.js"></script>
-        <script src="//code.angularjs.org/1.5.3/angular-route.min.js"></script>
-        <script src="//code.angularjs.org/1.5.3/angular-resource.min.js"></script>
-        <script src="//code.angularjs.org/1.5.3/angular-sanitize.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.6/ngStorage.min.js"></script>
-        <script src="ngmodal/dist/ng-modal.js"></script>
-        
-         <!-- Angular Material requires Angular.js Libraries -->
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.min.js"></script>
+    <!-- load bootstrap and fontawesome via CDN -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="ngmodal/dist/ng-modal.css" />
+    <!--        <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css">-->
+    <link rel="stylesheet" href="static/css/navbar.css" />
+    <link rel="stylesheet" href="static/css/panel.css" />
+    <link rel="stylesheet" href="static/css/style.css" />
+    <link rel="stylesheet" href="static/css/header.css" />
+    <link href='https://fonts.googleapis.com/css?family=Cedarville+Cursive' rel='stylesheet' type='text/css'>
 
-      <!-- Angular Material Library -->
-<!--      <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"></script>-->
-        
-        <script src="app.js"></script>
-        <script src="constants.js"></script>
-        <script src="config.js"></script>
-        <script src="routes.js"></script>
-        <script src="filters.js"></script>
-        <script src="services.js"></script>
-        <script src="directives.js"></script>
-        <script src="controllers.js"></script>
-        
-        <script src="controllers/admin/wordsToIgnoreController.js"></script>
-        <script src="controllers/admin/insightsController.js"></script>
-        <script src="controllers/admin/booksController.js"></script>
-        
-        
-        <script src="controllers/contributorsController.js"></script>
-        <script src="controllers/contributorDetailsController.js"></script>
-        <script src="controllers/userDetailsController.js"></script>
-        
-        <script src="services/auth.js"></script>
-        <script src="services/medium_type.js"></script>
-        <script src="services/media.js"></script>
-        <script src="services/insight.js"></script>
-        <script src="services/wordsToIgnore.js"></script>
-        <script src="services/contributor.js"></script>
-        <script src="services/user.js"></script>
-        <script src="services/error.js"></script>
-        
-        
-    </head>
-    <body>
+    <style>
+        html,
+        body,
+        input,
+        select,
+        textarea {
+            font-size: 1.05em !important;
+        }
+    </style>
 
-        <header>
-			<nav class="navbar navbar-default" ng-controller="navController">
-			<div class="container">
-				<div class="navbar-header">
-					<a class="navbar-brand inspiration-nav-title" href="#/inspiration-corner" >inspiration corner</a>
-				</div>
 
-				<ul class="nav navbar-nav navbar-right">
-					<li><a class="inspiration-nav" href="#/inspiration-corner">home</a></li>
-                    <li ng-if="Auth.is_logged_in()"><a class="inspiration-nav" ng-click="signout()">sign out</a></li>
-                    <li ng-else><a href="#/signin" class="inspiration-nav">sign in</a></li>
-				</ul>
-			</div>
-			</nav>
-		</header>
 
-        <div class="container">
-            
-            
-            <div ng-view>
-                <div ng-controller="errorController">
+    <!-- load angular via CDN -->
+    <script src="//code.angularjs.org/1.5.3/angular.min.js"></script>
+    <script src="//code.angularjs.org/1.5.3/angular-route.min.js"></script>
+    <script src="//code.angularjs.org/1.5.3/angular-resource.min.js"></script>
+    <script src="//code.angularjs.org/1.5.3/angular-sanitize.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.6/ngStorage.min.js"></script>
+    <script src="ngmodal/dist/ng-modal.js"></script>
+
+    <!-- Angular Material requires Angular.js Libraries -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.min.js"></script>
+
+    <!-- Angular Material Library -->
+    <!--      <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"></script>-->
+
+    <script src="app.js"></script>
+    <script src="constants.js"></script>
+    <script src="config.js"></script>
+    <script src="routes.js"></script>
+    <script src="filters.js"></script>
+    <script src="services.js"></script>
+    <script src="directives.js"></script>
+    <script src="controllers.js"></script>
+
+    <script src="controllers/admin/wordsToIgnoreController.js"></script>
+    <script src="controllers/admin/insightsController.js"></script>
+    <script src="controllers/admin/booksController.js"></script>
+
+
+    <script src="controllers/contributorsController.js"></script>
+    <script src="controllers/contributorDetailsController.js"></script>
+    <script src="controllers/userDetailsController.js"></script>
+
+    <script src="services/auth.js"></script>
+    <script src="services/medium_type.js"></script>
+    <script src="services/media.js"></script>
+    <script src="services/insight.js"></script>
+    <script src="services/wordsToIgnore.js"></script>
+    <script src="services/contributor.js"></script>
+    <script src="services/user.js"></script>
+    <script src="services/error.js"></script>
+
+
+</head>
+
+<body>
+
+    <header>
+        <nav class="navbar navbar-default" ng-controller="navController">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand inspiration-nav-title" href="#/inspiration-corner">inspiration corner</a>
+                </div>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a class="inspiration-nav" href="#/inspiration-corner">home</a></li>
+                    <li class="inspiration-nav" ng-switch on="is_logged_in()">
+                        <a ng-switch-when='true' class="inspiration-nav" ng-click="signout()">
+                            sign out
+                        </a>
+                        <a ng-switch-when='false' class="inspiration-nav" href="#/signin">
+                            sign in
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+
+
+        <div ng-view>
+            <div ng-controller="errorController">
                 {{ error }}
             </div>
-            </div>
+        </div>
 
-		</div>
+    </div>
 
-    </body>
+</body>
+
 </html>
