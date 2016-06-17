@@ -215,7 +215,7 @@ class UserViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
 
 
 class ContributorWorksViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
-    authentication_classes = (TokenAuthentication,)
+    #authentication_classes = (TokenAuthentication,)
     permission_classes = (AllowAny,)
 
     queryset = Medium.objects.all()

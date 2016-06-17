@@ -110,7 +110,7 @@ blankApp.controller('mediaDetailController', ['$scope', '$resource', '$routePara
 }]);
 
 
-blankApp.controller('InsightsComController', ['$scope', '$resource', '$routeParams', '$http', 'mediaService', function ($scope, $resource, $routeParams, $http, mediaService) {
+blankApp.controller('InsightsComController', ['$scope', '$resource', '$routeParams', '$http', 'mediaService', 'Auth', function ($scope, $resource, $routeParams, $http, mediaService, Auth) {
 
     $scope.message ="";
     $scope.add_insight = function (insight) {

@@ -1,6 +1,12 @@
+<div ng-if="Auth.is_logged_in()">
 <form>
     <textarea class="form-control" rows="5" id="comment" ng-model="insight"></textarea>
     <input type="submit" value="Submit", ng-click="add_insight(insight)">
     <br>
     {{ message }}
 </form>
+</div>
+<div ng-else>
+    Must be logged in to add an insight
+</div>
+
