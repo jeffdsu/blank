@@ -5,22 +5,23 @@ from rest_framework import viewsets, permissions
 from django.contrib.auth.models import User
 from django.db.models import Q
 from rest_framework.authentication import TokenAuthentication
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.decorators import authentication_classes, permission_classes
 import random
 
 from inspiration.views.InpsiprationBaseViewMixIn import InspirationBaseViewMixIn
 
 class MediumTypeViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
-    authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    #authentication_classes = (TokenAuthentication,)
+    permission_classes = (AllowAny,)
 
     queryset = MediumType.objects.all()
     serializer_class = MediumTypeSerializer
 
 
 class KeywordsViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
-    authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    #authentication_classes = (TokenAuthentication,)
+    permission_classes = (AllowAny,)
 
     queryset = Keyword.objects.filter()
     serializer_class = KeywordSerializer
@@ -42,8 +43,8 @@ class KeywordsViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
 
 
 class MediumViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
-    authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    #authentication_classes = (TokenAuthentication,)
+    permission_classes = (AllowAny,)
 
     queryset = Medium.objects.all()
     serializer_class = MediumSerializer
@@ -66,24 +67,24 @@ class MediumViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
 
 
 class ContributorViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
-    authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    #authentication_classes = (TokenAuthentication,)
+    permission_classes = (AllowAny,)
 
     queryset = Contributor.objects.all()
     serializer_class = ContributorSerializer
 
 
 class CheckoutViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
-    authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    #authentication_classes = (TokenAuthentication,)
+    #permission_classes = (AllowAny,)
 
     queryset = Checkout.objects.all()
     serializer_class = CheckoutSerializer
 
 
 class MediumInsightViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
-    authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+
+    permission_classes = (AllowAny,)
 
     serializer_class = InsightSerializer
 
@@ -129,6 +130,7 @@ class MediumInsightViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
         else:
             return InsightSerializer(objs, many=True)
 
+    @authentication_classes(TokenAuthentication,)
     @InspirationBaseViewMixIn.blank_logging_decorator
     def create(self, request,  type=None, media_pk=None):
         try:
@@ -148,8 +150,8 @@ class MediumInsightViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
 
 
 class InsightViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
-    authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    #authentication_classes = (TokenAuthentication,)
+    permission_classes = (AllowAny,)
 
     serializer_class = InsightSerializer
     queryset = Insight.objects.all()
@@ -214,7 +216,7 @@ class UserViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
 
 class ContributorWorksViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
     authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (AllowAny,)
 
     queryset = Medium.objects.all()
     serializer_class = ContributorSerializer
@@ -232,8 +234,8 @@ class ContributorWorksViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
 
 
 class UserInsightsViewSet (viewsets.ModelViewSet, InspirationBaseViewMixIn):
-    authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    #authentication_classes = (TokenAuthentication,)
+    permission_classes = (AllowAny,)
 
     queryset = Insight.objects.all()
     serializer_class = InsightSerializer
