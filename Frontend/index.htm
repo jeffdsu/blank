@@ -80,7 +80,8 @@
 
 				<ul class="nav navbar-nav navbar-right">
 					<li><a class="inspiration-nav" href="#/inspiration-corner">home</a></li>
-                    <li><a class="inspiration-nav" ng-click="signout()">sign out</a></li>
+                    <li ng-if="Auth.is_logged_in()"><a class="inspiration-nav" ng-click="signout()">sign out</a></li>
+                    <li ng-else><a href="#/signin" class="inspiration-nav">sign in</a></li>
 				</ul>
 			</div>
 			</nav>
