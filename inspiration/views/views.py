@@ -210,6 +210,7 @@ class WordsToIgnoreViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
 
 
 class UserViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
+    permission_classes = (AllowAny,)
     queryset = User.objects.all()
     serializer_class = UserPublicSerializer
 
@@ -231,6 +232,7 @@ class ContributorWorksViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
 
         except Exception as exception:
             return self.__class__.respondToException(exception, self.log_msg, self.request)
+
 
 
 class UserInsightsViewSet (viewsets.ModelViewSet, InspirationBaseViewMixIn):
