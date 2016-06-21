@@ -1,4 +1,4 @@
-blankApp.controller('mediaController', ['$scope', '$resource', '$routeParams', '$http', '$interval', 'mediaService', 'insightService', function ($scope, $resource, $routeParams, $http, $interval, mediaService, insightService) {
+blankApp.controller('mediaController', ['$scope', '$resource', '$routeParams', '$http', '$interval', 'mediaService', 'insightService', '$location', function ($scope, $resource, $routeParams, $http, $interval, mediaService, insightService, $location) {
 
     var insights_interval;
     $scope.checked = 'I';
@@ -24,7 +24,10 @@ blankApp.controller('mediaController', ['$scope', '$resource', '$routeParams', '
             $interval.cancel(insights_interval);
         }
     }
-
+    
+    $scope.go_to_add_medium = function () {
+        $location.path($location.path() + '/add').replace();
+    };
 
     mediaService.get_collection()
         .then(function (data) {
@@ -43,6 +46,49 @@ blankApp.controller('mediaController', ['$scope', '$resource', '$routeParams', '
         $scope.stop_getting_of_insights();
     });
 }]);
+
+blankApp.controller('addMediumController', ['$scope', '$resource', '$routeParams', '$http', 'mediaService', 'contributorService', 'mediumTypeService', 'contributionTypeService', function ($scope, $resource, $routeParams, $http, mediaService, contributorService, mediumTypeService, contributionTypeService) {
+    
+    $scope.new_medium = Object();
+    $scope.new_medium.contributions = [];
+    $scope.new_medium.links = [];
+    
+    $scope.add_new_medium = function(new_medium) {
+        mediaService.create(new_medium);
+    };
+    
+    contributionTypeService.get_collection()
+    .then(function(data){
+        $scope.contribution_types = data;
+    }, function(err){});
+  
+    contributorService.get_collection()
+    .then(function(data){
+        $scope.contributors = data;
+    }, function(err){});
+    
+    mediumTypeService.get_collection()
+    .then(function(data){
+        $scope.medium_types = data;
+    }, function(err){});
+
+    $scope.add_medium = function (medium) {
+        mediaService.create(medium).then(function(data) {
+            
+        }, function (err){})
+    }
+    
+    $scope.add_to_contributions = function (new_contribution) {
+        console.log(new_contribution);
+        $scope.new_medium.contributions.push(new_contribution);
+    }
+    
+    $scope.add_to_links = function (new_link) {
+        $scope.new_medium.links.push(new_link);
+    }
+
+}]);
+
 
 
 blankApp.controller('inspirationController', ['$scope', '$resource', '$routeParams', '$http', 'mediumTypeService', function ($scope, $resource, $routeParams, $http, mediumTypeService) {

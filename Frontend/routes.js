@@ -10,6 +10,10 @@ blankApp.config(['$routeProvider', '$httpProvider', function ($routeProvider, $h
             templateUrl: 'partials/media.htm'
             , controller: 'mediaController'
         })
+        .when('/inspiration-corner/media/:mediaType/add', {
+            templateUrl: 'partials/add-medium.htm'
+            , controller: 'addMediumController'
+        })
         .when('/inspiration-corner/media/:mediaType/:mediaId', {
             templateUrl: 'partials/medium-details.htm'
             , controller: 'mediaDetailController'

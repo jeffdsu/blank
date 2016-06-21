@@ -25,6 +25,11 @@ class KeywordSerializer(serializers.ModelSerializer):
         model = Keyword
         #fields = '__all__'
 
+class MediumTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MediumType
+
+
 
 class MediumLinkSerializer(serializers.ModelSerializer):
     class Meta:
@@ -35,6 +40,37 @@ class MediumSerializer(serializers.ModelSerializer):
     contributions = MediumContributionSerializer(many=True)
     top_10_keywords = serializers.SerializerMethodField()
     links = MediumLinkSerializer(many=True)
+    type = MediumTypeSerializer()
+
+
+    def create(self, validated_data):
+
+        print(validated_data)
+        links_data = validated_data.pop('links')
+        contributions_data = validated_data.pop('contributions')
+        type_data = validated_data.pop('type')
+        medium_type = MediumType.objects.get_or_create(**type_data)[0]
+        validated_data['type'] = medium_type
+
+
+        medium = Medium.create(**validated_data)
+
+
+
+        for link_data in links_data:
+            link = MediumLink.create(medium=medium, **link_data)
+        print("\n\n\n")
+        for contribution_data in contributions_data:
+
+            contributor = Contributor.objects.get_or_create(**contribution_data['contributor'])[0]
+            contribution_data['contributor'] = contributor
+
+            type = ContributionType.objects.get_or_create(**contribution_data['type'])[0]
+            contribution_data['type'] = type
+
+            contributions = MediumContribution.create(medium=medium, **contribution_data)
+
+        return medium
 
     def get_top_10_keywords(self, medium):
         keywords = Keyword.get_top_10_keywords(medium)
@@ -43,7 +79,7 @@ class MediumSerializer(serializers.ModelSerializer):
     class Meta:
         model = Medium
         fields = '__all__'
-        depth = 2
+        depth = 3
         lookup_field = 'type__name'
         extra_kwargs = {
             'url': {'lookup_field': 'type__name'}
@@ -85,11 +121,6 @@ class InsightSerializer(serializers.ModelSerializer):
     class Meta:
         model = Insight
         #fields = '__all__'
-
-
-class MediumTypeSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = MediumType
 
 
 

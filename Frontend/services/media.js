@@ -33,7 +33,7 @@ blankApp.service('mediaService', ['$http', '$localStorage', 'urls', '$q', functi
     };
 
     self.create = function (data) {
-        return $http.post(urls.BASE + "/inspiration-corner/media/" + data.type, data)
+        return $http.post(urls.BASE + "/inspiration-corner/media/" + data.type.name, data)
             .then(function (response) {
                 if (typeof response.data === 'object') {
                     return response.data

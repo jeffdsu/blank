@@ -1,6 +1,6 @@
-from inspiration.models import MediumType, Contributor, Checkout, Insight, Keyword, WordToIgnore, Medium
+from inspiration.models import MediumType, Contributor, Checkout, Insight, Keyword, WordToIgnore, Medium, ContributionType
 from inspiration.serializers import MediumTypeSerializer, ContributorSerializer, CheckoutSerializer, InsightSerializer, InsightWithKeywordsSerializer, MediumSerializer, \
-    UserPublicSerializer, KeywordSerializer, WordToIgnoreSerializer
+    UserPublicSerializer, KeywordSerializer, WordToIgnoreSerializer, ContributionTypeSerializer
 from rest_framework import viewsets, permissions
 from django.contrib.auth.models import User
 from django.db.models import Q
@@ -10,6 +10,14 @@ from rest_framework.decorators import authentication_classes, permission_classes
 import random
 
 from inspiration.views.InpsiprationBaseViewMixIn import InspirationBaseViewMixIn
+
+class ContributionTypeViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
+    #authentication_classes = (TokenAuthentication,)
+    permission_classes = (AllowAny,)
+
+    queryset = ContributionType.objects.all()
+    serializer_class = ContributionTypeSerializer
+
 
 class MediumTypeViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
     #authentication_classes = (TokenAuthentication,)
@@ -60,8 +68,6 @@ class MediumViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
 
         medium = Medium.get(pk)
         return self.respond_ok(self.log_msg, self.request, MediumSerializer(medium).data)
-
-
 
 
 
