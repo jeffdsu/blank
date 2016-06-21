@@ -80,11 +80,11 @@ blankApp.controller('addMediumController', ['$scope', '$resource', '$routeParams
     
     $scope.add_to_contributions = function (new_contribution) {
         console.log(new_contribution);
-        $scope.new_medium.contributions.push(new_contribution);
+        $scope.new_medium.contributions.push(angular.copy(new_contribution));
     }
     
     $scope.add_to_links = function (new_link) {
-        $scope.new_medium.links.push(new_link);
+        $scope.new_medium.links.push(angular.copy(new_link));
     }
 
 }]);
