@@ -1,11 +1,12 @@
 blankApp.filter('contributionFilter', function () {
     return function (contribution) {
         if (contribution) {
-            temp_str = "<h4><a class=\"contributor\"/href='#/inspiration-corner/contributors/" + contribution.contributor.id + "'>" + contribution.contributor.first_name + " ";
+            temp_str = "<span><h4><a class=\"contributor\"/href='#/inspiration-corner/contributors/" + contribution.contributor.id + "'>" + contribution.contributor.first_name + " ";
             if (contribution.contributor.middle_initial) {
                 temp_str += contribution.contributor.middle_initial + " "
             }
-            temp_str += contribution.contributor.last_name + "</a><h4>";
+            temp_str += contribution.contributor.last_name + "</a></h4></span>";
+            //temp_str += "<span><i>" + contribution.type.name + "<i></span>"
             return temp_str;
         }
     };
@@ -68,7 +69,7 @@ blankApp.filter('insightColorFilter', function () {
 blankApp.filter('insightLinkToUserFilter', function () {
     return function (insight) {
         if (insight) {
-            return "<a href='#/inspiration-corner/users/" + insight.user + "'>" + insight.lesson + "</a>";
+            return "<a href='#/inspiration-corner/users/" + insight.user + "'>" + insight.lesson + "</a><i>";
         }
         return "";
     };

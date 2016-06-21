@@ -86,8 +86,26 @@ blankApp.controller('addMediumController', ['$scope', '$resource', '$routeParams
     $scope.add_to_links = function (new_link) {
         $scope.new_medium.links.push(angular.copy(new_link));
     }
+    $scope.add_contributor_modal = function () {
+        console.log($scope.dialogShown);
+        $scope.dialogShown = !$scope.dialogShown;
+    }
 
 }]);
+
+blankApp.controller('addContributorController', ['$scope', '$resource', '$routeParams', '$http', 'mediaService', 'contributorService', 'mediumTypeService', 'contributionTypeService', function ($scope, $resource, $routeParams, $http, mediaService, contributorService, mediumTypeService, contributionTypeService) {
+    
+
+    $scope.add_new_contributor = function (contributor) {
+            console.log(contributor);
+        contributorService.create(contributor).then(function(data) {
+            
+        }, function (err){})
+    }
+    
+    
+}]);
+
 
 
 

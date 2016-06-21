@@ -1,20 +1,37 @@
 <form>
-    Medium Title: <input type='text' class="form-control" ng-model="new_medium.title">
-    <br>
-    Medium Type: 
-    
+    Medium Title:
+    <input type='text' class="form-control" ng-model="new_medium.title">
+    <br> Medium Type:
+
     <select ng-options="medium_type as medium_type.name for medium_type in medium_types track by medium_type.id" ng-model="new_medium.type "></select>
 
-    <br>
-    Contributions: <select ng-options="contribution_type as contribution_type.name for contribution_type in contribution_types track by contribution_type.id" ng-model="new_contribution.type "></select> 
+    <br> Contributions:
+    <select ng-options="contribution_type as contribution_type.name for contribution_type in contribution_types track by contribution_type.id" ng-model="new_contribution.type "></select>
     <select ng-options="contributor as contributor.first_name for contributor in contributors track by contributor.id" ng-model="new_contribution.contributor"></select>
     <button class="btn btn-xs" type="button" ng-click="add_to_contributions(new_contribution)">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+    </button>
+    <button class="btn btn-xs" type="button" ng-click="add_contributor_modal()">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+    <modal-dialog show='dialogShown' width='500px' dialog-title='Add Contributor' on-close='logClose()'>
+                <ng-include src="'partials/add-contributor.htm'"></ng-include>
+    </modal-dialog>
+    <ol>
+        <li ng-repeat="contribution in new_medium.contributions">{{ contribution.contributor }}</li>
+    </ol>
+
+
+
+    <br> Book Summary:
+    <textarea class="form-control" rows="5" ng-model="new_medium.summary"></textarea>
+    <br> Links:
+    <input type='text' class="form-control" ng-model="new_link.link">
+    <button class="btn btn-xs" type="button" ng-click="add_to_links(new_link)">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+    </button>
     <br>
-    Book Summary: <textarea class="form-control" rows="5" ng-model="new_medium.summary"></textarea>
-    <br>
-    Links: <input type='text' class="form-control" ng-model="new_link.link"><button class="btn btn-xs" type="button" ng-click="add_to_links(new_link)">
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
-    <br>
-    <input class="form-control" type="submit" value="Submit", ng-click="add_new_medium(new_medium)">
+    <ol>
+        <li ng-repeat="link in new_medium.links">{{ link.link }}</li>
+    </ol>
+    <input class="form-control" type="submit" value="Submit" , ng-click="add_new_medium(new_medium)">
 </form>

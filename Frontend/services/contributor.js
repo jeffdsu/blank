@@ -41,8 +41,8 @@ blankApp.service('contributorService', ['$http', '$localStorage', 'urls', '$q', 
             })
     };
     
-    self.create = function (id) {
-        return $http.post(urls.BASE + "/inspiration-corner/contributors")
+    self.create = function (data) {
+        return $http.post(urls.BASE + "/inspiration-corner/contributors", data)
             .then(function (response) {
                 if (typeof response.data === 'object') {
                     return response.data

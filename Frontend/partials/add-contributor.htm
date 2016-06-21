@@ -1,0 +1,11 @@
+
+<div ng-controller="addContributorController">
+first name <input ng-model="new_contributor.first_name">
+<br>
+middle initial <input ng-model="new_contributor.middle_initial">
+<br>
+last name<input ng-model="new_contributor.last_name">
+<br>
+biography<textarea ng-model="new_contributor.biography"></textarea>
+<input class="form-control" type="submit" value="Submit", ng-click="add_new_contributor(new_contributor)">
+</div>

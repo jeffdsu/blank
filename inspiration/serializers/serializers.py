@@ -45,7 +45,6 @@ class MediumSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
 
-        print(validated_data)
         links_data = validated_data.pop('links')
         contributions_data = validated_data.pop('contributions')
         type_data = validated_data.pop('type')
@@ -59,7 +58,7 @@ class MediumSerializer(serializers.ModelSerializer):
 
         for link_data in links_data:
             link = MediumLink.create(medium=medium, **link_data)
-        print("\n\n\n")
+
         for contribution_data in contributions_data:
 
             contributor = Contributor.objects.get_or_create(**contribution_data['contributor'])[0]
