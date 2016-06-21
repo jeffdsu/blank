@@ -6,7 +6,6 @@ from .ContributionType import ContributionType
 class Contributor(models.Model, InspirationBaseModelMixIn):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
-    type = models.ForeignKey(ContributionType, null=True, on_delete=models.CASCADE)
     middle_initial = models.CharField(max_length=1, null=True)
     date_of_birth = models.DateField(null=True)
     biography = models.TextField(null=True)
