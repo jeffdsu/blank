@@ -7,7 +7,8 @@
 
     <br><br>Contributions:
     <select ng-options="contribution_type as contribution_type.name for contribution_type in contribution_types track by contribution_type.id" ng-model="new_contribution.type "></select>
-    <select ng-options="contributor as contributor.first_name for contributor in contributors track by contributor.id" ng-model="new_contribution.contributor"></select>
+    <select ng-options="contributor as contributor.first_name + ' ' + contributor.last_name for contributor in contributors track by contributor.id" ng-model="new_contribution.contributor"></select>
+    
     <button class="btn btn-xs" type="button" ng-click="add_to_contributions(new_contribution)">
         Add contribution
     </button>

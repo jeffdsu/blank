@@ -24,7 +24,7 @@ blankApp.controller('mediaController', ['$scope', '$resource', '$routeParams', '
             $interval.cancel(insights_interval);
         }
     }
-    
+
     $scope.go_to_add_medium = function () {
         $location.path($location.path() + '/add').replace();
     };
@@ -48,41 +48,40 @@ blankApp.controller('mediaController', ['$scope', '$resource', '$routeParams', '
 }]);
 
 blankApp.controller('addMediumController', ['$scope', '$resource', '$routeParams', '$http', 'mediaService', 'contributorService', 'mediumTypeService', 'contributionTypeService', function ($scope, $resource, $routeParams, $http, mediaService, contributorService, mediumTypeService, contributionTypeService) {
-    
+
     $scope.new_medium = Object();
     $scope.new_medium.contributions = [];
     $scope.new_medium.links = [];
-    
-    $scope.add_new_medium = function(new_medium) {
+
+    $scope.add_new_medium = function (new_medium) {
         mediaService.create(new_medium);
     };
-    
+
     contributionTypeService.get_collection()
-    .then(function(data){
-        $scope.contribution_types = data;
-    }, function(err){});
-  
+        .then(function (data) {
+            $scope.contribution_types = data;
+        }, function (err) {});
+
     contributorService.get_collection()
-    .then(function(data){
-        $scope.contributors = data;
-    }, function(err){});
-    
+        .then(function (data) {
+            $scope.contributors = data;
+        }, function (err) {});
+
     mediumTypeService.get_collection()
-    .then(function(data){
-        $scope.medium_types = data;
-    }, function(err){});
+        .then(function (data) {
+            $scope.medium_types = data;
+        }, function (err) {});
 
     $scope.add_medium = function (medium) {
-        mediaService.create(medium).then(function(data) {
-            
-        }, function (err){})
+        mediaService.create(medium).then(function (data) {
+
+        }, function (err) {})
     }
-    
+
     $scope.add_to_contributions = function (new_contribution) {
-        console.log(new_contribution);
         $scope.new_medium.contributions.push(angular.copy(new_contribution));
     }
-    
+
     $scope.add_to_links = function (new_link) {
         $scope.new_medium.links.push(angular.copy(new_link));
     }
@@ -94,16 +93,15 @@ blankApp.controller('addMediumController', ['$scope', '$resource', '$routeParams
 }]);
 
 blankApp.controller('addContributorController', ['$scope', '$resource', '$routeParams', '$http', 'mediaService', 'contributorService', 'mediumTypeService', 'contributionTypeService', function ($scope, $resource, $routeParams, $http, mediaService, contributorService, mediumTypeService, contributionTypeService) {
-    
+
 
     $scope.add_new_contributor = function (contributor) {
-            console.log(contributor);
-        contributorService.create(contributor).then(function(data) {
-            
-        }, function (err){})
+        contributorService.create(contributor).then(function (contributor) {
+            $scope.contributors.push(contributor);
+        }, function (err) {})
     }
-    
-    
+
+
 }]);
 
 
@@ -127,7 +125,7 @@ blankApp.controller('inspirationController', ['$scope', '$resource', '$routePara
 blankApp.controller('navController', ['$scope', '$resource', '$routeParams', '$http', '$location', 'Auth', function ($scope, $resource, $routeParams, $http, $location, Auth) {
 
     $scope.signout = function () {
-     Auth.signout()
+        Auth.signout()
             .then(function (data) {
                     $location.path('signin').replace();
 
@@ -137,11 +135,11 @@ blankApp.controller('navController', ['$scope', '$resource', '$routeParams', '$h
                 }
             );
     };
-    
+
     $scope.is_logged_in = function () {
         return Auth.is_logged_in();
     };
-    
+
 
 }]);
 
@@ -153,7 +151,7 @@ blankApp.controller('mediaDetailController', ['$scope', '$resource', '$routePara
 
 
 
-    
+
     mediaService.id = $routeParams.mediaId;
 
 
@@ -180,7 +178,7 @@ blankApp.controller('mediaDetailController', ['$scope', '$resource', '$routePara
 
 blankApp.controller('InsightsComController', ['$scope', '$resource', '$routeParams', '$http', 'mediaService', 'Auth', function ($scope, $resource, $routeParams, $http, mediaService, Auth) {
 
-    $scope.message ="";
+    $scope.message = "";
     $scope.dialogShown = false;
     $scope.add_insight = function (insight) {
 
@@ -200,8 +198,8 @@ blankApp.controller('InsightsComController', ['$scope', '$resource', '$routePara
         console.log($scope.dialogShown);
         $scope.dialogShown = !$scope.dialogShown;
     }
-    
-     $scope.is_logged_in = function () {
+
+    $scope.is_logged_in = function () {
         return Auth.is_logged_in();
     };
 
@@ -209,9 +207,9 @@ blankApp.controller('InsightsComController', ['$scope', '$resource', '$routePara
 
 blankApp.controller('errorController', ['urls', '$rootScope', '$scope', '$resource', '$routeParams', '$http', '$localStorage', '$location', 'errorService', function (urls, $rootScope, $scope, $resource, $routeParams, $http, $localStorage, $location, errorService) {
 
-    
+
     $scope.error = errorService.error;
-    
+
     $scope.$watch('errorService.error', function (newVal, oldVal, scope) {
         console.log(newVal);
     }, true);
@@ -222,10 +220,10 @@ blankApp.controller('errorController', ['urls', '$rootScope', '$scope', '$resour
 blankApp.controller('authController', ['urls', '$rootScope', '$scope', '$resource', '$routeParams', '$http', '$localStorage', '$location', 'Auth', 'errorService', function (urls, $rootScope, $scope, $resource, $routeParams, $http, $localStorage, $location, Auth, errorService) {
 
 
-        $scope.$watch('$scope.message', function (newVal, oldVal, scope) {
+    $scope.$watch('$scope.message', function (newVal, oldVal, scope) {
         console.log(newVal);
     }, true);
-    
+
     $scope.signin = function () {
 
         var formData = {
@@ -251,16 +249,16 @@ blankApp.controller('authController', ['urls', '$rootScope', '$scope', '$resourc
 
         Auth.signup($scope.user_signup)
             .then(function (data) {
-            $scope.message = "Sign Up Successful"
-                    
+                    $scope.message = "Sign Up Successful"
+
                 }
                 , function (err) {
                     $scope.error = err;
                 }
             );
     };
-    
-   
+
+
 
 
 }]);
