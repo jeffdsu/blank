@@ -37,13 +37,16 @@
     <br> Book Summary:
     <textarea class="form-control" rows="5" ng-model="new_medium.summary"></textarea>
     <br> Links:
-    <input type='text' class="form-control" ng-model="new_link.link">
     <button class="btn btn-xs" type="button" ng-click="add_to_links(new_link)">
-        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        Add Link
     </button>
+    <input type='text' class="form-control" ng-model="new_link.link">
+    
     <br>
-    <ol>
-        <li ng-repeat="link in new_medium.links">{{ link.link }}</li>
-    </ol>
+    <table class="table">
+        <tr ng-repeat="link in new_medium.links">
+            <td> {{ link.link }} </td>
+        </tr>
+    </table>
     <input class="form-control" type="submit" value="Submit" , ng-click="add_new_medium(new_medium)">
 </form>
