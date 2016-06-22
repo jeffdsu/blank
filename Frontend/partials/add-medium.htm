@@ -1,24 +1,36 @@
 <form>
     Medium Title:
     <input type='text' class="form-control" ng-model="new_medium.title">
-    <br> Medium Type:
+    <br> Medium Type: <br>
 
     <select ng-options="medium_type as medium_type.name for medium_type in medium_types track by medium_type.id" ng-model="new_medium.type "></select>
 
-    <br> Contributions:
+    <br><br>Contributions:
     <select ng-options="contribution_type as contribution_type.name for contribution_type in contribution_types track by contribution_type.id" ng-model="new_contribution.type "></select>
     <select ng-options="contributor as contributor.first_name for contributor in contributors track by contributor.id" ng-model="new_contribution.contributor"></select>
     <button class="btn btn-xs" type="button" ng-click="add_to_contributions(new_contribution)">
-        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        Add contribution
     </button>
     <button class="btn btn-xs" type="button" ng-click="add_contributor_modal()">
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+        Add a new contributor </button>
     <modal-dialog show='dialogShown' width='500px' dialog-title='Add Contributor' on-close='logClose()'>
                 <ng-include src="'partials/add-contributor.htm'"></ng-include>
     </modal-dialog>
-    <ol>
-        <li ng-repeat="contribution in new_medium.contributions">{{ contribution.contributor }}</li>
-    </ol>
+    <table class="table">
+        <tr>
+            <th>
+                contributor
+            </th>
+            <th>
+                type
+            </th>
+        </tr>
+        
+        <tr ng-repeat="contribution in new_medium.contributions">
+            <td ng-bind-html="contribution | contributionFilter"></td>
+            <td> {{ contribution.type.name }}</td>
+        </tr>
+    </table>
 
 
 
