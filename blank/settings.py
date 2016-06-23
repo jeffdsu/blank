@@ -12,18 +12,16 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 
 import os
 
-
 # TODO -  Needs to be setup correctly
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 ACCOUNT_ACTIVATION_DAYS = 7
 
 #  Jeff - Find out what this does
-SITE_ID=1
+SITE_ID = 1
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
@@ -41,12 +39,12 @@ APPEND_SLASH = False
 CORS_ORIGIN_ALLOW_ALL = True
 
 REST_FRAMEWORK = {
-   'DEFAULT_AUTHENTICATION_CLASSES': (
-       'rest_framework.authentication.TokenAuthentication',
-   ),
-   'DEFAULT_PERMISSION_CLASSES': (
-    'rest_framework.permissions.IsAuthenticated',
-),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
 }
 
 # Application definition
@@ -65,7 +63,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_auth',
     'allauth',
-    'allauth.account'
+    'allauth.account',
+    'social.apps.django_app.default',
 ]
 
 AUTHENTICATION_BACKENDS = (
@@ -88,6 +87,13 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+AUTHENTICATION_BACKENDS = (
+    'social.backends.facebook.FacebookOAuth2',
+    'social.backends.google.GoogleOAuth2',
+    'social.backends.twitter.TwitterOAuth',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
 ROOT_URLCONF = 'blank.urls'
 
 TEMPLATES = [
@@ -103,11 +109,23 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
             ],
         },
+        'context_processors': [
+            # Insert your TEMPLATE_CONTEXT_PROCESSORS here or use this
+            # list if you haven't customized them:
+            'django.contrib.auth.context_processors.auth',
+            'django.core.context_processors.debug',
+            'django.core.context_processors.i18n',
+            'django.core.context_processors.media',
+            'django.core.context_processors.static',
+            'django.core.context_processors.tz',
+            'django.contrib.messages.context_processors.messages',
+            'social.apps.django_app.context_processors.backends',
+            'social.apps.django_app.context_processors.login_redirect',
+        ]
     },
 ]
 
 WSGI_APPLICATION = 'blank.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
@@ -118,7 +136,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
@@ -138,7 +155,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
 
@@ -151,7 +167,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
