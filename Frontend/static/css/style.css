@@ -207,3 +207,14 @@ h4.singular_medium_italics {
 .invalid {
     color: red;
 }
+
+.inspiration-corner-message{
+    font-style: italic;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.inspiration-corner-enter-button {
+    font-style: normal;
+    
+}
