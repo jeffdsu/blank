@@ -1,0 +1,17 @@
+<div class="row" >
+<div ng-repeat="medium_type in mediums_types">
+    <a a ng-href="#/inspiration-corner/media/{{medium_type.name}}">
+        <div class="col-md-4">
+            <div class="panel panel-default panel-medium-types">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{ medium_type.name }}</h3>
+                </div>
+                <div class="panel-body">
+                    <img src="{{ medium_type.icon_url }}" width="100">
+                </div>
+            </div>
+            
+        </div>
+    </a>
+    </div>
+</div>

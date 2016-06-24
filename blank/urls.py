@@ -25,5 +25,5 @@ urlpatterns = [
     url(r'^inspiration-corner/', include('inspiration.urls')),
     url(r'^users/', include('users.urls')),
     url(r'^admin/', admin.site.urls),
-    url('', include('social.apps.django_app.urls', namespace='social'))
+    url('^login/', include('social.apps.django_app.urls', namespace='social'))
 ]
