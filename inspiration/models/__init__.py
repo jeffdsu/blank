@@ -8,6 +8,8 @@ from .Contributor import Contributor
 from .ContributionType import ContributionType
 from .MediumContribution import MediumContribution
 from .MediumLink import MediumLink
+from .InsightTag import InsightTag
+from .Tag import Tag
 
 from .Checkout import Checkout
 from .Insight import Insight

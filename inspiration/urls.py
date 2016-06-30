@@ -11,6 +11,7 @@ router.register(r'medium-types', views.MediumTypeViewSet)
 router.register(r'contribution-types', views.ContributionTypeViewSet)
 router.register(r'insights', views.InsightViewSet)
 router.register(r'users', views.UserViewSet)
+router.register(r'tags', views.TagViewSet)
 router.register(r'admin/words-to-ignore', views.WordsToIgnoreViewSet)
 router.register(r'admin/insights', views.admin.AdminInsightViewSet)
 

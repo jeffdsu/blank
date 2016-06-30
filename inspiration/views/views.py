@@ -1,6 +1,6 @@
-from inspiration.models import MediumType, Contributor, Checkout, Insight, Keyword, WordToIgnore, Medium, ContributionType
+from inspiration.models import MediumType, Contributor, Checkout, Insight, Keyword, WordToIgnore, Medium, ContributionType, Tag
 from inspiration.serializers import MediumTypeSerializer, ContributorSerializer, CheckoutSerializer, InsightSerializer, InsightWithKeywordsSerializer, MediumSerializer, \
-    UserPublicSerializer, KeywordSerializer, WordToIgnoreSerializer, ContributionTypeSerializer
+    UserPublicSerializer, KeywordSerializer, WordToIgnoreSerializer, ContributionTypeSerializer, TagSerializer
 from rest_framework import viewsets, permissions
 from django.contrib.auth.models import User
 from django.db.models import Q
@@ -25,6 +25,13 @@ class MediumTypeViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
 
     queryset = MediumType.objects.all()
     serializer_class = MediumTypeSerializer
+
+class TagViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
+    #authentication_classes = (TokenAuthentication,)
+    permission_classes = (AllowAny,)
+
+    queryset = Tag.objects.all()
+    serializer_class = TagSerializer
 
 
 class KeywordsViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
