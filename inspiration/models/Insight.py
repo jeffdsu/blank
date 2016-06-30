@@ -11,6 +11,7 @@ class Insight(models.Model, InspirationBaseModelMixIn):
     checkout = models.ForeignKey(Checkout, null=True, on_delete=models.CASCADE)
     medium = models.ForeignKey('Medium', on_delete=models.CASCADE)
     valid = models.BooleanField(default=False)
+    private = models.BooleanField(default=False)
 
     def __str__(self):
         return "<Insight - %s>" % (str(self.lesson))

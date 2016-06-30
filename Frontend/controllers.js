@@ -176,12 +176,22 @@ blankApp.controller('mediaDetailController', ['$scope', '$resource', '$routePara
 }]);
 
 
-blankApp.controller('InsightsComController', ['$scope', '$resource', '$routeParams', '$http', 'mediaService', 'Auth', function ($scope, $resource, $routeParams, $http, mediaService, Auth) {
+blankApp.controller('InsightsComController', ['$scope', '$resource', '$routeParams', '$http', 'mediaService', 'Auth', 'tagService', function ($scope, $resource, $routeParams, $http, mediaService, Auth, tagService) {
 
     $scope.message = "";
     $scope.dialogShown= {
         value: false
     };
+    
+    tagService.get_collection()
+        .then(function (data) {
+            console.log(data);
+            $scope.tags = data;
+        }, function (err) {
+
+
+        });
+    
     $scope.add_insight = function (insight) {
 
         var formData = {

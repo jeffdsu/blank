@@ -1,15 +1,18 @@
 <div ng-switch on="is_logged_in()">
     <div ng-switch-when='true'>
         <form>
-            <textarea class="form-control" rows="5" id="comment" ng-model="insight"></textarea>
+            <textarea class="form-control" rows="5" id="comment" ng-model="insight.lesson"></textarea>
             <input type="submit" value="Submit" , ng-click="add_insight(insight)">
             <br> {{ message }}
         </form>
     </div>
 
-
+    <div class="checkbox">
+  <label><input type="checkbox" ng-model="insight.private">private</label>
+</div>
 
     <div div ng-switch-when='false'>
         Must be logged in to add an insight
     </div>
+    <select ng-options="tag as tag.name for tag in tags track by tag.id" ng-model="add_tag"></select>
 </div>
