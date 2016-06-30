@@ -179,7 +179,9 @@ blankApp.controller('mediaDetailController', ['$scope', '$resource', '$routePara
 blankApp.controller('InsightsComController', ['$scope', '$resource', '$routeParams', '$http', 'mediaService', 'Auth', function ($scope, $resource, $routeParams, $http, mediaService, Auth) {
 
     $scope.message = "";
-    $scope.dialogShown = false;
+    $scope.dialogShown= {
+        value: false
+    };
     $scope.add_insight = function (insight) {
 
         var formData = {
@@ -196,7 +198,7 @@ blankApp.controller('InsightsComController', ['$scope', '$resource', '$routePara
 
     $scope.add_insight_modal = function () {
         console.log($scope.dialogShown);
-        $scope.dialogShown = !$scope.dialogShown;
+        $scope.dialogShown.value = !$scope.dialogShown.value;
     }
 
     $scope.is_logged_in = function () {

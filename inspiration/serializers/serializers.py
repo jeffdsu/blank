@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from inspiration.models import MediumLink, MediumType, Contributor, Checkout, Insight, Medium, Keyword, WordToIgnore, MediumContribution, ContributionType
+from inspiration.models import MediumLink, MediumType, Contributor, Checkout, Insight, \
+    Medium, Keyword, WordToIgnore, MediumContribution, ContributionType, Tag, InsightTag
 from django.contrib.auth.models import User
 
 class ContributionTypeSerializer(serializers.ModelSerializer):
@@ -34,6 +35,16 @@ class MediumTypeSerializer(serializers.ModelSerializer):
 class MediumLinkSerializer(serializers.ModelSerializer):
     class Meta:
         model = MediumLink
+
+class TagSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tag
+
+class InsightTagSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = InsightTag
+        fields = ('tag',)
+        depth = 1
 
 class MediumSerializer(serializers.ModelSerializer):
 
@@ -96,6 +107,10 @@ class InsightWithKeywordsSerializer(serializers.ModelSerializer):
 
     related_medium_top_10_keywords = serializers.SerializerMethodField()
     related_medium_type = serializers.SerializerMethodField()
+    tags = serializers.SerializerMethodField()
+
+    def get_tags(self,insight):
+        return InsightTagSerializer(insight.tags, many=True).data
 
     def get_related_medium_type(self, insight):
         return insight.medium.type.name
@@ -113,6 +128,7 @@ class InsightWithKeywordsSerializer(serializers.ModelSerializer):
 class InsightSerializer(serializers.ModelSerializer):
 
     medium_type = serializers.SerializerMethodField()
+    tags = serializers.SerializerMethodField()
 
     def get_medium_type(self, insight):
         return insight.medium.type.name

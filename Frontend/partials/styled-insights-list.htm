@@ -15,7 +15,7 @@
         <div class="pull-right">
             <button class="btn btn-xs" type="button" ng-click="add_insight_modal()">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
-            <modal-dialog show='dialogShown' width='500px' dialog-title='Add Insight' on-close='logClose()'>
+            <modal-dialog show='dialogShown.value' width='500px' dialog-title='Add Insight' on-close='logClose()'>
                 <ng-include src="'partials/add-insight.htm'"></ng-include>
             </modal-dialog>
 
