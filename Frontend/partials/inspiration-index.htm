@@ -1,17 +1,19 @@
 <div class="row">
-    <a a ng-href="#/inspiration-corner/home">
-        <div class="col-md-4">
-            <div class="panel panel-default panel-medium-types">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Home</h3>
-                </div>
-                <div class="panel-body">
-                    <img src="http://downloadicons.net/sites/default/files/home-home-icon-90085.png" width="100">
+    <div ng-if="is_logged_in()">
+        <a ng-href="#/inspiration-corner/home">
+            <div class="col-md-4">
+                <div class="panel panel-default panel-medium-types">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Home</h3>
+                    </div>
+                    <div class="panel-body">
+                        <img src="http://downloadicons.net/sites/default/files/home-home-icon-90085.png" width="100">
+                    </div>
                 </div>
             </div>
-        </div>
-    </a>
-    <a a ng-href="#/inspiration-corner/media">
+        </a>
+    </div>
+    <a ng-href="#/inspiration-corner/media">
         <div class="col-md-4">
             <div class="panel panel-default panel-medium-types">
                 <div class="panel-heading">

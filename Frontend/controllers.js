@@ -105,6 +105,16 @@ blankApp.controller('addContributorController', ['$scope', '$resource', '$routeP
 
 }]);
 
+blankApp.controller('indexController', ['$scope', '$resource', '$routeParams', '$http', 'mediaService', 'contributorService', 'mediumTypeService', 'Auth', function ($scope, $resource, $routeParams, $http, mediaService, contributorService, mediumTypeService, Auth) {
+
+
+   $scope.is_logged_in = function () {
+        return Auth.is_logged_in();
+    };
+
+
+}]);
+
 
 
 

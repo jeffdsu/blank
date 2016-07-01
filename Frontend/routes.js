@@ -11,7 +11,7 @@ blankApp.config(['$routeProvider', '$httpProvider', function ($routeProvider, $h
         })
         .when('/inspiration-corner/index', {
             templateUrl: 'partials/inspiration-index.htm'
-            , controller: 'inspirationController'
+            , controller: 'indexController'
         })
         .when('/inspiration-corner/media', {
             templateUrl: 'partials/inspiration-media.htm'
