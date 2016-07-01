@@ -129,7 +129,7 @@ class MediumInsightViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
                 return self.respond_ok(self.log_msg, self.request, self.serializer([insight], return_params_dict).data)
 
             else:
-                insights = Insight.search(medium=medium, valid=True)
+                insights = Insight.search(medium=medium, valid=True, personal=False)
 
                 return self.respond_ok(self.log_msg, self.request, self.serializer(insights, return_params_dict).data)
 
@@ -269,7 +269,7 @@ class UserInsightsViewSet (viewsets.ModelViewSet, InspirationBaseViewMixIn):
             return_params_dict = self.read_return_params()
 
             user = User.objects.get(id=users_pk)
-            insights = Insight.search(user=user)
+            insights = Insight.search(user=user, personal=False)
 
             return self.respond_ok(self.log_msg, self.request, self.serializer(insights, return_params_dict).data)
 

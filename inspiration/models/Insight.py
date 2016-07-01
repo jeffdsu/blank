@@ -19,7 +19,7 @@ class Insight(models.Model, InspirationBaseModelMixIn):
     @classmethod
     def random_for_medium(cls, medium, keywords=None, **kwargs):
 
-        query = Q(medium=medium, valid=True)
+        query = Q(medium=medium, valid=True, personal=False)
         keyword_q = Q()
 
         for keyword in keywords:
