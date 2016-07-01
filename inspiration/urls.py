@@ -6,6 +6,7 @@ from rest_framework_nested import routers
 
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'media/(?P<type>\w+)', views.MediumViewSet)
+router.register(r'profile/insights', views.ProfileViewSet)
 router.register(r'contributors', views.ContributorViewSet)
 router.register(r'medium-types', views.MediumTypeViewSet)
 router.register(r'contribution-types', views.ContributionTypeViewSet)

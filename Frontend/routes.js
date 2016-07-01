@@ -5,6 +5,10 @@ blankApp.config(['$routeProvider', '$httpProvider', function ($routeProvider, $h
             templateUrl: 'partials/inspiration.htm'
             , controller: 'inspirationController'
         })
+        .when('/inspiration-corner/home', {
+            templateUrl: 'partials/home.htm'
+            , controller: 'homeController'
+        })
         .when('/inspiration-corner/index', {
             templateUrl: 'partials/inspiration-index.htm'
             , controller: 'inspirationController'

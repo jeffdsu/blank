@@ -5,7 +5,7 @@
 
             <br>
             <label>
-                <input type="checkbox" ng-model="insight.private">private</label>
+                <input type="checkbox" ng-model="insight.private">personal</label>
             <br>
             <select class="form-control" ng-options="tag as tag.name for tag in tags track by tag.id" ng-model="add_tag"></select>
             <button class="btn btn-xs" type="button" ng-click="add_to_tags(add_tag)">add tag</button>
