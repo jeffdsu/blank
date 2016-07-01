@@ -178,6 +178,10 @@ blankApp.controller('mediaDetailController', ['$scope', '$resource', '$routePara
 
 blankApp.controller('InsightsComController', ['$scope', '$resource', '$routeParams', '$http', 'mediaService', 'Auth', 'tagService', function ($scope, $resource, $routeParams, $http, mediaService, Auth, tagService) {
 
+    
+    $scope.insight = Object();
+    $scope.insight.tags = [];
+    
     $scope.message = "";
     $scope.dialogShown= {
         value: false
@@ -192,14 +196,18 @@ blankApp.controller('InsightsComController', ['$scope', '$resource', '$routePara
 
         });
     
+    $scope.create_a_new_tag = function (new_tag) {
+
+        tagService.create(new_tag)
+            .then(function (data) {
+                $scope.tags.push(data);
+                $scope.message = "New Tag created";
+            })
+    }
+    
     $scope.add_insight = function (insight) {
 
-        var formData = {
-            lesson: insight
-        };
-
-
-        mediaService.add_insight($scope.medium, formData)
+        mediaService.add_insight($scope.medium, insight)
             .then(function (data) {
                 $scope.insightsList.push(data);
                 $scope.message = "Success: Insight has been submitted for validation";
@@ -214,6 +222,12 @@ blankApp.controller('InsightsComController', ['$scope', '$resource', '$routePara
     $scope.is_logged_in = function () {
         return Auth.is_logged_in();
     };
+    
+    $scope.add_to_tags = function (new_tag) {
+        $scope.insight.tags.push(angular.copy(new_tag));
+        console.log($scope.insight.tags);
+    };
+    
 
 }]);
 

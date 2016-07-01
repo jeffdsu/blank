@@ -1,4 +1,4 @@
-from inspiration.models import MediumType, Contributor, Checkout, Insight, Keyword, WordToIgnore, Medium, ContributionType, Tag
+from inspiration.models import MediumType, Contributor, Checkout, Insight, Keyword, WordToIgnore, InsightTag, Medium, ContributionType, Tag
 from inspiration.serializers import MediumTypeSerializer, ContributorSerializer, CheckoutSerializer, InsightSerializer, InsightWithKeywordsSerializer, MediumSerializer, \
     UserPublicSerializer, KeywordSerializer, WordToIgnoreSerializer, ContributionTypeSerializer, TagSerializer
 from rest_framework import viewsets, permissions
@@ -149,11 +149,15 @@ class MediumInsightViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
         try:
             medium = Medium.get(media_pk)
             user = request.user
-            lesson = request.data['lesson']
+            tags_data = request.data.pop('tags')
 
-            temp_insight = Insight(medium=medium, user=user, lesson=lesson, valid=False)
 
-            temp_insight.save()
+            temp_insight = Insight(medium=medium, user=user, **request.data)
+            temp_insight.save(tags_data)
+
+            for tag_data in tags_data:
+                tag = Tag.objects.get_or_create(**tag_data)[0]
+                InsightTag.objects.get_or_create(insight=temp_insight, tag=tag)
 
             return self.respond_ok(self.log_msg, self.request, InsightSerializer(temp_insight).data)
 
@@ -182,6 +186,7 @@ class InsightViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
         insight_dict = dict()
         insight_dict['user'] = request.user
         insight_dict['lesson'] = request.data['lesson']
+
         insight_dict['book_id'] = media_pk
         insight_dict['checkout'] = request.data['checkout'] if 'checkout' in request.data else None
 

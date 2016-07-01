@@ -74,6 +74,9 @@ blankApp.service('mediaService', ['$http', '$localStorage', 'urls', '$q', functi
     };
 
     self.add_insight = function (medium, insight) {
+        
+        console.log(insight);
+        
         return $http.post(urls.BASE + "/inspiration-corner/media/" + medium.type.name + "/" + medium.id + "/insights", insight)
             .then(function (response) {
                 if (typeof response.data === 'object') {

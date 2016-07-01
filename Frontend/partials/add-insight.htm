@@ -2,17 +2,28 @@
     <div ng-switch-when='true'>
         <form>
             <textarea class="form-control" rows="5" id="comment" ng-model="insight.lesson"></textarea>
-            <input type="submit" value="Submit" , ng-click="add_insight(insight)">
-            <br> {{ message }}
+
+            <br>
+            <label>
+                <input type="checkbox" ng-model="insight.private">private</label>
+            <br>
+            <select ng-options="tag as tag.name for tag in tags track by tag.id" ng-model="add_tag"></select>
+            <button class="btn btn-xs" type="button" ng-click="add_to_tags(add_tag)">add tag</button>
+            <br>
+            <input type="text" ng-model="new_tag.name">
+            <button class="btn btn-xs" type="button" ng-click="create_a_new_tag(new_tag)">add a new tag</button>
+            <br>
+            <br>
+            <input type="submit" value="Submit" , ng-click="add_insight(insight)"> {{ message }}
         </form>
     </div>
 
-    <div class="checkbox">
-  <label><input type="checkbox" ng-model="insight.private">private</label>
-</div>
+
+
+
 
     <div div ng-switch-when='false'>
         Must be logged in to add an insight
     </div>
-    <select ng-options="tag as tag.name for tag in tags track by tag.id" ng-model="add_tag"></select>
+
 </div>

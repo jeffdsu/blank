@@ -109,6 +109,9 @@ class InsightWithKeywordsSerializer(serializers.ModelSerializer):
     related_medium_type = serializers.SerializerMethodField()
     tags = serializers.SerializerMethodField()
 
+    def create(self, validated_data):
+        pass
+
     def get_tags(self,insight):
         return InsightTagSerializer(insight.tags, many=True).data
 
@@ -129,6 +132,9 @@ class InsightSerializer(serializers.ModelSerializer):
 
     medium_type = serializers.SerializerMethodField()
     tags = serializers.SerializerMethodField()
+
+    def get_tags(self, insight):
+        return InsightTagSerializer(insight.tags, many=True).data
 
     def get_medium_type(self, insight):
         return insight.medium.type.name

@@ -17,4 +17,18 @@ blankApp.service('tagService', ['$http', '$localStorage', 'urls', '$q', function
             });
 
     };
+    
+    self.create = function (data) {
+        return $http.post(urls.BASE + "/inspiration-corner/tags", data)
+            .then(function (response) {
+                if (typeof response.data === 'object') {
+                    return response.data
+
+                } else {
+                    return $q.reject(response.data)
+                }
+            }, function (response) {
+                return $q.reject(response.data)
+            });
+    };
 }]);
