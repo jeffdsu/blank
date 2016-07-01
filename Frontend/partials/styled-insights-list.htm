@@ -1,7 +1,7 @@
 <div ng-controller="InsightsComController">
     <div class="row">
         <form id="search-form" class="form-inline pull-right" role="form">
-            <select class="form-control" ng-options="tag as tag.name for tag in tags track by tag.id" ng-model="tag_filter"></select>
+            <select class="form-control" ng-options="tag as tag.name for tag in tags track by tag.id" ng-model="tag_filter"><option value="">None</option></select>
             <div class="input-group">
                 <input type="text" class="form-control search-form" placeholder="Insights Search" ng-model="insightsSearchQuery">
                 <span class="input-group-btn"><button type="submit" class="btn btn-primary search-btn" data-target="#search-form" name="q"><i class="glyphicon glyphicon-search"></i>
