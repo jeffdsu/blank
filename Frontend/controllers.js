@@ -275,7 +275,7 @@ blankApp.controller('authController', ['urls', '$rootScope', '$scope', '$resourc
 
                 }
                 , function (err) {
-                    $scope.error = 'Invalid credentials.';
+                    $scope.error = err;
                 }
             );
 
