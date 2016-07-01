@@ -151,8 +151,11 @@ class MediumInsightViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
             user = request.user
             tags_data = request.data.pop('tags')
 
+            default_valid=False
+            if "personal" in request.data and request.data['personal']==True:
+                default_valid = True
 
-            temp_insight = Insight(medium=medium, user=user, **request.data)
+            temp_insight = Insight(valid=default_valid, medium=medium, user=user, **request.data)
             temp_insight.save(tags_data)
 
             for tag_data in tags_data:
