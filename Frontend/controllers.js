@@ -5,6 +5,7 @@ blankApp.controller('mediaController', ['$scope', '$resource', '$routeParams', '
     $scope.mediaType = $routeParams.mediaType;
     mediaService.mediaType = $scope.mediaType;
 
+    
 
 
     $scope.get_random_insight_for_each_book = function () {

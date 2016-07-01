@@ -77,9 +77,21 @@ blankApp.filter('insightLinkToUserFilter', function () {
 
 
 blankApp.filter('insightsFilter', function () {
-    return function (items, search) {
+    return function (items, search, tag_filter) {
 
-
+        
+        if (tag_filter) {
+            var temp_array = []
+            angular.forEach(items, function (item) {
+                angular.forEach(item.tags, function (tag) {
+                    console.log(tag.tag);
+                    if (tag_filter.id == tag.tag.id) {
+                        temp_array.push(item);
+                    }
+                });    
+            });
+            items = temp_array;
+        }
 
         var filtered = [];
         if (search) {
