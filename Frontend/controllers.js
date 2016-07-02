@@ -5,7 +5,7 @@ blankApp.controller('mediaController', ['$scope', '$resource', '$routeParams', '
     $scope.mediaType = $routeParams.mediaType;
     mediaService.mediaType = $scope.mediaType;
 
-    
+
 
 
     $scope.get_random_insight_for_each_book = function () {
@@ -48,14 +48,16 @@ blankApp.controller('mediaController', ['$scope', '$resource', '$routeParams', '
     });
 }]);
 
-blankApp.controller('addMediumController', ['$scope', '$resource', '$routeParams', '$http', 'mediaService', 'contributorService', 'mediumTypeService', 'contributionTypeService', function ($scope, $resource, $routeParams, $http, mediaService, contributorService, mediumTypeService, contributionTypeService) {
+blankApp.controller('addMediumController', ['$scope', '$location', '$resource', '$routeParams', '$http', 'mediaService', 'contributorService', 'mediumTypeService', 'contributionTypeService', function ($scope, $location, $resource, $routeParams, $http, mediaService, contributorService, mediumTypeService, contributionTypeService) {
 
     $scope.new_medium = Object();
     $scope.new_medium.contributions = [];
     $scope.new_medium.links = [];
 
     $scope.add_new_medium = function (new_medium) {
-        mediaService.create(new_medium);
+        mediaService.create(new_medium).then(function (data) {
+            $location.path('inspiration-corner/media/' + new_medium.type.name).replace();
+        });
     };
 
     contributionTypeService.get_collection()
@@ -108,7 +110,7 @@ blankApp.controller('addContributorController', ['$scope', '$resource', '$routeP
 blankApp.controller('indexController', ['$scope', '$resource', '$routeParams', '$http', 'mediaService', 'contributorService', 'mediumTypeService', 'Auth', function ($scope, $resource, $routeParams, $http, mediaService, contributorService, mediumTypeService, Auth) {
 
 
-   $scope.is_logged_in = function () {
+    $scope.is_logged_in = function () {
         return Auth.is_logged_in();
     };
 
@@ -189,15 +191,15 @@ blankApp.controller('mediaDetailController', ['$scope', '$resource', '$routePara
 
 blankApp.controller('InsightsComController', ['$scope', '$resource', '$routeParams', '$http', 'mediaService', 'Auth', 'tagService', function ($scope, $resource, $routeParams, $http, mediaService, Auth, tagService) {
 
-    
+
     $scope.insight = Object();
     $scope.insight.tags = [];
-    
+
     $scope.message = "";
-    $scope.dialogShown= {
+    $scope.dialogShown = {
         value: false
     };
-    
+
     tagService.get_collection()
         .then(function (data) {
             console.log(data);
@@ -206,7 +208,7 @@ blankApp.controller('InsightsComController', ['$scope', '$resource', '$routePara
 
 
         });
-    
+
     $scope.create_a_new_tag = function (new_tag) {
 
         tagService.create(new_tag)
@@ -215,7 +217,7 @@ blankApp.controller('InsightsComController', ['$scope', '$resource', '$routePara
                 $scope.message = "New Tag created";
             })
     }
-    
+
     $scope.add_insight = function (insight) {
 
         mediaService.add_insight($scope.medium, insight)
@@ -233,12 +235,12 @@ blankApp.controller('InsightsComController', ['$scope', '$resource', '$routePara
     $scope.is_logged_in = function () {
         return Auth.is_logged_in();
     };
-    
+
     $scope.add_to_tags = function (new_tag) {
         $scope.insight.tags.push(angular.copy(new_tag));
         console.log($scope.insight.tags);
     };
-    
+
 
 }]);
 
