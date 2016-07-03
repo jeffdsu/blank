@@ -40,5 +40,6 @@ urlpatterns = patterns('',
     url(r'^', include(insights_router.urls)),
     url(r'^', include(contributor_router.urls)),
     url(r'^', include(users_router.urls)),
+    url(r'^api/auth$', views.ObtainAuthToken.as_view(), name='obtain_token'),
 )
 

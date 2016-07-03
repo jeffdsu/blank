@@ -10,6 +10,7 @@ blankApp.service('Auth', ['$http', '$localStorage', 'urls', '$q', function ($htt
    self.signin = function (data) {
         return $http.post(urls.BASE + '/rest-auth/login/', data)
             .then(function (response) {
+                $localStorage.token = response.key;
                $localStorage.logged_in = true;
                return response.data;
                 
@@ -49,5 +50,25 @@ blankApp.service('Auth', ['$http', '$localStorage', 'urls', '$q', function ($htt
             });
 
     };
+    
+    self.sign_in_fb = function (authResponse) {
+        
+        data = { access_token: authResponse.accessToken, backend:"facebook"}
+        
+        return $http.post(urls.BASE + '/inspiration-corner/api/auth', data)
+            .then(function (response) {
+                if (typeof response.data === 'object') {
+                    $localStorage.logged_in = true;
+                    $localStorage.token = response.key;
+                    return response.data
+                } else {
+                    return $q.reject(response.data)
+                }
+            }, function (response) {
+                return $q.reject(response.data)
+            });
+
+    };
+    
     
 }]);

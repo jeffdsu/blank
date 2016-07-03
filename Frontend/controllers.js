@@ -57,6 +57,8 @@ blankApp.controller('addMediumController', ['$scope', '$location', '$resource', 
     $scope.add_new_medium = function (new_medium) {
         mediaService.create(new_medium).then(function (data) {
             $location.path('inspiration-corner/media/' + new_medium.type.name).replace();
+        }, function(err) {
+            $scope.message = err;
         });
     };
 
@@ -272,7 +274,6 @@ blankApp.controller('authController', ['urls', '$rootScope', '$scope', '$resourc
 
         Auth.signin(formData)
             .then(function (data) {
-                    $localStorage.token = data.key;
                     $location.path('inspiration-corner').replace();
 
                 }
@@ -296,6 +297,36 @@ blankApp.controller('authController', ['urls', '$rootScope', '$scope', '$resourc
                 }
             );
     };
+    
+    
+    $scope.FBLogin = function () {
+        
+        FB.init({ 
+      appId: '843262412484015',
+      status: true, 
+      cookie: true, 
+      xfbml: true,
+      version: 'v2.4'
+    });
+        
+        FB.login(function(response) {
+          if (response.status === 'connected') {
+              console.log(response);
+              Auth.sign_in_fb(response.authResponse)
+              .then (function(data) {
+                  $location.path('inspiration-corner/index').replace();
+              }, function (err) {
+                  
+              });
+              
+          } else if (response.status === 'not_authorized') {
+            // The person is logged into Facebook, but not your app.
+          } else {
+            // The person is not logged into Facebook, so we're not sure if
+            // they are logged into this app or not.
+  }
+});
+    }
 
 
 

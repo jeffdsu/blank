@@ -284,4 +284,116 @@ class UserInsightsViewSet (viewsets.ModelViewSet, InspirationBaseViewMixIn):
 
 
 
+from social.apps.django_app.utils import psa, load_strategy
 
+from rest_framework.authtoken.models import Token
+from rest_framework.views import APIView
+from rest_framework import parsers
+from rest_framework import renderers
+from rest_framework.authentication import get_authorization_header
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.authtoken.serializers import AuthTokenSerializer
+
+
+@psa()
+def register_by_access_token(request, backend):
+    print(backend)
+    backend = request.strategy.backend
+    # Split by spaces and get the array
+    auth = get_authorization_header(request).split()
+
+    if not auth or auth[0].lower() != b'token':
+        msg = 'No token header provided.'
+        return msg
+
+    if len(auth) == 1:
+        msg = 'Invalid token header. No credentials provided.'
+        return msg
+
+    access_token = auth[1]
+
+    user = backend.do_auth(access_token)
+
+    return user
+
+
+@psa()
+def auth_by_token(request, backend):
+    backend = request.backend
+
+    user=request.user
+    user = backend.do_auth(
+        access_token=request.data.get('access_token'),
+        user=user.is_authenticated() and user or None
+        )
+    if user and user.is_active:
+        return user# Return anything that makes sense here
+    else:
+        return None
+
+# Pour une vraie integration au rest framework
+class ObtainAuthToken(APIView):
+    throttle_classes = ()
+    permission_classes = ()
+    parser_classes = (parsers.FormParser, parsers.MultiPartParser, parsers.JSONParser,)
+    renderer_classes = (renderers.JSONRenderer,)
+    serializer_class = AuthTokenSerializer
+    model = Token
+
+    # Accepte un backend en parametre : 'auth' pour un login / pass classique
+    def post(self, request):
+        auth_token = request.data.get('access_token', None)
+        backend = request.data.get('backend', None)
+
+        if auth_token and backend:
+            try:
+                user = auth_by_token(request, backend)
+            except Exception as err:
+                return Response(str(err), status=400)
+            if user:
+                strategy = load_strategy(request=request)
+                token, created = Token.objects.get_or_create(user=user)
+                return Response({'token': token.key})
+            else:
+                return Response("Bad Credentials", status=403)
+        else:
+            return Response("Bad request", status=400)
+
+class ObtainUser(APIView):
+    throttle_classes = ()
+    permission_classes = ()
+    parser_classes = (parsers.FormParser, parsers.MultiPartParser, parsers.JSONParser,)
+    renderer_classes = (renderers.JSONRenderer,)
+    serializer_class = AuthTokenSerializer
+    model = Token
+
+    # Renvoi le user si le token est valide
+    def get(self, request):
+        serializer = self.serializer_class(data=request.data)
+        if request.META.get('HTTP_AUTHORIZATION'):
+
+            auth = request.META.get('HTTP_AUTHORIZATION').split()
+
+            if not auth or auth[0].lower() != b'token' or len(auth) != 2:
+                msg = 'Invalid token header. No credentials provided.'
+                return Response(msg, status=status.HTTP_401_UNAUTHORIZED)
+
+            token = Token.objects.get(key=auth[1])
+            if token and token.user.is_active:
+                return Response({'id': token.user_id, 'name': token.user.username, 'firstname': token.user.first_name, 'userRole': 'user', 'token': token.key})
+        else:
+            return Response(serializer.errors, status=status.HTTP_401_UNAUTHORIZED)
+
+
+class ObtainLogout(APIView):
+    throttle_classes = ()
+    permission_classes = ()
+    parser_classes = (parsers.FormParser, parsers.MultiPartParser, parsers.JSONParser,)
+    renderer_classes = (renderers.JSONRenderer,)
+    serializer_class = AuthTokenSerializer
+    model = Token
+
+    # Logout le user
+    def get(self, request):
+        return Response({'User': ''})

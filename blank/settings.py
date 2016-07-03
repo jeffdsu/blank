@@ -65,12 +65,14 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'social.apps.django_app.default',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.facebook',
+
+
 ]
 
 AUTHENTICATION_BACKENDS = (
-    # Needed to login by username in Django admin, regardless of `allauth`
     "django.contrib.auth.backends.ModelBackend",
-    # `allauth` specific authentication methods, such as login by e-mail
     "allauth.account.auth_backends.AuthenticationBackend"
 )
 
@@ -87,43 +89,37 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-AUTHENTICATION_BACKENDS = (
-    'social.backends.facebook.FacebookOAuth2',
-    'social.backends.google.GoogleOAuth2',
-    'social.backends.twitter.TwitterOAuth',
-    'django.contrib.auth.backends.ModelBackend',
-)
 
 ROOT_URLCONF = 'blank.urls'
 
+SOCIAL_AUTH_FACEBOOK_KEY = '843262412484015'
+SOCIAL_AUTH_FACEBOOK_SECRET = '9e93c7b319837c933407db44a46fe164'
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['jeffdsu@gmail.com']
+
+
 TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
-        },
+{
+    'BACKEND': 'django.template.backends.django.DjangoTemplates',
+    'DIRS': [os.path.join(BASE_DIR, "templates")],
+    'APP_DIRS': True,
+    'OPTIONS': {
         'context_processors': [
-            # Insert your TEMPLATE_CONTEXT_PROCESSORS here or use this
-            # list if you haven't customized them:
+            "django.core.context_processors.request",
+            'django.template.context_processors.debug',
+            'django.template.context_processors.request',
             'django.contrib.auth.context_processors.auth',
-            'django.core.context_processors.debug',
-            'django.core.context_processors.i18n',
-            'django.core.context_processors.media',
-            'django.core.context_processors.static',
-            'django.core.context_processors.tz',
             'django.contrib.messages.context_processors.messages',
-            'social.apps.django_app.context_processors.backends',
-            'social.apps.django_app.context_processors.login_redirect',
-        ]
+
+        ],
     },
-]
+},]
+
+AUTHENTICATION_BACKENDS = (
+
+'social.backends.facebook.FacebookAppOAuth2',
+'social.backends.facebook.FacebookOAuth2',
+'django.contrib.auth.backends.ModelBackend',
+)
 
 WSGI_APPLICATION = 'blank.wsgi.application'
 
@@ -178,3 +174,7 @@ STATICFILES_DIRS = [
     '/var/www/static/',
 ]
 STATIC_URL = '/static/'
+
+SITE_ID = 1
+
+LOGIN_REDIRECT_URL = "/";
