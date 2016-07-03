@@ -33,7 +33,7 @@ class ProfileViewSet (viewsets.ModelViewSet, InspirationBaseViewMixIn):
             # TODO-JEFF there has to be a better way to do this
             insights = None
             if personal is not None:
-                insights = Insight.search(user=user, personal=bool(personal))
+                insights = Insight.search(user=user, personal=personal)
             else:
                 insights = Insight.search(user=user)
 
