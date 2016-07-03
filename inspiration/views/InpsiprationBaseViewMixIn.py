@@ -1,5 +1,6 @@
 from rest_framework.response import Response
 from inspiration.util.Logging import blankLogging, blankLogMessage
+import traceback
 
 
 class InspirationBaseViewMixIn():
@@ -51,6 +52,8 @@ class InspirationBaseViewMixIn():
         if isinstance(exception.args[0], Response):
             response = exception.args[0]
         else:
+
+            traceback.print_tb(20)
             print(exception)
             response = Response(status=400, data="Unknown Issue")
 

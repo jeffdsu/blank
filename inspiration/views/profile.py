@@ -27,12 +27,11 @@ class ProfileViewSet (viewsets.ModelViewSet, InspirationBaseViewMixIn):
             user = request.user
 
             personal = self.request.query_params.get('personal', None)
-            print(personal)
 
             # TODO-JEFF there has to be a better way to do this
             insights = None
             if personal is not None:
-                insights = Insight.search(user=user, personal=personal)
+                insights = Insight.search(user=user, personal=bool(personal))
             else:
                 insights = Insight.search(user=user)
 

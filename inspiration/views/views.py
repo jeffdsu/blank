@@ -186,17 +186,17 @@ class InsightViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
     @InspirationBaseViewMixIn.blank_logging_decorator
     def create(self, request, media_pk=None):
 
-        insight_dict = dict()
-        insight_dict['user'] = request.user
-        insight_dict['lesson'] = request.data['lesson']
+        print(request.data)
+        tags_data = request.data.pop('tags')
 
-        insight_dict['book_id'] = media_pk
-        insight_dict['checkout'] = request.data['checkout'] if 'checkout' in request.data else None
+        temp_insight = Insight(user=request.user, **request.data)
+        temp_insight.save()
 
-        insight = Insight(**insight_dict)
-        insight.save()
+        for tag_data in tags_data:
+            tag = Tag.objects.get_or_create(**tag_data)[0]
+            InsightTag.objects.get_or_create(insight=temp_insight, tag=tag)
 
-        return self.respond_ok(self.log_msg, self.request, InsightSerializer(insight).data)
+        return self.respond_ok(self.log_msg, self.request, InsightSerializer(temp_insight).data)
 
 
 

@@ -191,17 +191,21 @@ blankApp.controller('mediaDetailController', ['$scope', '$resource', '$routePara
 }]);
 
 
-blankApp.controller('InsightsComController', ['$scope', '$resource', '$routeParams', '$http', 'mediaService', 'Auth', 'tagService', function ($scope, $resource, $routeParams, $http, mediaService, Auth, tagService) {
+blankApp.controller('InsightsComController', ['$scope', '$resource', '$routeParams', '$http', 'mediaService', 'Auth', 'tagService', 'personalInsightSerivce', function ($scope, $resource, $routeParams, $http, mediaService, Auth, tagService, personalInsightSerivce) {
 
 
     $scope.insight = Object();
     $scope.insight.tags = [];
 
     $scope.message = "";
-    $scope.dialogShown = {
+    $scope.add_personal_insight_dialogShown = {
         value: false
     };
-
+    
+    $scope.add_insight_dialogShown = {
+        value: false
+    };
+    
     tagService.get_collection()
         .then(function (data) {
             console.log(data);
@@ -228,10 +232,23 @@ blankApp.controller('InsightsComController', ['$scope', '$resource', '$routePara
                 $scope.message = "Success: Insight has been submitted for validation";
             })
     }
+    
+    $scope.add_personal_insight = function (insight) {
+        personalInsightSerivce.create(insight)
+        .then(function (data) {
+                $scope.insightsList.push(data);
+                $scope.message = "Success: Personal Insight added";
+            })
+        
+    }
 
     $scope.add_insight_modal = function () {
         console.log($scope.dialogShown);
-        $scope.dialogShown.value = !$scope.dialogShown.value;
+        $scope.add_insight_dialogShown.value = !$scope.add_insight_dialogShown.value;
+    }
+    
+    $scope.add_personal_insight_modal = function () {
+        $scope.add_personal_insight_dialogShown.value = !$scope.add_personal_insight_dialogShown.value
     }
 
     $scope.is_logged_in = function () {

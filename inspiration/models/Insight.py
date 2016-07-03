@@ -9,7 +9,7 @@ class Insight(models.Model, InspirationBaseModelMixIn):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     lesson = models.TextField()
     checkout = models.ForeignKey(Checkout, null=True, on_delete=models.CASCADE)
-    medium = models.ForeignKey('Medium', on_delete=models.CASCADE)
+    medium = models.ForeignKey('Medium', on_delete=models.CASCADE, null=True)
     valid = models.BooleanField(default=False)
     personal = models.BooleanField()
 

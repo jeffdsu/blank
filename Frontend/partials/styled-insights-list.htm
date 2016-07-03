@@ -14,8 +14,8 @@
     <div ng-if="medium">
         <div class="pull-right">
             <button class="btn btn-xs" type="button" ng-click="add_insight_modal()">
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
-            <modal-dialog show='dialogShown.value' width='500px' dialog-title='Add Insight' on-close='logClose()'>
+                Add insight</button>
+            <modal-dialog show='add_insight_dialogShown.value' width='500px' dialog-title='Add Insight' on-close='logClose()'>
                 <ng-include src="'partials/add-insight.htm'"></ng-include>
             </modal-dialog>
 
@@ -23,6 +23,20 @@
         <br>
         <br>
     </div>
+    
+    <div class="add-personal-insight">
+        <div class="pull-right">
+            <button class="btn btn-xs" type="button" ng-click="add_personal_insight_modal()">
+                Add personal insight </button>
+            <modal-dialog show='add_personal_insight_dialogShown.value' width='500px' dialog-title='Add Personal Insight'>
+                <ng-include src="'partials/add-personal-insight.htm'"></ng-include>
+            </modal-dialog>
+
+        </div>
+        <br>
+        <br>
+    </div>
+
 
 
     <div class="row">

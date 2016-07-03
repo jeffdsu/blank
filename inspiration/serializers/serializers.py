@@ -112,13 +112,18 @@ class InsightWithKeywordsSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         pass
 
-    def get_tags(self,insight):
+    def get_tags(self, insight):
+
         return InsightTagSerializer(insight.tags, many=True).data
 
     def get_related_medium_type(self, insight):
-        return insight.medium.type.name
-
+        if insight.medium:
+            return insight.medium.type.name
+        return None
     def get_related_medium_top_10_keywords(self, insight):
+
+        if insight.medium is None:
+            return None
         medium = Medium.get(id=insight.medium.id)
         keywords = Keyword.get_top_10_keywords(medium)
 
@@ -137,7 +142,9 @@ class InsightSerializer(serializers.ModelSerializer):
         return InsightTagSerializer(insight.tags, many=True).data
 
     def get_medium_type(self, insight):
-        return insight.medium.type.name
+        if insight.medium:
+            return insight.medium.type.name
+        return None
 
     class Meta:
         model = Insight

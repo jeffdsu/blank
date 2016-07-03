@@ -10,7 +10,8 @@ blankApp.service('Auth', ['$http', '$localStorage', 'urls', '$q', function ($htt
    self.signin = function (data) {
         return $http.post(urls.BASE + '/rest-auth/login/', data)
             .then(function (response) {
-                $localStorage.token = response.key;
+                console.log(response);
+               $localStorage.token = response.data.key;
                $localStorage.logged_in = true;
                return response.data;
                 
