@@ -58,8 +58,6 @@ blankApp.service('Auth', ['$http', '$localStorage', 'urls', '$q', function ($htt
 
         return $http.post(urls.BASE + '/inspiration-corner/api/auth', data)
             .then(function (response) {
-                
-                print(response)
             
                 if (typeof response.data === 'object') {
                     
