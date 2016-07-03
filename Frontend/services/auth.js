@@ -55,12 +55,16 @@ blankApp.service('Auth', ['$http', '$localStorage', 'urls', '$q', function ($htt
     self.sign_in_fb = function (authResponse) {
         
         data = { access_token: authResponse.accessToken, backend:"facebook"}
-        
+
         return $http.post(urls.BASE + '/inspiration-corner/api/auth', data)
             .then(function (response) {
+                
+                print(response)
+            
                 if (typeof response.data === 'object') {
+                    
                     $localStorage.logged_in = true;
-                    $localStorage.token = response.key;
+                    $localStorage.token = response.data.key;
                     return response.data
                 } else {
                     return $q.reject(response.data)

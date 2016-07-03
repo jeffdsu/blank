@@ -24,6 +24,8 @@ class ProfileViewSet (viewsets.ModelViewSet, InspirationBaseViewMixIn):
 
             return_params_dict = self.read_return_params()
 
+            print(request.user)
+
             user = request.user
 
             personal = self.request.query_params.get('personal', None)

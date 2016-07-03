@@ -354,7 +354,7 @@ class ObtainAuthToken(APIView):
             if user:
                 strategy = load_strategy(request=request)
                 token, created = Token.objects.get_or_create(user=user)
-                return Response({'token': token.key})
+                return Response({'key': token.key})
             else:
                 return Response("Bad Credentials", status=403)
         else:

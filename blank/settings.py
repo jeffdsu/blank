@@ -94,9 +94,11 @@ ROOT_URLCONF = 'blank.urls'
 
 SOCIAL_AUTH_FACEBOOK_KEY = '843262412484015'
 SOCIAL_AUTH_FACEBOOK_SECRET = '9e93c7b319837c933407db44a46fe164'
-SOCIAL_AUTH_FACEBOOK_SCOPE = ['jeffdsu@gmail.com']
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
 
-
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
+    'fields': 'id,name,email',
+}
 TEMPLATES = [
 {
     'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -113,6 +115,8 @@ TEMPLATES = [
         ],
     },
 },]
+
+
 
 AUTHENTICATION_BACKENDS = (
 
