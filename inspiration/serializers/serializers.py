@@ -174,7 +174,7 @@ class InsightSerializer(serializers.ModelSerializer):
 class MomentSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Note
+        model = Moment
         fields = '__all__'
 
 

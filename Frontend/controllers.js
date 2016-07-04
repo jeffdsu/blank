@@ -137,6 +137,20 @@ blankApp.controller('inspirationController', ['$scope', '$resource', '$routePara
 
 }]);
 
+
+blankApp.controller('momentDetailsController', ['$scope', '$resource', '$routeParams', '$http', '$location', 'Auth', 'momentService', function ($scope, $resource, $routeParams, $http, $location, Auth, momentService) {
+
+   $scope.momentId = $routeParams.momentId;
+   
+    momentService.get($scope.momentId)
+    .then(function(moment){
+        $scope.moment = moment;
+        
+    }, function(err){});
+
+
+}]);
+
 blankApp.controller('navController', ['$scope', '$resource', '$routeParams', '$http', '$location', 'Auth', function ($scope, $resource, $routeParams, $http, $location, Auth) {
 
     $scope.signout = function () {
@@ -191,7 +205,7 @@ blankApp.controller('mediaDetailController', ['$scope', '$resource', '$routePara
 }]);
 
 
-blankApp.controller('InsightsComController', ['$scope', '$resource', '$routeParams', '$http', 'mediaService', 'Auth', 'tagService', 'personalInsightSerivce', function ($scope, $resource, $routeParams, $http, mediaService, Auth, tagService, personalInsightSerivce) {
+blankApp.controller('InsightsComController', ['$scope', '$location', '$resource', '$routeParams', '$http', 'mediaService', 'Auth', 'tagService', 'personalInsightSerivce', function ($scope, $location, $resource, $routeParams, $http, mediaService, Auth, tagService, personalInsightSerivce) {
 
 
     $scope.insight = Object();
@@ -272,9 +286,15 @@ blankApp.controller('InsightsComController', ['$scope', '$resource', '$routePara
         $scope.insight.tags.push(angular.copy(new_tag));
         console.log($scope.insight.tags);
     };
+    
+    $scope.go_to_moment = function (moment) {
+        $location.path('inspiration-corner/home/moments/' + moment.id).replace();
+    };
 
 
 }]);
+
+
 
 blankApp.controller('errorController', ['urls', '$rootScope', '$scope', '$resource', '$routeParams', '$http', '$localStorage', '$location', 'errorService', function (urls, $rootScope, $scope, $resource, $routeParams, $http, $localStorage, $location, errorService) {
 
