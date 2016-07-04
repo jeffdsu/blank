@@ -49,11 +49,41 @@ class NoteViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
     serializer_class = NoteSerializer
 
 class MomentViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
-    #authentication_classes = (TokenAuthentication,)
+    authentication_classes = (TokenAuthentication,)
     permission_classes = (AllowAny,)
 
     queryset = Moment.objects.all()
     serializer_class = MomentSerializer
+
+    @InspirationBaseViewMixIn.blank_logging_decorator
+    def list(self, request, type=None, media_pk=None):
+
+        user = request.user
+
+        moments = Moment.objects.filter(user=user)
+
+        return self.respond_ok(self.log_msg, self.request, MomentSerializer(moments, many=True).data)
+
+
+    @InspirationBaseViewMixIn.blank_logging_decorator
+    def create(self, request):
+
+        try:
+
+            user = request.user
+            insight_data = request.data.pop('insight')
+            print(insight_data)
+
+            insight = Insight.get(insight_data['id'])
+
+            new_moment = Moment(user=user, insight=insight, **request.data)
+
+            new_moment.save()
+
+            return self.respond_created(self.log_msg, self.request, MomentSerializer(new_moment).data)
+
+        except Exception as exception:
+            return self.__class__.respondToException(exception, self.log_msg, self.request)
 
 class ConversationViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
     #authentication_classes = (TokenAuthentication,)

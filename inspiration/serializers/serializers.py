@@ -164,10 +164,6 @@ class InsightSerializer(serializers.ModelSerializer):
         #fields = '__all__'
 
 class MomentSerializer(serializers.ModelSerializer):
-    related_insights = InsightSerializer(many=True)
-
-    def get_related_insights(self, insight):
-        return InsightSerializer(insight, many=True).data
 
     class Meta:
         model = Note

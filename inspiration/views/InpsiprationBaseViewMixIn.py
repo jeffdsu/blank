@@ -37,6 +37,14 @@ class InspirationBaseViewMixIn():
         return response
 
     @classmethod
+    def respond_created(cls, log_message, request, data):
+        status = 201
+        response = Response(status=status, data=data)
+        cls.logger.write_log_message(log_message, request, response)
+
+        return response
+
+    @classmethod
     def respond_updated(cls, log_message, request, data):
         status=200
 

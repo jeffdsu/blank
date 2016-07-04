@@ -1,10 +1,12 @@
-<form>
-Text:
-<textarea class="form-control" rows="5" ng-model="moment.text"></textarea>
+<div ng-controller="attachToInsightController">
+    <form>
+    Text:
+    <textarea class="form-control" rows="5" ng-model="moment.text"></textarea>
 
-Link
-<input type="text" ng-model="moment.text">
+    Link
+    <input type="text" ng-model="moment.link">
 
-    <input type="submit" >
+        <input type="submit" ng-click="create_and_link_a_moment()">
 
-</form>
+    </form>
+</div>

@@ -1,4 +1,4 @@
-blankApp.service('momentSerivce', ['$http', '$localStorage', 'urls', '$q', function ($http, $localStorage, urls, $q) {
+blankApp.service('momentService', ['$http', '$localStorage', 'urls', '$q', function ($http, $localStorage, urls, $q) {
     self = this;
     self.id = null;
     self.insights = null;
