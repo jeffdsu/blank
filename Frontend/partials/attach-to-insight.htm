@@ -1,0 +1,13 @@
+{{ insight }}
+
+<select ng-model="attach_type_selector">
+  <option value="moment">moment</option>
+</select>
+
+<div ng-switch="attach_type_selector">
+  <div ng-switch-when="moment">
+      <ng-include src="'partials/attach-a-moment.htm'"></ng-include>
+</div>
+  <div ng-switch-when="matchValue2"></div>
+  <div ng-switch-default></div>
+</div>

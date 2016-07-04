@@ -33,6 +33,16 @@ blankApp.service('insightService', ['$http', '$localStorage', 'urls', '$q', func
 
     }
     
+    self.validate = function (id) {
+        return $http.put(urls.BASE + "/inspiration-corner/admin/insights/" + id + "/validate")
+            .then(function (response) {
+                return response.data
+            }, function (response) {
+                return $q.reject(response.data)
+            });
+
+    }
+    
 
 
 }]);

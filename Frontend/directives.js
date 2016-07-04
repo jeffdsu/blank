@@ -30,3 +30,14 @@ blankApp.directive('styledInsightsList', ['insightService', 'Auth', function(ins
     
   };
 }]);
+
+
+blankApp.directive('attachToInsight', ['insightService', 'Auth', function(insightService, Auth) {
+  return {
+    templateUrl: 'partials/attach-to-insight.htm',
+    scope: {
+        insight: '=',
+    },
+    
+  };
+}]);

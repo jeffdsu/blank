@@ -1,6 +1,6 @@
-from inspiration.models import MediumType, Contributor, Checkout, Insight, Keyword, WordToIgnore, InsightTag, Medium, ContributionType, Tag
+from inspiration.models import MediumType, Contributor, Checkout, Insight, Keyword, WordToIgnore, InsightTag, Medium, ContributionType, Tag, Note, Moment, Conversation
 from inspiration.serializers import MediumTypeSerializer, ContributorSerializer, CheckoutSerializer, InsightSerializer, InsightWithKeywordsSerializer, MediumSerializer, \
-    UserPublicSerializer, KeywordSerializer, WordToIgnoreSerializer, ContributionTypeSerializer, TagSerializer
+    UserPublicSerializer, KeywordSerializer, WordToIgnoreSerializer, ContributionTypeSerializer, TagSerializer, MomentSerializer, NoteSerializer, ConversationSerializer
 from rest_framework import viewsets, permissions
 from django.contrib.auth.models import User
 from django.db.models import Q
@@ -33,6 +33,34 @@ class TagViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
 
+
+class MediumViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
+    #authentication_classes = (TokenAuthentication,)
+    permission_classes = (AllowAny,)
+
+    queryset = Tag.objects.all()
+    serializer_class = MediumSerializer
+
+class NoteViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
+    #authentication_classes = (TokenAuthentication,)
+    permission_classes = (AllowAny,)
+
+    queryset = Note.objects.all()
+    serializer_class = NoteSerializer
+
+class MomentViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
+    #authentication_classes = (TokenAuthentication,)
+    permission_classes = (AllowAny,)
+
+    queryset = Moment.objects.all()
+    serializer_class = MomentSerializer
+
+class ConversationViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
+    #authentication_classes = (TokenAuthentication,)
+    permission_classes = (AllowAny,)
+
+    queryset = Conversation.objects.all()
+    serializer_class = ConversationSerializer
 
 class KeywordsViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
     #authentication_classes = (TokenAuthentication,)

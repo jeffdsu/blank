@@ -44,8 +44,17 @@
             <table class="table table-hover">
                 <tr ng-repeat="insight in insightsList | insightsFilter:insightsSearchQuery:tag_filter">
                     <td ng-bind-html='insight | insightColorFilter:insight.related_medium_top_10_keywords | addLinkFilter:insight:linkType'></td>
+                    <td>
+                        <button typ="button" ng-click="attach_to_insight_modal(insight)">Attach</button>
+                    </td>
                 </tr>
             </table>
         </div>
     </div>
+    
+    <modal-dialog show='attach_to_insight_dialogShown.value' width='500px' dialog-title='Attach to Insight' on-close=''>
+                <attach-to-insight insight="attach_to_insight"></attach-to-insight>
+</modal-dialog>
 </div>
+
+

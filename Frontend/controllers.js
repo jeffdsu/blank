@@ -206,6 +206,10 @@ blankApp.controller('InsightsComController', ['$scope', '$resource', '$routePara
         value: false
     };
     
+    $scope.attach_to_insight_dialogShown = {
+        value: false
+    };
+    
     tagService.get_collection()
         .then(function (data) {
             console.log(data);
@@ -249,6 +253,15 @@ blankApp.controller('InsightsComController', ['$scope', '$resource', '$routePara
     
     $scope.add_personal_insight_modal = function () {
         $scope.add_personal_insight_dialogShown.value = !$scope.add_personal_insight_dialogShown.value
+    }
+    
+    $scope.add_personal_insight_modal = function () {
+        $scope.add_personal_insight_dialogShown.value = !$scope.add_personal_insight_dialogShown.value
+    }
+    
+    $scope.attach_to_insight_modal = function (insight) {
+        $scope.attach_to_insight=insight;
+        $scope.attach_to_insight_dialogShown.value = !$scope.attach_to_insight_dialogShown.value
     }
 
     $scope.is_logged_in = function () {
