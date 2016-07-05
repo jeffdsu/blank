@@ -118,9 +118,14 @@ class InsightWithKeywordsSerializer(serializers.ModelSerializer):
     related_medium_type = serializers.SerializerMethodField()
     tags = serializers.SerializerMethodField()
     moments = serializers.SerializerMethodField()
+    medium = serializers.SerializerMethodField()
 
     def create(self, validated_data):
         pass
+
+    def get_medium(self, insight):
+
+        return MediumSerializer(insight.medium).data
 
     def get_moments(self, insight):
         return MomentSerializer(insight.moments, many=True).data
@@ -144,7 +149,6 @@ class InsightWithKeywordsSerializer(serializers.ModelSerializer):
         return KeywordSerializer(keywords, many=True).data
 
     class Meta:
-        depth = 2
         model = Insight
 
 class InsightSerializer(serializers.ModelSerializer):

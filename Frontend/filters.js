@@ -20,7 +20,7 @@ blankApp.filter('addLinkFilter', function () {
             input_str = "<a href=\"#inspiration-corner/media/" + obj.related_medium_type + "/" + obj.medium + "\" class=\"insight\">" + input_str + "</a>";
             return input_str;
         } else if (type === 'user') {
-            input_str = "<a href=\"#inspiration-corner/users/" + obj.user + "\" class=\"insight\">" + input_str + "</a>";
+            input_str = "<a href=\"#inspiration-corner/users/" + obj.user.id + "\" class=\"insight\">" + input_str + "</a>";
             return input_str;
         }
 

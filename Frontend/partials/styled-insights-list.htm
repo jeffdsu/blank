@@ -38,7 +38,6 @@
     </div>
 
 
-
     <div class="row">
         <div class="insights-list-container">
             <table class="table table-hover">
@@ -47,13 +46,15 @@
                     <td ng-if="insight.moments.length">
                         <select class="form-control" ng-options="moment as moment.title for moment in insight.moments track by moment.id" ng-model="moment" ng-change="go_to_moment(moment)"><option value="">None</option></select>
                     </td>
-                    <td ng-if="insight.medium !== null">
-                        <a href="#/inspiration-corner/media/{{insight.medium.type.name}}/{{insight.medium.id}}"> medium
-                        </a>
-                    </td>
-                    <td>
-                        <button typ="button" ng-click="attach_to_insight_modal(insight)">Attach</button>
-                    </td>
+
+                        <td ng-if="insight.medium !== null && home==true">
+                            <a href="#/inspiration-corner/media/{{insight.medium.type.name}}/{{insight.medium.id}}"> medium
+                            </a>
+                        </td>
+                        <td ng-if="home==true">
+                            <button typ="button" ng-click="attach_to_insight_modal(insight)">Attach</button>
+                        </td>
+      
                 </tr>
             </table>
         </div>

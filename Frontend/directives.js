@@ -25,7 +25,8 @@ blankApp.directive('styledInsightsList', ['insightService', 'Auth', function(ins
     scope: {
         insightsList: '=',
         linkType: '@',
-        medium:'='
+        medium:'=',
+        home: '='
     },
     
   };
