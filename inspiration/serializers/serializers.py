@@ -124,9 +124,10 @@ class InsightWithKeywordsSerializer(serializers.ModelSerializer):
         pass
 
     def get_medium(self, insight):
+        if insight.medium is not None:
+            return MediumSerializer(insight.medium).data
 
-        return MediumSerializer(insight.medium).data
-
+        return None
     def get_moments(self, insight):
         return MomentSerializer(insight.moments, many=True).data
 
