@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from inspiration.models import MediumLink, MediumType, Contributor, Checkout, Insight, \
-    Medium, Keyword, WordToIgnore, MediumContribution, ContributionType, Tag, InsightTag, Note, Conversation, Moment
+    Medium, Keyword, WordToIgnore, MediumContribution, ContributionType, Tag, InsightTag, Note, Moment, MomentType
 from django.contrib.auth.models import User
 
 
@@ -11,10 +11,6 @@ class NoteSerializer(serializers.ModelSerializer):
         model = Note
         fields = '__all__'
 
-class ConversationSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Conversation
-        fields = '__all__'
 
 class ContributionTypeSerializer(serializers.ModelSerializer):
     class Meta:
@@ -171,9 +167,16 @@ class InsightSerializer(serializers.ModelSerializer):
         model = Insight
         #fields = '__all__'
 
+class MomentTypeSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = MomentType
+        fields = '__all__'
+
 class MomentSerializer(serializers.ModelSerializer):
 
     class Meta:
+        depth = 1
         model = Moment
         fields = '__all__'
 

@@ -1,6 +1,6 @@
-from inspiration.models import MediumType, Contributor, Checkout, Insight, Keyword, WordToIgnore, InsightTag, Medium, ContributionType, Tag, Note, Moment, Conversation
+from inspiration.models import MediumType, Contributor, Checkout, Insight, Keyword, WordToIgnore, InsightTag, Medium, ContributionType, Tag, Note, Moment, MomentType
 from inspiration.serializers import MediumTypeSerializer, ContributorSerializer, CheckoutSerializer, InsightSerializer, InsightWithKeywordsSerializer, MediumSerializer, \
-    UserPublicSerializer, KeywordSerializer, WordToIgnoreSerializer, ContributionTypeSerializer, TagSerializer, MomentSerializer, NoteSerializer, ConversationSerializer
+    UserPublicSerializer, KeywordSerializer, WordToIgnoreSerializer, ContributionTypeSerializer, TagSerializer, MomentTypeSerializer, MomentSerializer, NoteSerializer
 from rest_framework import viewsets, permissions
 from django.contrib.auth.models import User
 from django.db.models import Q
@@ -41,6 +41,35 @@ class MediumViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
     queryset = Tag.objects.all()
     serializer_class = MediumSerializer
 
+class MomentTypeViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (AllowAny,)
+
+    queryset = MomentType.objects.all()
+    serializer_class = MomentTypeSerializer
+
+    @InspirationBaseViewMixIn.blank_logging_decorator
+    def list(self, request, type=None):
+
+        moment_types = MomentType.objects.filter()
+
+        return self.respond_ok(self.log_msg, self.request, MomentTypeSerializer(moment_types, many=True).data)
+
+    @InspirationBaseViewMixIn.blank_logging_decorator
+    def create(self, request):
+        try:
+
+            new_moment_type = MomentType(**request.data)
+
+            new_moment_type.save()
+
+            return self.respond_created(self.log_msg, self.request, MomentTypeSerializer(new_moment_type).data)
+
+        except Exception as exception:
+            return self.__class__.respondToException(exception, self.log_msg, self.request)
+
+
+
 class NoteViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
     #authentication_classes = (TokenAuthentication,)
     permission_classes = (AllowAny,)
@@ -56,7 +85,7 @@ class MomentViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
     serializer_class = MomentSerializer
 
     @InspirationBaseViewMixIn.blank_logging_decorator
-    def list(self, request, type=None, media_pk=None):
+    def list(self, request, type=None):
 
         user = request.user
 
@@ -72,11 +101,12 @@ class MomentViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
 
             user = request.user
             insight_data = request.data.pop('insight')
-            print(insight_data)
+            moment_type_data = request.data.pop('type')
+            moment_type = MomentType.get(moment_type_data['id'])
 
             insight = Insight.get(insight_data['id'])
 
-            new_moment = Moment(user=user, insight=insight, **request.data)
+            new_moment = Moment(user=user, insight=insight, type=moment_type, **request.data)
 
             new_moment.save()
 
@@ -85,12 +115,6 @@ class MomentViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
         except Exception as exception:
             return self.__class__.respondToException(exception, self.log_msg, self.request)
 
-class ConversationViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
-    #authentication_classes = (TokenAuthentication,)
-    permission_classes = (AllowAny,)
-
-    queryset = Conversation.objects.all()
-    serializer_class = ConversationSerializer
 
 class KeywordsViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
     #authentication_classes = (TokenAuthentication,)

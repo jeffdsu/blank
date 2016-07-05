@@ -8,6 +8,7 @@ class Moment(models.Model, InspirationBaseModelMixIn):
     text = models.TextField(null=True)
     link = models.CharField(max_length=255)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    type = models.ForeignKey('MomentType', on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return "<Moment>"

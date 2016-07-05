@@ -14,6 +14,7 @@ router.register(r'insights', views.InsightViewSet)
 router.register(r'users', views.UserViewSet)
 router.register(r'tags', views.TagViewSet)
 router.register(r'moments', views.MomentViewSet)
+router.register(r'moment-types', views.MomentTypeViewSet)
 router.register(r'admin/words-to-ignore', views.WordsToIgnoreViewSet)
 router.register(r'admin/insights', views.admin.AdminInsightViewSet)
 

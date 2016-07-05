@@ -1,8 +1,12 @@
 <div ng-controller="attachToInsightController">
+    <form>
     Title:
     <input type="text" ng-model="moment.title">
+    <br>
+    Type:
+    <select class="form-control" ng-options="moment_type as moment_type.name for moment_type in moment_types track by moment_type.id" ng-model="moment.type" ng-change="go_to_moment(moment)"><option value="">None</option></select>
     
-    <form>
+    
     Text:
     <textarea class="form-control" rows="5" ng-model="moment.text"></textarea>
 

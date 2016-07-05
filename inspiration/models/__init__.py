@@ -15,7 +15,7 @@ from .Checkout import Checkout
 from .Insight import Insight
 from .WordToIgnore import WordToIgnore
 from .Note import Note
-from .Conversation import Conversation
 from .Moment import Moment
+from .MomentType import MomentType
 
 
