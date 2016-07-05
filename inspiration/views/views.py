@@ -284,8 +284,12 @@ class InsightViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
     def update(self, request, pk=None):
 
         insight = Insight.get(pk)
+        print(request.data['medium'])
         request.data.pop('user')
-        insight.__dict__.update(**request.data)
+        insight.medium = Medium.get(request.data['medium']['id'])
+        insight.save()
+
+        print(insight.medium)
 
         return self.respond_ok(self.log_msg, self.request, InsightSerializer(insight).data)
 
