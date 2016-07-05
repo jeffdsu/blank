@@ -1,10 +1,10 @@
-<div ng-controller="attachToInsightController">
+<div ng-controller="attachAMomentController">
     <form>
     Title:
     <input type="text" ng-model="moment.title">
     <br>
     Type:
-    <select class="form-control" ng-options="moment_type as moment_type.name for moment_type in moment_types track by moment_type.id" ng-model="moment.type" ng-change="go_to_moment(moment)"><option value="">None</option></select>
+    <select class="form-control" ng-options="moment_type as moment_type.name for moment_type in moment_types track by moment_type.id" ng-model="moment.type"><option value="">None</option></select>
     
     
     Text:
@@ -13,7 +13,7 @@
     Link
     <input type="text" ng-model="moment.link">
 
-        <input type="submit" ng-click="create_and_link_a_moment()">
+        <input type="submit" ng-click="create_and_link_a_moment()" value="create and attach moment">
 
     </form>
 </div>

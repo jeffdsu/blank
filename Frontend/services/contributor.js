@@ -28,7 +28,7 @@ blankApp.service('contributorService', ['$http', '$localStorage', 'urls', '$q', 
             })
     };
     
-    self.get_books = function (id) {
+    self.get_media = function (id) {
         return $http.get(urls.BASE + "/inspiration-corner/contributors/" + id + "/works")
             .then(function (response) {
                 if (typeof response.data === 'object') {

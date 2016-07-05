@@ -1,14 +1,16 @@
 
-
     <select ng-model="attach_type_selector">
         <option value="">None</option>
         <option value="moment">moment</option>
+        <option value="medium">medium</option>
     </select>
 
     <div ng-switch="attach_type_selector">
         <div ng-switch-when="moment">
-            <ng-include src="'partials/attach-a-moment.htm'"></ng-include>
+            <attach-a-moment show="show" insight="insight"></attach-a-moment>
         </div>
-        <div ng-switch-when="matchValue2"></div>
+        <div ng-switch-when="medium">
+            <attach-a-medium show="show" insight="insight"></attach-a-medium>
+        </div>
         <div ng-switch-default></div>
     </div>

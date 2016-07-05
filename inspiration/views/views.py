@@ -280,6 +280,14 @@ class InsightViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
 
         return self.respond_ok(self.log_msg, self.request, InsightSerializer(temp_insight).data)
 
+    @InspirationBaseViewMixIn.blank_logging_decorator
+    def update(self, request, pk=None):
+
+        insight = Insight.get(pk)
+        request.data.pop('user')
+        insight.__dict__.update(**request.data)
+
+        return self.respond_ok(self.log_msg, self.request, InsightSerializer(insight).data)
 
 
 

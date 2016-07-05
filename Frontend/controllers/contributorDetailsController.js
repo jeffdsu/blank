@@ -13,7 +13,7 @@ blankApp.controller('contributorDetailsController', ['$scope', '$resource', '$ro
             }
         );
     
-    contributorService.get_books(contributorId)
+    contributorService.get_media(contributorId)
     .then(function (data) {
                 $scope.works = data;
             }

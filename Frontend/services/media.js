@@ -1,11 +1,19 @@
 blankApp.service('mediaService', ['$http', '$localStorage', 'urls', '$q', function ($http, $localStorage, urls, $q) {
     self = this;
-    self.id = null;
-    self.insights = null;
-    self.mediaType = null;
 
-    self.get_collection = function () {
-        return $http.get(urls.BASE + "/inspiration-corner/media/" + this.mediaType)
+    self.get_collection = function (medium_type) {
+        
+        medium_type_name = null;
+        if (typeof medium_type === 'object') {
+            medium_type_name = medium_type.name
+        } 
+        else {
+            medium_type_name = medium_type
+        }
+        
+        console.log(medium_type);
+        
+        return $http.get(urls.BASE + "/inspiration-corner/media/" + medium_type_name)
             .then(function (response) {
                 if (typeof response.data === 'object') {
                     return response.data
@@ -18,8 +26,17 @@ blankApp.service('mediaService', ['$http', '$localStorage', 'urls', '$q', functi
 
     };
 
-    self.get = function (id) {
-        return $http.get(urls.BASE + "/inspiration-corner/media/" + this.mediaType + "/" + id)
+    self.get = function (medium_type, id) {
+        
+        medium_type_name = null;
+        if (typeof medium_type === 'object') {
+            medium_type_name = medium_type.name
+        } 
+        else {
+            medium_type_name = medium_type
+        }
+        
+        return $http.get(urls.BASE + "/inspiration-corner/media/" + medium_type_name + "/" + id)
             .then(function (response) {
                 if (typeof response.data === 'object') {
                     return response.data
@@ -32,8 +49,22 @@ blankApp.service('mediaService', ['$http', '$localStorage', 'urls', '$q', functi
             });
     };
 
-    self.create = function (data) {
-        return $http.post(urls.BASE + "/inspiration-corner/media/" + data.type.name, data)
+    self.create = function (medium) {
+        return $http.post(urls.BASE + "/inspiration-corner/media/" + medium.type.name, medium)
+            .then(function (response) {
+                if (typeof response.data === 'object') {
+                    return response.data
+
+                } else {
+                    return $q.reject(response.data)
+                }
+            }, function (response) {
+                return $q.reject(response.data)
+            });
+    };
+    
+    self.update = function (medium) {
+        return $http.put(urls.BASE + "/inspiration-corner/media/" + medium.type.name + "/" + medium.id, medium)
             .then(function (response) {
                 if (typeof response.data === 'object') {
                     return response.data
@@ -46,8 +77,8 @@ blankApp.service('mediaService', ['$http', '$localStorage', 'urls', '$q', functi
             });
     };
 
-    self.get_insights = function (id) {
-        return $http.get(urls.BASE + "/inspiration-corner/media/" + this.mediaType + "/" + id + "/insights")
+    self.get_insights = function (medium_type, id) {
+        return $http.get(urls.BASE + "/inspiration-corner/media/" + medium_type.name + "/" + id + "/insights")
             .then(function (response) {
                 if (typeof response.data === 'object') {
                     self.insights = response.data
@@ -89,9 +120,17 @@ blankApp.service('mediaService', ['$http', '$localStorage', 'urls', '$q', functi
             });
     };
 
-    self.get_random_insight = function (id, keyword_filter) {
+    self.get_random_insight = function (medium_type, id, keyword_filter) {
+        
+        medium_type_name = null;
+        if (typeof medium_type === 'object') {
+            medium_type_name = medium_type.name
+        } 
+        else {
+            medium_type_name = medium_type
+        }
 
-        url = urls.BASE + "/inspiration-corner/media/" + this.mediaType + "/" + id + "/insights?random_top_10=true";
+        url = urls.BASE + "/inspiration-corner/media/" + medium_type_name + "/" + id + "/insights?random_top_10=true";
         if (keyword_filter) {
             search_words = keyword_filter.split(" ");
 

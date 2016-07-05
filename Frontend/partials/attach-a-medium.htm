@@ -1,0 +1,9 @@
+<div ng-controller="attachAMediumController">
+<select class="form-control" ng-options="medium_type as medium_type.name for medium_type in medium_types track by medium_type.id" ng-model="medium_type" ng-change="get_media(medium_type)"></select>
+
+
+<select class="form-control" ng-options="medium as medium.title for medium in media track by medium.id" ng-model="medium"></select>
+    
+    
+    <input type="submit" ng-click="attach_medium(insight, medium)" value="attach medium">
+</div>

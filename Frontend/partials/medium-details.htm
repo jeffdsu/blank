@@ -1,28 +1,28 @@
-<h1>{{book.title}}</h1>
+<h1>{{medium.title}}</h1>
 <hr>
-<h4 class="singular_medium_italics">{{ book.type.singular_eng_noun }}</h4>
+<h4 class="singular_medium_italics">{{ medium.type.singular_eng_noun }}</h4>
 <br>
 <h3>Contributors</h3>
 <ul class="dashed">
-  <li ng-repeat="contribution in book.contributions" ng-bind-html='contribution | contributionFilter' ></li>
+  <li ng-repeat="contribution in medium.contributions" ng-bind-html='contribution | contributionFilter' ></li>
 </ul>
 <br>
 <h3>Summary</h3>
-<p>{{ book.summary }}</p>
-<p>{{ book.pub_date }}</p>
+<p>{{ medium.summary }}</p>
+<p>{{ medium.pub_date }}</p>
 
 
 <br>
 <h3>Links</h3>
 <ul class="dashed">
-  <li ng-repeat="link in book.links">
+  <li ng-repeat="link in medium.links">
       <a ng-href={{link.link}}>{{ link.link }}</a>
   </li>
 </ul>
 <br>
 
 <h3>Insights</h3>
-<styled-insights-list insights-list="insights" link-type="user" medium="book"></styled-insights-list>
+<styled-insights-list insights-list="insights" link-type="user" medium="medium"></styled-insights-list>
         
 
 

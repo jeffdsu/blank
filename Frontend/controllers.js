@@ -3,15 +3,14 @@ blankApp.controller('mediaController', ['$scope', '$resource', '$routeParams', '
     var insights_interval;
     $scope.checked = 'I';
     $scope.mediaType = $routeParams.mediaType;
-    mediaService.mediaType = $scope.mediaType;
 
 
 
 
-    $scope.get_random_insight_for_each_book = function () {
+    $scope.get_random_insight_for_each_medium = function () {
 
-        angular.forEach($scope.books, function (value, key) {
-            mediaService.get_random_insight(value.id, $scope.query)
+        angular.forEach($scope.media, function (value, key) {
+            mediaService.get_random_insight($scope.mediaType, value.id, $scope.query)
                 .then(function (data) {
                     value.insight = data[0];
                 }, function (err) {
@@ -30,12 +29,12 @@ blankApp.controller('mediaController', ['$scope', '$resource', '$routeParams', '
         $location.path($location.path() + '/add').replace();
     };
 
-    mediaService.get_collection()
+    mediaService.get_collection($scope.mediaType)
         .then(function (data) {
-                $scope.books = data;
-                $scope.get_random_insight_for_each_book();
+                $scope.media = data;
+                $scope.get_random_insight_for_each_medium();
                 if (angular.isDefined(insights_interval)) return;
-                insights_interval = $interval($scope.get_random_insight_for_each_book, 5000);
+                insights_interval = $interval($scope.get_random_insight_for_each_medium, 5000);
 
             }
             , function (err) {
@@ -176,22 +175,19 @@ blankApp.controller('mediaDetailController', ['$scope', '$resource', '$routePara
 
 
     $scope.mediaType = $routeParams.mediaType;
-    mediaService.mediaType = $scope.mediaType;
-
-
 
 
     mediaService.id = $routeParams.mediaId;
 
 
-    mediaService.get($routeParams.mediaId)
+    mediaService.get($scope.mediaType, $routeParams.mediaId)
         .then(function (data) {
-            $scope.book = data;
+            $scope.medium = data;
         }, function (err) {
 
         });
 
-    mediaService.get_insights($routeParams.mediaId)
+    mediaService.get_insights($scope.mediaType,$routeParams.mediaId)
         .then(function (data) {
             $scope.insights = data;
         }, function (err) {

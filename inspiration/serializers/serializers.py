@@ -144,6 +144,7 @@ class InsightWithKeywordsSerializer(serializers.ModelSerializer):
         return KeywordSerializer(keywords, many=True).data
 
     class Meta:
+        depth = 2
         model = Insight
 
 class InsightSerializer(serializers.ModelSerializer):

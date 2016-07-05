@@ -47,6 +47,10 @@
                     <td ng-if="insight.moments.length">
                         <select class="form-control" ng-options="moment as moment.title for moment in insight.moments track by moment.id" ng-model="moment" ng-change="go_to_moment(moment)"><option value="">None</option></select>
                     </td>
+                    <td ng-if="insight.medium !== null">
+                        <a href="#/inspiration-corner/media/{{insight.medium.type.name}}/{{insight.medium.id}}"> medium
+                        </a>
+                    </td>
                     <td>
                         <button typ="button" ng-click="attach_to_insight_modal(insight)">Attach</button>
                     </td>
@@ -56,7 +60,7 @@
     </div>
     
     <modal-dialog show='attach_to_insight_dialogShown.value' width='500px' dialog-title='Attach to Insight' on-close=''>
-                <attach-to-insight insight="attach_to_insight"></attach-to-insight>
+                <attach-to-insight insight="attach_to_insight" show="show"></attach-to-insight>
 </modal-dialog>
 </div>
 
