@@ -1,8 +1,29 @@
-<h1>Home</h1>
-<hr>
-<h3>Public Insights</h3>
-<styled-insights-list insights-list="insights_public" link-type="user" medium="medium" home="true"></styled-insights-list>
-<br>
-<br>
-<h3>Personal Insights</h3>
-<styled-insights-list insights-list="insights_personal" link-type="user" medium="medium" home="true"></styled-insights-list>
+<div class="row">
+    <div ng-if="is_logged_in()">
+        <a ng-href="#/inspiration-corner/home/insights">
+            <div class="col-md-4">
+                <div class="panel panel-default panel-medium-types">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Insights</h3>
+                    </div>
+                    <div class="panel-body">
+                        <img src="http://icons.iconarchive.com/icons/pixelkit/swanky-outlines/256/15-Light-Bulb-icon.png" width="100">
+                    </div>
+                </div>
+            </div>
+        </a>
+
+        <a ng-href="#/inspiration-corner/home/moments">
+            <div class="col-md-4">
+                <div class="panel panel-default panel-medium-types">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Moments</h3>
+                    </div>
+                    <div class="panel-body">
+                        <img src="https://cdn0.iconfinder.com/data/icons/iconico-3/1024/42.png" width="100">
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>

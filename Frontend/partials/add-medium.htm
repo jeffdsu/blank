@@ -1,39 +1,32 @@
 <form>
     Medium Title:
     <input type='text' class="form-control" ng-model="new_medium.title">
-    <br> Medium Type: <br>
+    <br> Medium Type:
+    <br>
 
     <select class="form-control" ng-options="medium_type as medium_type.name for medium_type in medium_types track by medium_type.id" ng-model="new_medium.type "></select>
 
-    <br><br>Contributions:
+    <br>
+    <br>Contributions:
     <select class="form-control" ng-options="contribution_type as contribution_type.name for contribution_type in contribution_types track by contribution_type.id" ng-model="new_contribution.type "></select>
     <select class="form-control" ng-options="contributor as contributor.first_name + ' ' + contributor.last_name for contributor in contributors track by contributor.id" ng-model="new_contribution.contributor"></select>
-    
-    <button class="btn btn-xs" type="button" ng-click="add_to_contributions(new_contribution)">
-        Add contribution
-    </button>
-    <button class="btn btn-xs" type="button" ng-click="add_contributor_modal()">
-        Add a new contributor </button>
-    <modal-dialog show='dialogShown' width='500px' dialog-title='Add Contributor' on-close='logClose()'>
+
+
+    <div class="row">
+        <div class="col-md-4">
+            <button class="btn btn-xs" type="button" ng-click="add_to_contributions(new_contribution)">
+                Add contribution
+            </button>
+            <button class="btn btn-xs" type="button" ng-click="add_contributor_modal()">
+                Add a new contributor </button>
+            <modal-dialog show='dialogShown' width='500px' dialog-title='Add Contributor' on-close='logClose()'>
                 <ng-include src="'partials/add-contributor.htm'"></ng-include>
-    </modal-dialog>
-    <table class="table">
-        <tr>
-            <th>
-                contributor
-            </th>
-            <th>
-                type
-            </th>
-        </tr>
-        
-        <tr ng-repeat="contribution in new_medium.contributions">
-            <td ng-bind-html="contribution | contributionFilter"></td>
-            <td> {{ contribution.type.name }}</td>
-        </tr>
-    </table>
-
-
+            </modal-dialog>
+        </div>
+        <div class="col-md-8">
+            <add-to-a-list list-of-stuff="new_medium.contributions" title="Added Contributions"></add-to-a-list>
+        </div>
+    </div>
 
     <br> Medium Summary:
     <textarea class="form-control" rows="5" ng-model="new_medium.summary"></textarea>
@@ -42,13 +35,15 @@
         Add Link
     </button>
     <input type='text' class="form-control" ng-model="new_link.link">
-    
+
     <br>
-    <table class="table">
+    <table class="table add_to_list">
+        <tr>
+                    <th>Added Contributions</th>
+            </tr>
         <tr ng-repeat="link in new_medium.links">
             <td> {{ link.link }} </td>
         </tr>
     </table>
-    <input class="form-control" type="submit" value="Submit" , ng-click="add_new_medium(new_medium)">
-    {{ message }}
+    <input class="form-control" type="submit" value="Submit" , ng-click="add_new_medium(new_medium)"> {{ message }}
 </form>

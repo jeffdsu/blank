@@ -1,5 +1,5 @@
-blankApp.controller('homeController', ['$scope', '$resource', '$routeParams', '$http', 'profileService', 'Auth', function ($scope, $resource, $routeParams, $http, profileService, Auth) {
-
+blankApp.controller('homeInsightsController', ['$scope', '$resource', '$routeParams', '$http', '$interval', 'profileService', function ($scope, $resource, $routeParams, $http, $interval, profileService) {
+    
     profileService.get_insights(1)
     .then(function(data){
         $scope.insights_personal = data;
@@ -14,9 +14,6 @@ blankApp.controller('homeController', ['$scope', '$resource', '$routeParams', '$
         
     });
     
-    $scope.is_logged_in = function () {
-        return Auth.is_logged_in();
-    };
-    
 
+    
 }]);

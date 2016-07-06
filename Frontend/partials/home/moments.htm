@@ -1,0 +1,18 @@
+<h1>Moments</h1>
+<hr>
+
+<div class="row">
+    <div ng-repeat="moment in moments">
+
+        <div class="col-md-12">
+            <a href="#/inspiration-corner/home/moments/{{moment.id}}" class="insight">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">{{ moment.title }}</h3>
+                        <span ng-bind-html='medium.contributor | contributionFilter'></span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>

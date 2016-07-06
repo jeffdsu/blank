@@ -2,6 +2,18 @@ blankApp.service('momentService', ['$http', '$localStorage', 'urls', '$q', funct
     self = this;
     self.id = null;
     self.insights = null;
+    
+    
+    self.get_collection = function (id) {
+        
+        return $http.get(urls.BASE + "/inspiration-corner/moments")
+            .then(function (response) {
+                return response.data
+            }, function (response) {
+                return $q.reject(response.data)
+            });
+
+    }
 
     self.get = function (id) {
         

@@ -28,6 +28,25 @@ text-decoration: none;
 
 }
 
+table.add_to_list {
+    border: solid black 1px;
+    
+}
+
+th.add_to_list {
+    border: solid black 1px;
+    
+}
+
+td.add_to_list {
+    border: solid black 1px;
+    
+}
+th.add_to_list {
+    border: solid black 1px;
+    
+}
+
 .impacted_word_0 {
     font-weight: bold;
     color: red;

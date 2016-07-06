@@ -65,3 +65,15 @@ blankApp.directive('attachAMedium', ['insightService', 'Auth', function(insightS
     
   };
 }]);
+
+
+blankApp.directive('addToAList', ['insightService', 'Auth', function(insightService, Auth) {
+  return {
+    templateUrl: 'partials/add-to-a-list.htm',
+    scope: {
+        title: '@',
+        listOfStuff: '='
+    },
+    
+  };
+}]);

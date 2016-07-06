@@ -116,6 +116,13 @@ blankApp.controller('addContributorController', ['$scope', '$resource', '$routeP
 
 }]);
 
+blankApp.controller('listOfStuffController', ['$scope', '$resource', '$routeParams', '$http', 'mediaService', 'contributorService', 'mediumTypeService', 'contributionTypeService', function ($scope, $resource, $routeParams, $http, mediaService, contributorService, mediumTypeService, contributionTypeService) {
+
+
+
+
+}]);
+
 blankApp.controller('indexController', ['$scope', '$resource', '$routeParams', '$http', 'mediaService', 'contributorService', 'mediumTypeService', 'Auth', function ($scope, $resource, $routeParams, $http, mediaService, contributorService, mediumTypeService, Auth) {
 
 

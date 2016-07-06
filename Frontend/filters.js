@@ -28,6 +28,8 @@ blankApp.filter('addLinkFilter', function () {
 });
 
 
+
+
 blankApp.filter('insightColorFilter', function () {
     return function (insight, list_of_keywords) {
         if (insight && list_of_keywords) {
@@ -74,6 +76,31 @@ blankApp.filter('insightLinkToUserFilter', function () {
         return "";
     };
 });
+
+blankApp.filter('stuffFilter', function () {
+    return function (stuff) {
+        var str="";
+        
+        
+        for (var attr in stuff) {
+            str+="<td>";
+            
+           if (attr === 'type') {
+               str+=attr.name;
+           }
+           else if (attr === 'contributor') {
+               str+=attr.first_name + " " +  attr.last_name;
+           }
+            str+="</td>";
+        }
+        
+        console.log(str);    
+    
+        return str;
+    };
+});
+
+
 
 
 blankApp.filter('insightsFilter', function () {
