@@ -54,6 +54,14 @@ blankApp.controller('addMediumController', ['$scope', '$location', '$resource', 
     $scope.new_medium.links = [];
 
     $scope.add_new_medium = function (new_medium) {
+        
+        console.log(new_medium.contributions.length);
+    
+        if (new_medium.contributions.length == 0) {
+            $scope.message = "ERROR: must add at least 1 contribution"
+            return;
+        }
+    
         mediaService.create(new_medium).then(function (data) {
             $location.path('inspiration-corner/media/' + new_medium.type.name).replace();
         }, function(err) {
