@@ -28,7 +28,7 @@
         <div class="pull-right">
             <button class="btn btn-xs" type="button" ng-click="add_personal_insight_modal()">
                 Add personal insight </button>
-            <modal-dialog show='add_personal_insight_dialogShown.value' width='500px' dialog-title='Add Personal Insight'>
+            <modal-dialog show='add_personal_insight_dialogShown.value' width='500px' dialog-title='Add Personal Insight' on-close="on_close_personal_insight_dialog()">
                 <ng-include src="'partials/add-personal-insight.htm'"></ng-include>
             </modal-dialog>
 

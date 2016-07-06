@@ -220,6 +220,10 @@ blankApp.controller('InsightsComController', ['$scope', '$location', '$resource'
         value: false
     };
     
+    $scope.on_close_personal_insight_dialog = function () {
+        $scope.insight = null;
+    };
+    
     tagService.get_collection()
         .then(function (data) {
             console.log(data);
