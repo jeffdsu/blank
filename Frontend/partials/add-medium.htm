@@ -40,14 +40,7 @@
             <br>
         </div>
         <div class="col-md-8">
-            <table class="table add_to_list">
-                <tr>
-                    <th>Added Links</th>
-                </tr>
-                <tr ng-repeat="link in new_medium.links">
-                    <td> {{ link.link }} </td>
-                </tr>
-            </table>
+            <add-to-a-list list-of-stuff="new_medium.links" title="Added Links"></add-to-a-list>
         </div>
         <input class="form-control" type="submit" value="Submit" , ng-click="add_new_medium(new_medium)"> {{ message }}
     </div>

@@ -1,13 +1,9 @@
-<table class="table add_to_list">
+<table class="table table-bordered">
     <tr>
         <th>{{title}}</th>
     </tr>
     
-    <tr>
-        
-    </tr>
-
     <tr ng-repeat="item in listOfStuff">
-        <td ng-bind-html='item | stuffFilter'></td>
+        <td ng-bind='item | stuffFilter'></td>
     </tr>
 </table>

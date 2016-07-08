@@ -83,19 +83,27 @@ blankApp.filter('stuffFilter', function () {
         
         
         for (var attr in stuff) {
-            str+="<td>";
-            
+           
            if (attr === 'type') {
-               str+=attr.name;
+                str+="<td>";
+               str+=stuff[attr].name;
+               str+="</td>";
+               
            }
            else if (attr === 'contributor') {
-               str+=attr.first_name + " " +  attr.last_name;
+               str+="<td>";
+               str+=stuff[attr].first_name + " " +  stuff[attr].last_name;
+               str+="</td>";
            }
-            str+="</td>";
+            else if (attr === 'link') {
+                str+="<td>";
+               str+=stuff[attr];
+                str+="</td>";
+           }
+           
+            
         }
-        
-        console.log(str);    
-    
+        console.log(str);
         return str;
     };
 });
