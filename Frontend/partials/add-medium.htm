@@ -8,12 +8,11 @@
 
     <br>
     <br>Contributions:
-    <select class="form-control" ng-options="contribution_type as contribution_type.name for contribution_type in contribution_types track by contribution_type.id" ng-model="new_contribution.type "></select>
-    <select class="form-control" ng-options="contributor as contributor.first_name + ' ' + contributor.last_name for contributor in contributors track by contributor.id" ng-model="new_contribution.contributor"></select>
-
-
     <div class="row">
         <div class="col-md-4">
+            <select class="form-control" ng-options="contribution_type as contribution_type.name for contribution_type in contribution_types track by contribution_type.id" ng-model="new_contribution.type "></select>
+            <select class="form-control" ng-options="contributor as contributor.first_name + ' ' + contributor.last_name for contributor in contributors track by contributor.id" ng-model="new_contribution.contributor"></select>
+
             <button class="btn btn-xs" type="button" ng-click="add_to_contributions(new_contribution)">
                 Add contribution
             </button>
@@ -31,19 +30,25 @@
     <br> Medium Summary:
     <textarea class="form-control" rows="5" ng-model="new_medium.summary"></textarea>
     <br> Links:
-    <button class="btn btn-xs" type="button" ng-click="add_to_links(new_link)">
-        Add Link
-    </button>
-    <input type='text' class="form-control" ng-model="new_link.link">
+    <div class="row">
+        <div class="col-md-4">
+            <button class="btn btn-xs" type="button" ng-click="add_to_links(new_link)">
+                Add Link
+            </button>
+            <input type='text' class="form-control" ng-model="new_link.link">
 
-    <br>
-    <table class="table add_to_list">
-        <tr>
-                    <th>Added Contributions</th>
-            </tr>
-        <tr ng-repeat="link in new_medium.links">
-            <td> {{ link.link }} </td>
-        </tr>
-    </table>
-    <input class="form-control" type="submit" value="Submit" , ng-click="add_new_medium(new_medium)"> {{ message }}
+            <br>
+        </div>
+        <div class="col-md-8">
+            <table class="table add_to_list">
+                <tr>
+                    <th>Added Links</th>
+                </tr>
+                <tr ng-repeat="link in new_medium.links">
+                    <td> {{ link.link }} </td>
+                </tr>
+            </table>
+        </div>
+        <input class="form-control" type="submit" value="Submit" , ng-click="add_new_medium(new_medium)"> {{ message }}
+    </div>
 </form>

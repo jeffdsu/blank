@@ -267,11 +267,25 @@ blankApp.controller('InsightsComController', ['$scope', '$location', '$resource'
     }
     
     $scope.add_personal_insight = function (insight) {
-        personalInsightSerivce.create(insight)
-        .then(function (data) {
+        
+        
+        if ($scope.medium == null) {
+            personalInsightSerivce.create(insight)
+            .then(function (data) {
+                    $scope.insightsList.push(data);
+                    $scope.message = "Success: Personal Insight added";
+                })
+            
+        }
+        else {
+             mediaService.add_personal_insight($scope.medium, insight)
+            .then(function (data) {
                 $scope.insightsList.push(data);
                 $scope.message = "Success: Personal Insight added";
             })
+        }
+        
+        
         
     }
 

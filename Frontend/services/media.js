@@ -119,6 +119,22 @@ blankApp.service('mediaService', ['$http', '$localStorage', 'urls', '$q', functi
                 return $q.reject(response.data)
             });
     };
+    
+    self.add_personal_insight = function (medium, insight) {
+        
+        insight.personal = true;
+        
+        return $http.post(urls.BASE + "/inspiration-corner/media/" + medium.type.name + "/" + medium.id + "/insights", insight)
+            .then(function (response) {
+                if (typeof response.data === 'object') {
+                    return response.data;
+                } else {
+                    return $q.reject(response.data)
+                }
+            }, function (response) {
+                return $q.reject(response.data)
+            });
+    };
 
     self.get_random_insight = function (medium_type, id, keyword_filter) {
         
