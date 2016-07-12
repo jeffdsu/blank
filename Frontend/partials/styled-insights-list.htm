@@ -15,7 +15,7 @@
         <div class="pull-right">
             <button class="btn btn-xs" type="button" ng-click="add_insight_modal()">
                 Add insight</button>
-            <modal-dialog show='add_insight_dialogShown.value' width='500px' dialog-title='Add Insight' on-close='logClose()'>
+            <modal-dialog show='add_insight_dialogShown.value' width='500px' dialog-title='Add Insight' on-close='on_close_insight_dialog()'>
                 <ng-include src="'partials/add-insight.htm'"></ng-include>
             </modal-dialog>
 

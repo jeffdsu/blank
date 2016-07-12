@@ -235,8 +235,25 @@ blankApp.controller('InsightsComController', ['$scope', '$location', '$resource'
         value: false
     };
     
+    $scope.clearDialog = function () {
+        $scope.insight = null;
+        $scope.tags = null;
+        $scope.message = null;
+        $scope.new_tag = null;
+        
+    }
+    
+    $scope.on_close_personal_insight_dialog = function () {
+        $scope.clearDialog();
+    };
+    
+    $scope.on_close_insight_dialog = function () {
+       $scope.clearDialog();
+    };
+    
     $scope.on_close_personal_insight_dialog = function () {
         $scope.insight = null;
+        $scope.tags = null;
     };
     
     tagService.get_collection()
