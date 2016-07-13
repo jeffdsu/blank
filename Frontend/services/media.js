@@ -1,6 +1,7 @@
 blankApp.service('mediaService', ['$http', '$localStorage', 'urls', '$q', function ($http, $localStorage, urls, $q) {
     self = this;
-
+    self.new_medium = Object();
+    
     self.get_collection = function (medium_type) {
         
         medium_type_name = null;

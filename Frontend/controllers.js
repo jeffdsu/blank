@@ -49,7 +49,7 @@ blankApp.controller('mediaController', ['$scope', '$resource', '$routeParams', '
 
 blankApp.controller('addMediumController', ['$scope', '$location', '$resource', '$routeParams', '$http', 'mediaService', 'contributorService', 'mediumTypeService', 'contributionTypeService', function ($scope, $location, $resource, $routeParams, $http, mediaService, contributorService, mediumTypeService, contributionTypeService) {
 
-    $scope.new_medium = Object();
+    $scope.new_medium = mediaService.new_medium;
     $scope.new_medium.contributions = [];
     $scope.new_medium.links = [];
 
@@ -63,7 +63,9 @@ blankApp.controller('addMediumController', ['$scope', '$location', '$resource', 
         }
     
         mediaService.create(new_medium).then(function (data) {
-            $location.path('inspiration-corner/media/' + new_medium.type.name).replace();
+            medium_type_name = angular.copy(new_medium.type.name); 
+            mediaService.new_medium = Object();
+            $location.path('inspiration-corner/media/' + medium_type_name).replace();
         }, function(err) {
             $scope.message = err;
         });
