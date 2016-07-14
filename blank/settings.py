@@ -182,3 +182,8 @@ STATIC_URL = '/static/'
 SITE_ID = 1
 
 LOGIN_REDIRECT_URL = "/";
+
+LANGUAGES = (
+    ('zh-cn', u'简体中文'), # instead of 'zh-CN'
+    ('zh-tw', u'繁體中文'), # instead of 'zh-TW'
+)
