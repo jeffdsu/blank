@@ -17,6 +17,10 @@ blankApp.config(['$routeProvider', '$httpProvider', function ($routeProvider, $h
             templateUrl: 'partials/home/moments.htm'
             , controller: 'homeMomentsController'
         })
+        .when('/inspiration-corner/home/moments/add', {
+            templateUrl: 'partials/add-moment.htm'
+            , controller: 'addAMomentController'
+        })
         .when('/inspiration-corner/home/moments/:momentId', {
             templateUrl: 'partials/moment-details.htm'
             , controller: 'momentDetailsController'

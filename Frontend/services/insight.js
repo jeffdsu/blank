@@ -1,5 +1,6 @@
 blankApp.service('insightService', ['$http', '$localStorage', 'urls', '$q', function ($http, $localStorage, urls, $q) {
     self = this;
+    self.new_insight = Object();
 
     self.get_collection = function () {
         return $http.get(urls.BASE + "/inspiration-corner/insights")
@@ -46,7 +47,8 @@ blankApp.service('insightService', ['$http', '$localStorage', 'urls', '$q', func
 
 blankApp.service('personalInsightSerivce', ['$http', '$localStorage', 'urls', '$q', function ($http, $localStorage, urls, $q) {
     self = this;
-
+    self.new_personal_insight = Object();
+    
     self.create = function (insight) {
         
         insight.personal = true;

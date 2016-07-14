@@ -99,12 +99,14 @@ class MomentViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
 
         try:
 
+            # TODO - jeff clean this up
             user = request.user
-            insight_data = request.data.pop('insight')
+            insight_data = request.data.pop('insight') if 'insight' in request.data else None
             moment_type_data = request.data.pop('type')
             moment_type = MomentType.get(moment_type_data['id'])
 
-            insight = Insight.get(insight_data['id'])
+            insight = Insight.get(insight_data['id']) if  insight_data is not None else None
+
 
             new_moment = Moment(user=user, insight=insight, type=moment_type, **request.data)
 
