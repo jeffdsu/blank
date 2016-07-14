@@ -1,17 +1,17 @@
 <div ng-controller="addAMomentController">
     <form>
     Title:
-    <input type="text" ng-model="moment.title">
+    <input type="text" ng-model="new_moment.title">
     <br>
     Type:
-    <select class="form-control" ng-options="moment_type as moment_type.name for moment_type in moment_types track by moment_type.id" ng-model="moment.type"><option value="">None</option></select>
+    <select class="form-control" ng-options="moment_type as moment_type.name for moment_type in moment_types track by moment_type.id" ng-model="new_moment.type"><option value="">None</option></select>
     
     
     Text:
-    <textarea class="form-control" rows="5" ng-model="moment.text"></textarea>
+    <textarea class="form-control" rows="5" ng-model="new_moment.text"></textarea>
 
     Link
-    <input type="text" ng-model="moment.link">
+    <input type="text" ng-model="new_moment.link">
 
         <input type="submit" ng-click="create_a_moment()" value="create">
 

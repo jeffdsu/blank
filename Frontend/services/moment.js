@@ -2,6 +2,7 @@ blankApp.service('momentService', ['$http', '$localStorage', 'urls', '$q', funct
     self = this;
     self.id = null;
     self.insights = null;
+    self.new_moment = Object();
     
     
     self.get_collection = function (id) {
