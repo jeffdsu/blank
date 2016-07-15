@@ -1,3 +1,17 @@
+
+<div ng-switch="edit_mode" class="pull-right">
+  <div ng-switch-when="false">
+      <button type="button" ng-click="set_edit_mode()">edit moment</button>
+</div>
+  <div ng-switch-when="true">
+
+        <button type="button" ng-click="update_moment()">submit</button>
+        <button type="button" ng-click="set_edit_mode()">cancel</button>
+
+    </div>
+    
+</div>
+
 <div ng-switch="edit_mode">
   <div ng-switch-when="false">
        <h1>{{moment.title}}</h1>
@@ -18,6 +32,9 @@
 <br>
 {{moment.type.name}}
 <br>
+
+
+
 
 <h3>Description</h3>
 <div ng-switch="edit_mode">
@@ -50,18 +67,7 @@
 <br>
 <br>
 
-<div ng-switch="edit_mode" class="pull-right">
-  <div ng-switch-when="false">
-      <button type="button" ng-click="set_edit_mode()">edit</button>
-</div>
-  <div ng-switch-when="true">
 
-        <button type="button" ng-click="update_moment()">submit</button>
-        <button type="button" ng-click="set_edit_mode()">cancel</button>
-
-    </div>
-    
-</div>
 <br>
 
 
