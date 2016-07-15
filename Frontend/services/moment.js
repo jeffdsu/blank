@@ -37,5 +37,16 @@ blankApp.service('momentService', ['$http', '$localStorage', 'urls', '$q', funct
             });
 
     }
+    
+    self.update = function (moment) {
+        
+        return $http.put(urls.BASE + "/inspiration-corner/moments/" + moment.id, moment)
+            .then(function (response) {
+                return response.data
+            }, function (response) {
+                return $q.reject(response.data)
+            });
+
+    }
 
 }]);

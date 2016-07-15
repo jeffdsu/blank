@@ -4,6 +4,54 @@
 <br>
 {{moment.type.name}}
 <br>
-{{moment.text}}
+
+<h3>Description</h3>
+<div ng-switch="edit_mode">
+  <div ng-switch-when="false">
+       <pre> {{moment.text}}</pre>
+     
+</div>
+  <div ng-switch-when="true">
+      <div editable-textarea="moment.text" e-rows="10" e-cols="100">
+          <pre> {{moment.text}}</pre>
+      </div>
+    </div>
+    
+</div>
+
 <br>
-{{moment.link}}
+<br>
+
+<h3>Links:</h3>
+<div ng-switch="edit_mode">
+  <div ng-switch-when="false">
+      {{moment.link}}
+</div>
+  <div ng-switch-when="true">
+      <div editable-text="moment.link">
+          {{moment.link}}
+      </div>
+    </div>
+    
+</div>
+
+<br>
+<br>
+
+<div ng-switch="edit_mode" class="pull-right">
+  <div ng-switch-when="false">
+      <button type="button" ng-click="set_edit_mode()">edit</button>
+</div>
+  <div ng-switch-when="true">
+
+        <button type="button" ng-click="update_moment()">submit</button>
+        <button type="button" ng-click="set_edit_mode()">cancel</button>
+
+    </div>
+    
+</div>
+<br>
+
+
+
+

@@ -17,5 +17,5 @@ from .WordToIgnore import WordToIgnore
 from .Note import Note
 from .Moment import Moment
 from .MomentType import MomentType
-
+from .MomentTag import MomentTag
 

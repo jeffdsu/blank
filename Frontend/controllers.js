@@ -1,3 +1,5 @@
+
+
 blankApp.controller('mediaController', ['$scope', '$resource', '$routeParams', '$http', '$interval', 'mediaService', 'insightService', '$location', function ($scope, $resource, $routeParams, $http, $interval, mediaService, insightService, $location) {
 
     var insights_interval;
@@ -154,16 +156,37 @@ blankApp.controller('inspirationController', ['$scope', '$resource', '$routePara
 }]);
 
 
+
 blankApp.controller('momentDetailsController', ['$scope', '$resource', '$routeParams', '$http', '$location', 'Auth', 'momentService', function ($scope, $resource, $routeParams, $http, $location, Auth, momentService) {
 
    $scope.momentId = $routeParams.momentId;
-   
+   $scope.edit_mode = false;
+    
+//    TODO - maybe this can become part of a parent class?
+    $scope.set_edit_mode = function () {
+        console.log($scope.edit_mode);
+       $scope.edit_mode = !$scope.edit_mode;  
+    };
+    
     momentService.get($scope.momentId)
     .then(function(moment){
         $scope.moment = moment;
         
     }, function(err){});
 
+    
+    $scope.update_moment = function (){
+      
+        momentService.update($scope.moment)
+        .then(function(moment){
+            $scope.moment = moment;
+            $scope.set_edit_mode();
+            
+        }, function(err){
+            
+        })
+        
+    };
 
 }]);
 
