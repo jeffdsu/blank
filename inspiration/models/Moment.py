@@ -14,3 +14,4 @@ class Moment(models.Model, InspirationBaseModelMixIn):
 
     def __str__(self):
         return "<Moment>"
+

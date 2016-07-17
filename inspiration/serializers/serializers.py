@@ -181,10 +181,14 @@ class MomentTypeSerializer(serializers.ModelSerializer):
 
 class MomentSerializer(serializers.ModelSerializer):
 
+
     class Meta:
         depth = 1
         model = Moment
+
         fields = '__all__'
+
+        read_only_fields = ('submission_time',)
 
 
 class WordToIgnoreSerializer(serializers.ModelSerializer):
@@ -202,3 +206,4 @@ class UserPublicSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('first_name', 'last_name', 'username')
+        write_only_fields = ('password',)

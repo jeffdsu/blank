@@ -1,19 +1,35 @@
 <div ng-controller="attachAMomentController">
-    <form>
-    Title:
-    <input type="text" ng-model="moment.title">
-    <br>
-    Type:
-    <select class="form-control" ng-options="moment_type as moment_type.name for moment_type in moment_types track by moment_type.id" ng-model="moment.type"><option value="">None</option></select>
-    
-    
-    Text:
-    <textarea class="form-control" rows="5" ng-model="moment.text"></textarea>
 
-    Link
-    <input type="text" ng-model="moment.link">
+    <div ng-switch="new">
+        
+        <div ng-switch-when="false">
+            <div>
+                <button class="button" type="input" ng-click="set_new()">new</button>
+                <select class="form-control" ng-options="moment as moment.title for moment in moments track by moment.id" ng-model="moment"><option value="">None</option></select>
+                <input type="submit" ng-click="create_and_link_a_moment()" value="attach moment">
+            </div>
+        </div>
+        <div ng-switch-when="true">
+            <button class="button" type="input" ng-click="set_new()">previous</button>
 
-        <input type="submit" ng-click="create_and_link_a_moment()" value="create and attach moment">
+            <form>
+            Title:
+            <input type="text" ng-model="moment.title">
+            <br>
+            Type:
+            <select class="form-control" ng-options="moment_type as moment_type.name for moment_type in moment_types track by moment_type.id" ng-model="moment.type"><option value="">None</option></select>
 
-    </form>
+
+            Text:
+            <textarea class="form-control" rows="5" ng-model="moment.text"></textarea>
+
+            Link
+            <input type="text" ng-model="moment.link">
+
+                <input type="submit" ng-click="create_and_link_a_moment()" value="create and attach moment">
+
+            </form>
+        </div>
+        
+    </div>
 </div>

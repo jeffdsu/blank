@@ -117,6 +117,33 @@ class MomentViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):
         except Exception as exception:
             return self.__class__.respondToException(exception, self.log_msg, self.request)
 
+    @InspirationBaseViewMixIn.blank_logging_decorator
+    def update(self, request, pk=None):
+
+        try:
+
+            moment = Moment.get(pk)
+
+
+            # TODO - Jeff thise seems like it should be in serializer but for some reason, its not working for me
+            insight_data = request.data.pop('insight') if 'insight' in request.data else None
+            insight = Insight.get(insight_data['id']) if insight_data is not None else None
+
+
+            serializer = MomentSerializer(moment, data=request.data)
+
+            if serializer.is_valid():
+                serializer.save()
+
+            moment.insight = insight
+
+            moment.save()
+
+
+            return self.respond_ok(self.log_msg, self.request, MomentSerializer(moment).data)
+
+        except Exception as exception:
+            return self.__class__.respondToException(exception, self.log_msg, self.request)
 
 
 class KeywordsViewSet(viewsets.ModelViewSet, InspirationBaseViewMixIn):

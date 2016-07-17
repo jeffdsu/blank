@@ -14,7 +14,7 @@ class Insight(models.Model, InspirationBaseModelMixIn):
     personal = models.BooleanField()
 
     def __str__(self):
-        return "<Insight - %s>" % (str(self.lesson))
+        return "<Insight[%d] - %s>" % (self.id, str(self.lesson))
 
     @classmethod
     def random_for_medium(cls, medium, keywords=None, **kwargs):
