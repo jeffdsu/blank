@@ -4,14 +4,19 @@
         
         <div ng-switch-when="false">
             <div>
-                <button class="button" type="input" ng-click="set_new()">new</button>
+                <button class="button pull-right" type="input" ng-click="set_new()">new</button>
+                <br>
+                <br>
+                Previous moment
                 <select class="form-control" ng-options="moment as moment.title for moment in moments track by moment.id" ng-model="moment"><option value="">None</option></select>
                 <input type="submit" ng-click="create_and_link_a_moment()" value="attach moment">
             </div>
         </div>
         <div ng-switch-when="true">
-            <button class="button" type="input" ng-click="set_new()">previous</button>
-
+            <button class="button pull-right" type="input" ng-click="set_new()">previous</button>
+            <br>
+            <br>
+            New moment
             <form>
             Title:
             <input type="text" ng-model="moment.title">
