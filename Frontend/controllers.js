@@ -49,7 +49,7 @@ blankApp.controller('mediaController', ['$scope', '$resource', '$routeParams', '
     });
 }]);
 
-blankApp.controller('addMediumController', ['$scope', '$location', '$resource', '$routeParams', '$http', 'mediaService', 'contributorService', 'mediumTypeService', 'contributionTypeService', function ($scope, $location, $resource, $routeParams, $http, mediaService, contributorService, mediumTypeService, contributionTypeService) {
+blankApp.controller('addMediumController', ['$scope', '$location', '$resource', '$routeParams', '$http', 'mediaService', 'contributorService', 'mediumTypeService', 'contributionTypeService', 'insightService', function ($scope, $location, $resource, $routeParams, $http, mediaService, contributorService, mediumTypeService, contributionTypeService, insightService) {
 
     $scope.new_medium = mediaService.new_medium;
     $scope.new_medium.contributions = [];
@@ -73,6 +73,24 @@ blankApp.controller('addMediumController', ['$scope', '$location', '$resource', 
         });
     };
 
+     $scope.attach_medium = function(insight, medium) {
+        
+        insight.medium = medium;
+        
+        insightService.update(insight).then(function(
+                                            
+        ){}, function(err){})
+        
+    };
+    
+    $scope.create_and_attach_moment = function (insight, medium) {
+       mediaService.create(medium)
+       .then(function(medium){
+           $scope.attach_medium(insight, medium);
+       }, function(err){});
+        
+    };
+    
     contributionTypeService.get_collection()
         .then(function (data) {
             $scope.contribution_types = data;
@@ -105,6 +123,8 @@ blankApp.controller('addMediumController', ['$scope', '$location', '$resource', 
         console.log($scope.dialogShown);
         $scope.dialogShown = !$scope.dialogShown;
     }
+    
+    
 
 }]);
 

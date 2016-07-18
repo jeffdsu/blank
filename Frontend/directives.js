@@ -77,3 +77,15 @@ blankApp.directive('addToAList', ['insightService', 'Auth', function(insightServ
     
   };
 }]);
+
+
+blankApp.directive('addMedium', ['mediaService', 'Auth', function(mediaService, Auth) {
+  return {
+    templateUrl: 'partials/add-medium.htm',
+    scope: {
+        medium:'=',
+        insight: '='
+    },
+    
+  };
+}]);

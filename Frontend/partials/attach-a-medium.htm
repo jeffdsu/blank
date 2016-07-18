@@ -1,9 +1,27 @@
 <div ng-controller="attachAMediumController">
-<select class="form-control" ng-options="medium_type as medium_type.name for medium_type in medium_types track by medium_type.id" ng-model="medium_type" ng-change="get_media(medium_type)"></select>
+
+    <div ng-switch="new">
+
+        <div ng-switch-when="false">
+            <div>
+                <button class="button pull-right" type="input" ng-click="set_new()">new</button>
+                <br>
+                <br> Known medium
+                <select class="form-control" ng-options="medium_type as medium_type.name for medium_type in medium_types track by medium_type.id" ng-model="medium_type" ng-change="get_media(medium_type)"></select>
 
 
-<select class="form-control" ng-options="medium as medium.title for medium in media track by medium.id" ng-model="medium"></select>
-    
-    
-    <input type="submit" ng-click="attach_medium(insight, medium)" value="attach medium">
+                <select class="form-control" ng-options="medium as medium.title for medium in media track by medium.id" ng-model="medium"></select>
+
+                <input type="submit" ng-click="attach_moment(insight, medium)" value="attach medium">
+            </div>
+
+        </div>
+        <div ng-switch-when="true">
+            <button class="button pull-right" type="input" ng-click="set_new()">previous</button>
+            <br>
+            <br>
+            New medium
+            <add-medium medium="medium" insight="insight"></add-medium>
+        </div>
+    </div>
 </div>

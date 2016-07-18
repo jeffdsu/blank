@@ -1,3 +1,4 @@
+<div ng-controller="addMediumController">
 <form>
     Medium Title:
     <input type='text' class="form-control" ng-model="new_medium.title">
@@ -42,6 +43,10 @@
         <div class="col-md-8">
             <add-to-a-list list-of-stuff="new_medium.links" title="Added Links"></add-to-a-list>
         </div>
-        <input class="form-control" type="submit" value="Submit" , ng-click="add_new_medium(new_medium)"> {{ message }}
+        
+        <input ng-if="insight==null" class="form-control" type="submit" value="Submit" , ng-click="add_new_medium(new_medium)"> 
+        <input ng-if="insight!=null" class="form-control" type="submit" ng-click="create_and_attach_moment(insight, medium)" value="create and attach medium">
+        {{ message }}
     </div>
 </form>
+</div>

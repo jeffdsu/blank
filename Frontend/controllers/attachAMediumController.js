@@ -1,5 +1,11 @@
 blankApp.controller('attachAMediumController', ['urls', '$rootScope', '$scope', '$resource', '$routeParams', '$http', '$localStorage', '$location', 'Auth', 'mediaService', 'mediumTypeService', 'insightService', function (urls, $rootScope, $scope, $resource, $routeParams, $http, $localStorage, $location, Auth, mediaService, mediumTypeService, insightService) {
 
+    $scope.new = false;
+    $scope.medium = mediaService.new_medium;
+    
+    $scope.set_new = function () {
+        $scope.new = !$scope.new;
+    };
 
     
     mediumTypeService.get_collection()
@@ -25,9 +31,13 @@ blankApp.controller('attachAMediumController', ['urls', '$rootScope', '$scope', 
         insight.medium = medium;
         
         insightService.update(insight).then(function(
+                                            
         ){}, function(err){})
         
     };
+    
+    
+    
     
 
     
